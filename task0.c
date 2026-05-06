@@ -50,7 +50,7 @@ int main (int argc, char *argv[]) {
   schedule(RECOVERY, 61.0, 1);
 
   puts("===============================================================");
-  puts("           Sistemas DistribuÃ­dos Prof. Elias");
+  puts("           Sistemas Distribuídos Prof. Elias");
   puts("          LOG do Trabalho Prático 0, Tarefa 0");
   puts("      Digitar, compilar e executar o programa tempo.c");
   printf("   Este programa foi executado para: N=%d processos.\n", N);
