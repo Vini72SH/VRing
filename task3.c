@@ -24,7 +24,7 @@ int main(int argc, char* argv[]) {
     char* infoProc = "";
 
     if ((argc != 2) || atoi(argv[1]) < 5) {
-        puts("Uso correto: %s tempo < número de processos >= 5 >");
+        puts("Uso correto: ./tempo < número de processos >= 5 >");
         exit(1);
     }
 
@@ -84,6 +84,9 @@ int main(int argc, char* argv[]) {
 
                 prox = token;
 
+                // Processo testa até encontrar um processo correto ou testar
+                // todos falhos. Atualiza sua tabela State com os processos
+                // testados
                 do {
                     prox = (prox + 1) % N;
                     procStatus = status(processo[prox].id);
@@ -101,6 +104,7 @@ int main(int argc, char* argv[]) {
                 if (prox == token)
                     printf("O processo %d é o único processo correto\n", token);
 
+                // Impressão da tabela do processo
                 printf("State Table do processo %d\n", token);
                 for (i = 0; i < N; i++) {
                     printf("[%d] %d\n", i, processo[token].state[i]);

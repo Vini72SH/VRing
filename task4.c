@@ -101,6 +101,10 @@ int main(int argc, char* argv[]) {
 
                 prox = token;
 
+                // Processo testa até encontrar um processo correto ou testar
+                // todos falhos. Atualiza sua tabela State com os processos
+                // testados
+
                 do {
                     prox = (prox + 1) % N;
                     procStatus = status(processo[prox].id);
@@ -115,6 +119,8 @@ int main(int argc, char* argv[]) {
 
                 } while ((procStatus != 0) && (prox != token));
 
+                // Atualiza sua tabela State com as informações dos demais
+                // processos não testados nessa rodada
                 if (prox != token) {
                     printf(
                         "O processo %d está atualizando sua State Table com "
@@ -124,6 +130,7 @@ int main(int argc, char* argv[]) {
                 } else
                     printf("O processo %d é o único processo correto\n", token);
 
+                // Impressão da tabela do processo
                 printf("State Table do processo %d\n", token);
                 for (i = 0; i < N; i++) {
                     printf("[%d] %d\n", i, processo[token].state[i]);

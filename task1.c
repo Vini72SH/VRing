@@ -23,7 +23,7 @@ int main(int argc, char* argv[]) {
     char* infoProc = "";
 
     if (argc != 2) {
-        puts("Uso correto: %s tempo <número de processos>");
+        puts("Uso correto: ./tempo <número de processos>");
         exit(1);
     }
 
@@ -75,6 +75,7 @@ int main(int argc, char* argv[]) {
                 if (status(processo[token].id) != 0)
                     break;  // Se o processo está falho, não testa!
 
+                // Processo testa o próximo e imprime o resultado
                 prox = (token + 1) % N;
                 procStatus = status(processo[prox].id);
                 infoProc = (procStatus == 0) ? "correto" : "suspeito";

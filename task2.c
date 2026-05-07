@@ -22,8 +22,8 @@ int main(int argc, char* argv[]) {
     int procStatus = 0;
     char* infoProc = "";
 
-    if ((argc != 2) || atoi(argv[1]) < 5) {
-        puts("Uso correto: %s tempo < número de processos >= 5 >");
+    if ((argc != 2)) {
+        puts("Uso correto: ./tempo < número de processos >= 5 >");
         exit(1);
     }
 
@@ -79,6 +79,8 @@ int main(int argc, char* argv[]) {
 
                 prox = token;
 
+                // Processo testa até encontrar um processo correto ou testar
+                // todos falhos
                 do {
                     prox = (prox + 1) % N;
                     procStatus = status(processo[prox].id);
