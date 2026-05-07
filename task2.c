@@ -31,12 +31,11 @@ int main(int argc, char* argv[]) {
 
     puts("===============================================================");
     puts("           Sistemas Distribuídos Prof. Elias");
-    puts("          LOG do Trabalho Prático 0, Tarefa 1");
+    puts("          LOG do Trabalho Prático 0, Tarefa 2");
     puts(
-        "      Fazer cada um dos processos testar o seguinte no anel.\n"
-        "    Implemente o teste com a função status() do SMPL e imprimir\n"
-        "o resultado de cada teste executado. Por exemplo: “O processo i\n"
-        "             testou o processo j correto no tempo tal.”\n");
+        "Cada processo correto executa testes até achar outro processo\n"
+        "correto. Lembre-se de tratar o caso em que todos os demais processos\n"
+        "       estão falhos. Imprimir os testes e resultados.\n");
     printf("   Este programa foi executado para: N=%d processos.\n", N);
     printf("           Tempo Total de Simulação = %d\n", MaxTempoSimulac);
     puts("===============================================================");
