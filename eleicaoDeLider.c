@@ -5,23 +5,38 @@
 
 #define INICIO_RODADA 0
 #define FIM_RODADA 1
-#define RECIEVE 2
-#define TEST 3
-#define FAULT 4
-#define RECOVERY 5
-#define END 6
-#define ELEICAO_DE_LIDER 7
+#define TEST 2
+#define FAULT 3
+#define RECOVERY 4
+#define ELEICAO_DE_LIDER 5
+#define RECIEVE 6
+#define END 7
+
+#ifdef DEBUG
+#define vring_debug(...)     \
+    do {                     \
+        printf("DEBUG: ");   \
+        printf(__VA_ARGS__); \
+    } while (0)
+#else
+#define vring_debug(...)  // não faz nada
+#endif
 
 typedef struct {
+    int origem;
     int candidato;
+    int epoch;
     int valida;
+    float tempo;
 } Mensagem;
 
 typedef struct {
     int id;            // Id do processo
     int souCandidato;  // Indica se o processo é candidato a ser líder
     int* state;        // Tabela de estados dos demais processos
-    int lider;
+    int proxProc;      // Id do próximo processo no anel
+    int lider;         // Id do processo líder
+    int epoch;         // Época em que ele foi elegido
     Mensagem
         msg;  // Estrutura de uma mensagem que pode receber de outros processos
 } TipoProcesso;
@@ -48,15 +63,18 @@ int umLider() {
     return resultado;
 }
 
+// Função que retorna 0 ou 1 aleatóriamente
 int lideresAleatorios() { return (random() % 2); };
 
+// Função que sempre retorna 1
 int todosLideres() { return 1; }
 
+// Função que atualiza o vetor State de um processo
 void atualizaState(int proc, int prox, int N) {
     int it = (prox + 1) % N;
 
     while (it != proc) {
-        printf(
+        vring_debug(
             "O processo %d obteve o estado do processo %d pelo processo %d\n",
             proc, it, prox);
         processo[proc].state[it] = processo[prox].state[it];
@@ -64,8 +82,35 @@ void atualizaState(int proc, int prox, int N) {
     }
 }
 
+// Primitiva para enviar uma mensagem
+void send(int proc, int prox, Mensagem msg) {
+    msg.tempo = time() + 1;
+    processo[prox].msg = msg;
+    schedule(RECIEVE, 1.0, prox);
+}
+
+// Primitiva para receber uma mensagem
+int recv(int proc, Mensagem* msg) {
+    if (processo[proc].msg.valida == 0) return 0;
+
+    if (processo[proc].msg.tempo > time()) return 0;
+
+    memcpy(msg, &processo[proc].msg, sizeof(Mensagem));
+
+    return 1;
+}
+
+// Primitiva para invalidar uma mensagem
+void commit(int proc) { processo[proc].msg.valida = 0; }
+
 int main(int argc, char* argv[]) {
-    static int token, event, r, i, j, MaxTempoSimulac = 150;
+#ifdef DEBUG
+    printf("DEBUG mode is ON\n");
+#else
+    printf("DEBUG mode is OFF\n");
+#endif
+
+    static int ret, token, event, r, i, j, MaxTempoSimulac = 150;
     static char fa_name[5];
 
     int (*candidatura)();
@@ -73,6 +118,7 @@ int main(int argc, char* argv[]) {
     int op, prox = 0;
     int procStatus = 0;
     char* infoProc = "";
+    Mensagem msg;
 
     if (argc != 2) {
         puts("Uso correto: ./eleicaoDeLider <número de processos>");
@@ -107,8 +153,10 @@ int main(int argc, char* argv[]) {
             processo[i].state[j] = -1;
         }
         processo[i].state[i] = 0;
+        processo[i].proxProc = (i + 1) % N;
         processo[i].msg.valida = 0;
         processo[i].lider = -1;
+        processo[i].epoch = 0;
     }
 
     printf("Nesta execução, a eleição de líder deve ser com:\n");
@@ -144,12 +192,18 @@ int main(int argc, char* argv[]) {
         cause(&event, &token);
         switch (event) {
             case INICIO_RODADA:
-                printf("Iniciando rodada de testes no tempo %4.1f\n\n", time());
+                vring_debug("Iniciando rodada de testes no tempo %4.1f\n\n",
+                            time());
                 for (i = 0; i < N; i++) {
                     schedule(TEST, 0.0, i);
                 }
                 schedule(FIM_RODADA, 0.0, -1);
 
+                break;
+
+            case FIM_RODADA:
+                vring_debug("Final da rodada de testes\n\n");
+                schedule(INICIO_RODADA, 30.0, -1);
                 break;
 
             case TEST:
@@ -163,7 +217,7 @@ int main(int argc, char* argv[]) {
                     procStatus = status(processo[prox].id);
                     infoProc = (procStatus == 0) ? "correto" : "suspeito";
 
-                    printf(
+                    vring_debug(
                         "O processo %d testou o processo %d %s no tempo "
                         "%4.1f\n",
                         token, prox, infoProc, time());
@@ -172,8 +226,9 @@ int main(int argc, char* argv[]) {
 
                 } while ((procStatus != 0) && (prox != token));
 
+                processo[token].proxProc = prox;
                 if (prox != token) {
-                    printf(
+                    vring_debug(
                         "O processo %d está atualizando sua State Table com "
                         "informações do processo %d\n",
                         token, prox);
@@ -181,16 +236,16 @@ int main(int argc, char* argv[]) {
                 } else
                     printf("O processo %d é o único processo correto\n", token);
 
-                printf("State Table do processo %d\n", token);
+                vring_debug("State Table do processo %d\n", token);
                 for (i = 0; i < N; i++) {
-                    printf("[%d] %d\n", i, processo[token].state[i]);
+                    vring_debug("[%d] %d\n", i, processo[token].state[i]);
                 }
-                printf("\n");
+                vring_debug("\n");
                 break;
 
             case FAULT:
                 r = request(processo[token].id, token, 0);
-                printf(
+                vring_debug(
                     "Socorro!!! Sou o processo %d e estou falhando no tempo "
                     "%4.1f\n",
                     token, time());
@@ -198,26 +253,11 @@ int main(int argc, char* argv[]) {
 
             case RECOVERY:
                 release(processo[token].id, token);
-                printf(
+                vring_debug(
                     "Viva!!! Sou o processo %d e acabo de recuperar no tempo "
                     "%4.1f\n",
                     token, time());
                 schedule(TEST, 1.0, token);
-                break;
-
-            case RECIEVE:
-                printf(
-                    "Sou o processo %d e recebi uma mensagem no tempo %4.1f\n",
-                    token, time());
-                break;
-
-            case FIM_RODADA:
-                printf("Final da rodada de testes\n\n");
-                schedule(INICIO_RODADA, 30.0, -1);
-                break;
-
-            case END:
-                printf("Fim de Simulação no tempo %4.1f...\n", time());
                 break;
 
             case ELEICAO_DE_LIDER:
@@ -225,17 +265,87 @@ int main(int argc, char* argv[]) {
                     "O processo %d está se preparando para eleger um líder no "
                     "tempo %4.1f\n",
                     token, time());
-                processo[token].souCandidato = candidatura();
-                if (processo[token].souCandidato) {
-                    Mensagem msg;
-                    msg.valida = 1;
-                    msg.candidato = token;
-                    // Mandar mensagem para o próximo no anel
-                    processo[token].lider = token;
-                } else {
-                    processo[i].lider = -1;
+
+                ret = recv(token, &msg);
+
+                // Processo está iniciando uma eleição de líder
+                if (ret == 0) {
+                    processo[token].epoch++;
+                    processo[token].souCandidato = candidatura();
+                    if (processo[token].souCandidato) {
+                        printf("O processo %d é candidato a líder\n", token);
+                        msg.origem = token;
+                        msg.valida = 1;
+                        msg.epoch = processo[token].epoch;
+                        msg.candidato = token;
+
+                        send(token, processo[token].proxProc, msg);
+                        processo[token].lider = token;
+                    } else {
+                        processo[i].lider = -1;
+                    }
                 }
 
+                // Recebeu uma nova mensagem de eleição de líder, ou seja, o
+                // líder anterior falhou
+                if ((ret == 1) && (msg.epoch > processo[token].epoch)) {
+                }
+
+                break;
+
+            case RECIEVE:
+                ret = recv(token, &msg);
+
+                // Recebeu uma mensagem
+                if (ret == 1) {
+                    printf(
+                        "\nSou o processo %d e recebi uma mensagem do processo "
+                        "%d "
+                        "no "
+                        "tempo %4.1f\n",
+                        token, msg.origem, time());
+                    // Está participando da eleição de líder atual
+                    if (msg.epoch <= processo[token].epoch) {
+                        // Encontrou um líder com ID maior
+                        if (msg.candidato > processo[token].lider) {
+                            printf(
+                                "O processo %d mudou do candidato %d para "
+                                "o "
+                                "candidato %d e enviara a mensagem para o "
+                                "processo %d\n",
+                                token, processo[token].lider, msg.candidato,
+                                processo[token].proxProc);
+                            processo[token].lider = msg.candidato;
+                            processo[token].epoch = msg.epoch;
+                            msg.origem = token;
+
+                            send(token, processo[token].proxProc, msg);
+
+                        } else if (msg.candidato < processo[token].lider) {
+                            // O líder para esse processo tem ID maior do
+                            // que o sugerido
+                            printf(
+                                "O candidato sugerido %d não possui ID "
+                                "maior "
+                                "que o do candidato %d\n",
+                                msg.candidato, processo[token].lider);
+
+                        } else {
+                            // Recebeu a própria mensagem, logo, todos os
+                            // processos sabem que é o processo líder
+                            printf("O processo %d é o líder\n", token);
+                        }
+                        commit(token);
+
+                    } else {
+                        // Esta desatualizado e precisa eleger um novo líder
+                    }
+                }
+
+                break;
+
+            case END:
+                printf("Fim de Simulação no tempo %4.1f...\n", time());
                 break;
         }
     }
