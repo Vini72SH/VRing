@@ -3,14 +3,12 @@
 
 #include "smpl.h"
 
-#define INICIO_RODADA 0
-#define FIM_RODADA 1
-#define TEST 2
-#define FAULT 3
-#define RECOVERY 4
-#define ELEICAO_DE_LIDER 5
-#define RECIEVE 6
-#define END 7
+#define TEST 0
+#define FAULT 1
+#define RECOVERY 2
+#define ELEICAO_DE_LIDER 3
+#define RECIEVE 4
+#define END 5
 
 #ifdef DEBUG
 #define vring_debug(...)     \
@@ -82,6 +80,14 @@ void atualizaState(int proc, int prox, int N) {
     }
 }
 
+void geradorDeEventosFault() {
+    for (int i = 0; i < N; i++) {
+        if ((random() % 10 < 5)) {
+            schedule(FAULT, 60.0, i);
+        }
+    }
+}
+
 // Primitiva para enviar uma mensagem
 void send(int proc, int prox, Mensagem msg) {
     msg.tempo = time() + 1;
@@ -110,11 +116,12 @@ int main(int argc, char* argv[]) {
     printf("DEBUG mode is OFF\n");
 #endif
 
-    static int ret, token, event, r, i, j, MaxTempoSimulac = 150;
+    static int ret, token, event, r, i, j, MaxTempoSimulac = 300;
     static char fa_name[5];
 
     int (*candidatura)();
 
+    int fault = 0;
     int op, prox = 0;
     int procStatus = 0;
     char* infoProc = "";
@@ -181,31 +188,29 @@ int main(int argc, char* argv[]) {
             break;
     }
 
+    printf("Nesta execução, processos podem falhar (incluindo o líder)?:\n");
+    printf("1) Sim\n");
+    printf("2) Não\n");
+    printf("Selecione uma opção entre 1 e 2: ");
+    scanf("%d", &op);
+
+    if (op == 1) {
+        printf("Gerando eventos de falha...\n");
+        geradorDeEventosFault();
+        fault = 1;
+    }
+
     // Escalonamento dos eventos iniciais
+    for (i = 0; i < N; i++) {
+        schedule(TEST, 30.0, i);
+        schedule(ELEICAO_DE_LIDER, 35.0, i);
+    }
 
-    for (i = 0; i < N; i++) schedule(ELEICAO_DE_LIDER, 35.0, i);
-
-    schedule(INICIO_RODADA, 30.0, -1);
     schedule(END, MaxTempoSimulac, -1);
 
     while (time() < MaxTempoSimulac) {
         cause(&event, &token);
         switch (event) {
-            case INICIO_RODADA:
-                vring_debug("Iniciando rodada de testes no tempo %4.1f\n\n",
-                            time());
-                for (i = 0; i < N; i++) {
-                    schedule(TEST, 0.0, i);
-                }
-                schedule(FIM_RODADA, 0.0, -1);
-
-                break;
-
-            case FIM_RODADA:
-                vring_debug("Final da rodada de testes\n\n");
-                schedule(INICIO_RODADA, 30.0, -1);
-                break;
-
             case TEST:
                 if (status(processo[token].id) != 0)
                     break;  // Se o processo está falho, não testa!
@@ -241,19 +246,35 @@ int main(int argc, char* argv[]) {
                     vring_debug("[%d] %d\n", i, processo[token].state[i]);
                 }
                 vring_debug("\n");
+
+                if (processo[token].state[processo[token].lider] > 0) {
+                    printf(
+                        "\nO processo %d detectou que o líder %d falhou no "
+                        "tempo "
+                        "%4.1f\n",
+                        token, processo[token].lider, time());
+                    printf(
+                        "Iniciando nova eleição de líder para esse processo\n");
+                    schedule(ELEICAO_DE_LIDER, 0.0, token);
+                }
+
+                schedule(TEST, 30.0, token);
                 break;
 
             case FAULT:
+                if (status(processo[token].id) != 0)
+                    break;  // O processo já está falho
+
                 r = request(processo[token].id, token, 0);
-                vring_debug(
-                    "Socorro!!! Sou o processo %d e estou falhando no tempo "
+                printf(
+                    "\nSocorro!!! Sou o processo %d e estou falhando no tempo "
                     "%4.1f\n",
                     token, time());
                 break;
 
             case RECOVERY:
                 release(processo[token].id, token);
-                vring_debug(
+                printf(
                     "Viva!!! Sou o processo %d e acabo de recuperar no tempo "
                     "%4.1f\n",
                     token, time());
@@ -261,6 +282,10 @@ int main(int argc, char* argv[]) {
                 break;
 
             case ELEICAO_DE_LIDER:
+                if (status(processo[token].id) != 0)
+                    break;  // Se o processo está falho, não participa da
+                            // eleição!
+
                 printf(
                     "O processo %d está se preparando para eleger um líder no "
                     "tempo %4.1f\n",
@@ -282,18 +307,44 @@ int main(int argc, char* argv[]) {
                         send(token, processo[token].proxProc, msg);
                         processo[token].lider = token;
                     } else {
-                        processo[i].lider = -1;
+                        processo[token].lider = -1;
                     }
                 }
 
                 // Recebeu uma nova mensagem de eleição de líder, ou seja, o
                 // líder anterior falhou
                 if ((ret == 1) && (msg.epoch > processo[token].epoch)) {
+                    processo[token].epoch = msg.epoch;
+                    processo[token].souCandidato = candidatura();
+
+                    msg.origem = token;
+                    msg.valida = 1;
+
+                    if (processo[token].souCandidato &&
+                        (token > msg.candidato)) {
+                        printf(
+                            "O processo %d é candidato a líder e avisará os "
+                            "demais\n",
+                            token);
+                        processo[token].lider = token;
+                        msg.candidato = token;
+                    } else
+                        printf("O líder do processo %d é o processo %d\n",
+                               token, msg.candidato);
+                    processo[token].lider = msg.candidato;
+
+                    send(token, processo[token].proxProc, msg);
+                    commit(token);
                 }
 
+                // Se prepara para uma nova eleição de líder
+                schedule(ELEICAO_DE_LIDER, 100.0, token);
                 break;
 
             case RECIEVE:
+                if (status(processo[token].id) != 0)
+                    break;  // Se o processo está falho, não recebe mensagem!
+
                 ret = recv(token, &msg);
 
                 // Recebeu uma mensagem
@@ -334,11 +385,19 @@ int main(int argc, char* argv[]) {
                             // Recebeu a própria mensagem, logo, todos os
                             // processos sabem que é o processo líder
                             printf("O processo %d é o líder\n", token);
+                            if (fault) {
+                                schedule(FAULT, 30.0, token);
+                                fault = 0;
+                            }
                         }
                         commit(token);
 
                     } else {
-                        // Esta desatualizado e precisa eleger um novo líder
+                        printf(
+                            "O processo %d foi avisado que é "
+                            "necessário eleger um novo líder\n",
+                            token);
+                        schedule(ELEICAO_DE_LIDER, 0.0, token);
                     }
                 }
 
