@@ -91,17 +91,21 @@ void imprimeState(int proc) {
 
 void geradorDeEventosFault() {
     for (int i = 0; i < N; i++) {
-        if ((random() % 10 < 5)) {
+        if ((random() % 10 < 3)) {
             schedule(FAULT, 60.0, i);
         }
     }
 }
 
 // Primitiva para enviar uma mensagem
-void send(int proc, int prox, Mensagem msg) {
+int send(int proc, int prox, Mensagem msg) {
+    if (processo[prox].msg.valida == 1) return 0;
+
     msg.tempo = time() + 1;
     processo[prox].msg = msg;
     schedule(RECIEVE, 1.0, prox);
+
+    return 1;
 }
 
 // Primitiva para receber uma mensagem
@@ -125,7 +129,7 @@ int main(int argc, char* argv[]) {
     printf("DEBUG mode is OFF\n");
 #endif
 
-    static int ret, token, event, r, i, j, MaxTempoSimulac = 300;
+    static int ret, token, event, r, i, j, MaxTempoSimulac = 1000;
     static char fa_name[5];
 
     int (*candidatura)();
@@ -135,6 +139,12 @@ int main(int argc, char* argv[]) {
     int procStatus = 0;
     char* infoProc = "";
     Mensagem msg;
+
+    // Controle de estatísticas da eleição
+    int estatisticasInicializadas = 0;
+    float timestampEleicao = 0.0;
+    int numMensagensEleicao = 0;
+    int epocaEleicao = 0;  // Época global da eleição
 
     if (argc != 2) {
         puts("Uso correto: ./eleicaoDeLider <número de processos>");
@@ -208,7 +218,7 @@ int main(int argc, char* argv[]) {
     if (op == 1) {
         printf("Gerando eventos de falha...\n");
         geradorDeEventosFault();
-        fault = 1;
+        fault = 1;  // Habilita a falha do líder
     }
 
     // Escalonamento dos eventos iniciais
@@ -265,7 +275,7 @@ int main(int argc, char* argv[]) {
                         token, processo[token].lider, time());
                     printf(
                         "Iniciando nova eleição de líder para esse processo\n");
-                    schedule(ELEICAO_DE_LIDER, 0.0, token);
+                    schedule(ELEICAO_DE_LIDER, 1.0, token);
                 }
 
                 schedule(TEST, 30.0, token);
@@ -307,6 +317,18 @@ int main(int argc, char* argv[]) {
                 if (ret == 0) {
                     processo[token].epoch++;
                     processo[token].souCandidato = candidatura();
+
+                    // Inicia as estatísticas sobre a eleição
+                    // Caso não tenham sido inicializadas ou caso uma nova
+                    // eleição comece antes da anterior acabar
+                    if ((estatisticasInicializadas == 0) ||
+                        (epocaEleicao < processo[token].epoch)) {
+                        timestampEleicao = time();
+                        numMensagensEleicao = 0;
+                        estatisticasInicializadas = 1;
+                        epocaEleicao = processo[token].epoch;
+                    }
+
                     if (processo[token].souCandidato) {
                         printf("O processo %d é candidato a líder\n", token);
                         Mensagem novaMsg;
@@ -315,8 +337,14 @@ int main(int argc, char* argv[]) {
                         novaMsg.epoch = processo[token].epoch;
                         novaMsg.candidato = token;
 
-                        send(token, processo[token].proxProc, novaMsg);
-                        processo[token].lider = token;
+                        if (send(token, processo[token].proxProc, novaMsg) ==
+                            1) {
+                            processo[token].lider = token;
+                            numMensagensEleicao++;
+                        } else
+                            printf(
+                                "O próximo processo ainda não processou a "
+                                "mensagem anterior\n");
                     } else {
                         processo[token].lider = -1;
                     }
@@ -344,7 +372,13 @@ int main(int argc, char* argv[]) {
                                token, msg.candidato);
                     processo[token].lider = msg.candidato;
 
-                    send(token, processo[token].proxProc, msg);
+                    if (send(token, processo[token].proxProc, msg) == 1)
+                        numMensagensEleicao++;
+                    else
+                        printf(
+                            "O próximo processo ainda não processou a "
+                            "mensagem anterior\n");
+
                     commit(token);
                 }
                 break;
@@ -378,7 +412,12 @@ int main(int argc, char* argv[]) {
                             processo[token].epoch = msg.epoch;
                             msg.origem = token;
 
-                            send(token, processo[token].proxProc, msg);
+                            if (send(token, processo[token].proxProc, msg) == 1)
+                                numMensagensEleicao++;
+                            else
+                                printf(
+                                    "O próximo processo ainda não processou a "
+                                    "mensagem anterior\n");
 
                         } else if (msg.candidato < processo[token].lider) {
                             // O líder para esse processo tem ID maior do
@@ -397,6 +436,16 @@ int main(int argc, char* argv[]) {
                                 schedule(FAULT, 30.0, token);
                                 fault = 0;
                             }
+
+                            estatisticasInicializadas = 0;
+                            timestampEleicao = time() - timestampEleicao;
+                            printf("\n===================================\n");
+                            printf("Processo Líder: %d\n", token);
+                            printf("Número de mensagens para a eleição: %d\n",
+                                   numMensagensEleicao);
+                            printf("Tempo de eleição (SMPL): %4.1f\n",
+                                   timestampEleicao);
+                            printf("===================================\n\n");
                         }
                         commit(token);
 
@@ -408,7 +457,7 @@ int main(int argc, char* argv[]) {
                             "O processo %d foi avisado que é "
                             "necessário eleger um novo líder\n",
                             token);
-                        schedule(ELEICAO_DE_LIDER, 0.0, token);
+                        schedule(ELEICAO_DE_LIDER, 1.0, token);
                     }
                 }
 
