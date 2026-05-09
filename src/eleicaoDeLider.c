@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#include "smpl.h"
+#include "../lib/smpl.h"
 
 #define TEST 0
 #define FAULT 1
@@ -10,6 +10,7 @@
 #define RECIEVE 4
 #define END 5
 
+// Definição de um print para debug
 #ifdef DEBUG
 #define vring_debug(...)     \
     do {                     \
@@ -21,11 +22,11 @@
 #endif
 
 typedef struct {
-    int origem;
-    int candidato;
-    int epoch;
-    int valida;
-    float tempo;
+    int origem;     // ID do processo de origem
+    int candidato;  // Candidato do processo de origem
+    int epoch;      // Época da eleição
+    int valida;     // Validade da mensagem
+    float tempo;    // Quando a mensagem será recebida
 } Mensagem;
 
 typedef struct {
@@ -68,7 +69,7 @@ int lideresAleatorios() { return (random() % 2); };
 int todosLideres() { return 1; }
 
 // Função que atualiza o vetor State de um processo
-void atualizaState(int proc, int prox, int N) {
+void atualizaState(int proc, int prox) {
     int it = (prox + 1) % N;
 
     while (it != proc) {
@@ -78,6 +79,14 @@ void atualizaState(int proc, int prox, int N) {
         processo[proc].state[it] = processo[prox].state[it];
         it = (it + 1) % N;
     }
+}
+
+void imprimeState(int proc) {
+    vring_debug("State Table do processo %d\n", proc);
+    for (int i = 0; i < N; i++) {
+        vring_debug("[%2d] %d\n", i, processo[proc].state[i]);
+    }
+    vring_debug("\n");
 }
 
 void geradorDeEventosFault() {
@@ -153,12 +162,14 @@ int main(int argc, char* argv[]) {
         memset(fa_name, '\0', 5);
         sprintf(fa_name, "%d", i);
         processo[i].id = facility(fa_name, 1);
+
         processo[i].souCandidato = 0;
         processo[i].state = malloc(sizeof(int) * N);
 
         for (j = 0; j < N; j++) {
             processo[i].state[j] = -1;
         }
+
         processo[i].state[i] = 0;
         processo[i].proxProc = (i + 1) % N;
         processo[i].msg.valida = 0;
@@ -216,7 +227,6 @@ int main(int argc, char* argv[]) {
                     break;  // Se o processo está falho, não testa!
 
                 prox = token;
-
                 do {
                     prox = (prox + 1) % N;
                     procStatus = status(processo[prox].id);
@@ -229,7 +239,10 @@ int main(int argc, char* argv[]) {
 
                     processo[token].state[prox] = procStatus;
 
-                } while ((procStatus != 0) && (prox != token));
+                } while (
+                    (procStatus != 0) &&
+                    (prox !=
+                     token));  // Testa até achar um correto ou todos falhos
 
                 processo[token].proxProc = prox;
                 if (prox != token) {
@@ -237,17 +250,14 @@ int main(int argc, char* argv[]) {
                         "O processo %d está atualizando sua State Table com "
                         "informações do processo %d\n",
                         token, prox);
-                    atualizaState(token, prox, N);
+                    atualizaState(token, prox);
                 } else
                     printf("O processo %d é o único processo correto\n", token);
 
-                vring_debug("State Table do processo %d\n", token);
-                for (i = 0; i < N; i++) {
-                    vring_debug("[%d] %d\n", i, processo[token].state[i]);
-                }
-                vring_debug("\n");
+                imprimeState(token);
 
-                if (processo[token].state[processo[token].lider] > 0) {
+                if ((processo[token].lider >= 0) &&
+                    (processo[token].state[processo[token].lider] > 0)) {
                     printf(
                         "\nO processo %d detectou que o líder %d falhou no "
                         "tempo "
@@ -299,12 +309,13 @@ int main(int argc, char* argv[]) {
                     processo[token].souCandidato = candidatura();
                     if (processo[token].souCandidato) {
                         printf("O processo %d é candidato a líder\n", token);
-                        msg.origem = token;
-                        msg.valida = 1;
-                        msg.epoch = processo[token].epoch;
-                        msg.candidato = token;
+                        Mensagem novaMsg;
+                        novaMsg.origem = token;
+                        novaMsg.valida = 1;
+                        novaMsg.epoch = processo[token].epoch;
+                        novaMsg.candidato = token;
 
-                        send(token, processo[token].proxProc, msg);
+                        send(token, processo[token].proxProc, novaMsg);
                         processo[token].lider = token;
                     } else {
                         processo[token].lider = -1;
@@ -336,9 +347,6 @@ int main(int argc, char* argv[]) {
                     send(token, processo[token].proxProc, msg);
                     commit(token);
                 }
-
-                // Se prepara para uma nova eleição de líder
-                schedule(ELEICAO_DE_LIDER, 100.0, token);
                 break;
 
             case RECIEVE:
@@ -393,6 +401,9 @@ int main(int argc, char* argv[]) {
                         commit(token);
 
                     } else {
+                        // O processo está com o líder desatualizado, pois a
+                        // época da eleição atual é superior a época da última
+                        // eleição que o processo participou
                         printf(
                             "O processo %d foi avisado que é "
                             "necessário eleger um novo líder\n",

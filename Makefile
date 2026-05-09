@@ -1,32 +1,38 @@
 CC = gcc
-CFLAGS = -g
+CFLAGS = -g -Ilib
 DEBUG_FLAGS = -DDEBUG
 
-all: eleicaoDeLider eleicaoDeLiderAleatorizado
+.PHONY: all debug clean purge lib
+
+BIN = task0 task1 task2 task3 task4 eleicaoDeLider
+
+all: $(BIN)
 
 debug: CFLAGS += $(DEBUG_FLAGS)
 debug: all
 
-eleicaoDeLider: eleicaoDeLider.o smpl.o rand.o
-	$(LINK.c) -o $@ -Bstatic eleicaoDeLider.o smpl.o rand.o -lm
+# compila bibliotecas
+lib:
+	@echo "=== Compilando $@ ==="
+	-test -s $@/Makefile && $(MAKE) -C $@
 
-eleicaoDeLiderAleatorizado: eleicaoDeLiderAleatorizado.o smpl.o rand.o
-	$(LINK.c) -o $@ -Bstatic eleicaoDeLiderAleatorizado.o smpl.o rand.o -lm
 
-eleicaoDeLider.o: eleicaoDeLider.c smpl.h
-	$(COMPILE.c) $(CFLAGS) -c eleicaoDeLider.c
+eleicaoDeLider: lib src/eleicaoDeLider.c
+	@echo "=== Compilando $@ ==="
+	$(CC) $(CFLAGS) -c src/eleicaoDeLider.c -o src/eleicaoDeLider.o
 
-eleicaoDeLiderAleatorizado.o: eleicaoDeLiderAleatorizado.c smpl.h
-	$(COMPILE.c) $(CFLAGS) -c eleicaoDeLiderAleatorizado.c
+	@echo "=== Ligando $@ ==="
+	$(CC) $(CFLAGS) lib/*.o src/eleicaoDeLider.o -o $@ -lm
 
-smpl.o: smpl.c smpl.h
-	$(COMPILE.c) $(CFLAGS) -c smpl.c
+task%: lib tasks/task%.c
+	@echo "=== Compilando $@ ==="
+	$(CC) $(CFLAGS) -c tasks/$@.c -o tasks/$@.o
 
-rand.o: rand.c
-	$(COMPILE.c) $(CFLAGS) -c rand.c
+	@echo "=== Ligando $@ ==="
+	$(CC) $(CFLAGS) lib/*.o tasks/$@.o -o $@ -lm
 
 clean:
-	$(RM) *.o
+	-rm -f *.o *~ */*.o */*~
 
 purge: clean
-	$(RM) eleicaoDeLider eleicaoDeLiderAleatorizado relat saida
+	$(RM) $(BIN)

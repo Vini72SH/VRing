@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#include "smpl.h"
+#include "../lib/smpl.h"
 
 #define TEST 1
 #define FAULT 2
