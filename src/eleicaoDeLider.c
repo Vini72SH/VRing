@@ -84,7 +84,7 @@ void atualizaState(int proc, int prox) {
 void imprimeState(int proc) {
     vring_debug("State Table do processo %d\n", proc);
     for (int i = 0; i < N; i++) {
-        vring_debug("[%2d] %d\n", i, processo[proc].state[i]);
+        vring_debug("[%02d] %d\n", i, processo[proc].state[i]);
     }
     vring_debug("\n");
 }
