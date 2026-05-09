@@ -23,7 +23,7 @@ int main(int argc, char* argv[]) {
     char* infoProc = "";
 
     if ((argc != 2) || atoi(argv[1]) < 5) {
-        puts("Uso correto: ./tempo < número de processos >= 5 >");
+        puts("Uso correto: ./task2 < número de processos >= 5 >");
         exit(1);
     }
 

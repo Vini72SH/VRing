@@ -18,7 +18,7 @@ int main(int argc, char* argv[]) {
     static char fa_name[5];
 
     if (argc != 2) {
-        puts("Uso correto: ./tempo <número de processos>");
+        puts("Uso correto: ./task0 <número de processos>");
         exit(1);
     }
 
