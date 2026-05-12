@@ -20,7 +20,6 @@ int main(int argc, char* argv[]) {
 
     int prox = 0;
     int procStatus = 0;
-    char* infoProc = "";
 
     if ((argc != 2) || atoi(argv[1]) < 5) {
         puts("Uso correto: ./task2 < número de processos >= 5 >");
@@ -77,24 +76,27 @@ int main(int argc, char* argv[]) {
                 if (status(processo[token].id) != 0)
                     break;  // Se o processo está falho, não testa!
 
-                prox = token;
-
                 // Processo testa até encontrar um processo correto ou testar
                 // todos falhos
-                do {
+                prox = (token + 1) % N;
+                procStatus = status(processo[prox].id);
+                while ((procStatus != 0) && (prox != token)) {
+                    printf(
+                        "O processo %d testou o processo %d suspeito no tempo "
+                        "%4.1f\n",
+                        token, prox, time());
+
                     prox = (prox + 1) % N;
                     procStatus = status(processo[prox].id);
-                    infoProc = (procStatus == 0) ? "correto" : "suspeito";
-
-                    printf(
-                        "O processo %d testou o processo %d %s no tempo "
-                        "%4.1f\n",
-                        token, prox, infoProc, time());
-
-                } while ((procStatus != 0) && (prox != token));
+                }
 
                 if (prox == token)
                     printf("O processo %d é o único processo correto\n", token);
+                else
+                    printf(
+                        "O processo %d testou o processo %d correto no tempo "
+                        "%4.1f\n",
+                        token, prox, time());
 
                 schedule(TEST, 30.0, token);
                 break;

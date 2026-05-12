@@ -33,7 +33,6 @@ int main(int argc, char* argv[]) {
 
     int prox = 0;
     int procStatus = 0;
-    char* infoProc = "";
 
     if ((argc != 2) || atoi(argv[1]) < 5) {
         puts("Uso correto: ./task4 < número de processos >= 5 >");
@@ -90,34 +89,32 @@ int main(int argc, char* argv[]) {
                 if (status(processo[token].id) != 0)
                     break;  // Se o processo está falho, não testa!
 
-                prox = token;
-
                 // Processo testa até encontrar um processo correto ou testar
                 // todos falhos. Atualiza sua tabela State com os processos
                 // testados
+                prox = (token + 1) % N;
+                procStatus = status(processo[prox].id);
+                while ((procStatus != 0) && (prox != token)) {
+                    printf(
+                        "O processo %d testou o processo %d suspeito no tempo "
+                        "%4.1f\n",
+                        token, prox, time());
 
-                do {
+                    processo[token].state[prox] = 1;
                     prox = (prox + 1) % N;
                     procStatus = status(processo[prox].id);
-                    infoProc = (procStatus == 0) ? "correto" : "suspeito";
-
-                    printf(
-                        "O processo %d testou o processo %d %s no tempo "
-                        "%4.1f\n",
-                        token, prox, infoProc, time());
-
-                    processo[token].state[prox] = procStatus;
-
-                } while ((procStatus != 0) && (prox != token));
+                }
 
                 // Atualiza sua tabela State com as informações dos demais
                 // processos não testados nessa rodada
                 if (prox != token) {
                     printf(
-                        "O processo %d está atualizando sua State Table com "
-                        "informações do processo %d\n",
-                        token, prox);
+                        "O processo %d testou o processo %d correto no tempo "
+                        "%4.1f\n",
+                        token, prox, time());
+                    processo[token].state[prox] = 0;
                     atualizaState(token, prox, N);
+
                 } else
                     printf("O processo %d é o único processo correto\n", token);
 

@@ -21,7 +21,6 @@ int main(int argc, char* argv[]) {
 
     int prox = 0;
     int procStatus = 0;
-    char* infoProc = "";
 
     if ((argc != 2) || atoi(argv[1]) < 5) {
         puts("Uso correto: ./task3 < número de processos >= 5 >");
@@ -29,7 +28,6 @@ int main(int argc, char* argv[]) {
     }
 
     N = atoi(argv[1]);
-
     puts("===============================================================");
     puts("           Sistemas Distribuídos Prof. Elias");
     puts("          LOG do Trabalho Prático 0, Tarefa 3");
@@ -82,26 +80,29 @@ int main(int argc, char* argv[]) {
                 if (status(processo[token].id) != 0)
                     break;  // Se o processo está falho, não testa!
 
-                prox = token;
-
                 // Processo testa até encontrar um processo correto ou testar
                 // todos falhos. Atualiza sua tabela State com os processos
                 // testados
-                do {
+                prox = (token + 1) % N;
+                procStatus = status(processo[prox].id);
+                while ((procStatus != 0) && (prox != token)) {
+                    printf(
+                        "O processo %d testou o processo %d suspeito no tempo "
+                        "%4.1f\n",
+                        token, prox, time());
+
+                    processo[token].state[prox] = 1;
                     prox = (prox + 1) % N;
                     procStatus = status(processo[prox].id);
-                    infoProc = (procStatus == 0) ? "correto" : "suspeito";
+                }
 
+                if (prox != token) {
                     printf(
-                        "O processo %d testou o processo %d %s no tempo "
+                        "O processo %d testou o processo %d correto no tempo "
                         "%4.1f\n",
-                        token, prox, infoProc, time());
-
-                    processo[token].state[prox] = procStatus;
-
-                } while ((procStatus != 0) && (prox != token));
-
-                if (prox == token)
+                        token, prox, time());
+                    processo[token].state[prox] = 0;
+                } else
                     printf("O processo %d é o único processo correto\n", token);
 
                 // Impressão da tabela do processo
