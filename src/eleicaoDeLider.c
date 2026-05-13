@@ -23,6 +23,7 @@
 
 typedef struct {
     int origem;     // ID do processo de origem
+    int destino;    // ID do processo destino
     int candidato;  // Candidato do processo de origem
     int epoch;      // Época da eleição
     int valida;     // Validade da mensagem
@@ -38,6 +39,10 @@ typedef struct {
     int epoch;         // Época em que ele foi elegido
     Mensagem
         msg;  // Estrutura de uma mensagem que pode receber de outros processos
+
+    int sent;         // Indica se a mensagem bufferizada foi enviada / é válida
+    Mensagem buff;    // Mensagem bufferizada
+    int recievedAck;  // Indica se a mensagem bufferizada recebeu ack
 } TipoProcesso;
 
 TipoProcesso* processo;
@@ -101,9 +106,16 @@ void geradorDeEventosFault() {
 int send(int proc, int prox, Mensagem msg) {
     if (processo[prox].msg.valida == 1) return 0;
 
+    msg.origem = proc;
+    msg.destino = prox;
+    msg.valida = 1;
     msg.tempo = time() + 1;
     processo[prox].msg = msg;
     schedule(RECIEVE, 1.0, prox);
+
+    processo[proc].sent = 1;
+    processo[proc].buff = msg;
+    processo[proc].recievedAck = 0;
 
     return 1;
 }
@@ -117,6 +129,11 @@ int recv(int proc, Mensagem* msg) {
     memcpy(msg, &processo[proc].msg, sizeof(Mensagem));
 
     return 1;
+}
+
+void sendAck(int proc) {
+    processo[proc].recievedAck = 1;
+    processo[proc].sent = 0;
 }
 
 // Primitiva para invalidar uma mensagem
@@ -184,6 +201,9 @@ int main(int argc, char* argv[]) {
         processo[i].msg.valida = 0;
         processo[i].lider = -1;
         processo[i].epoch = 0;
+
+        processo[i].sent = 0;
+        processo[i].recievedAck = 0;
     }
 
     printf("Nesta execução, a eleição de líder deve ser com:\n");
@@ -278,6 +298,20 @@ int main(int argc, char* argv[]) {
                     schedule(ELEICAO_DE_LIDER, 1.0, token);
                 }
 
+                // Se não recebeu ACK da mensagem enviada, envia novamente.
+                if (processo[token].sent) {
+                    if (processo[token].recievedAck == 0) {
+                        printf(
+                            "O processo %d enviou uma mensagem para o processo "
+                            "%d e não recebeu "
+                            "um ACK\n",
+                            token, processo[token].buff.destino);
+
+                        printf("Enviando a mensagem para %d\n", prox);
+                        send(token, prox, processo[token].buff);
+                    }
+                }
+
                 schedule(TEST, 30.0, token);
                 break;
 
@@ -332,8 +366,7 @@ int main(int argc, char* argv[]) {
                     if (processo[token].souCandidato) {
                         printf("O processo %d é candidato a líder\n", token);
                         Mensagem novaMsg;
-                        novaMsg.origem = token;
-                        novaMsg.valida = 1;
+
                         novaMsg.epoch = processo[token].epoch;
                         novaMsg.candidato = token;
 
@@ -355,9 +388,6 @@ int main(int argc, char* argv[]) {
                 if ((ret == 1) && (msg.epoch > processo[token].epoch)) {
                     processo[token].epoch = msg.epoch;
                     processo[token].souCandidato = candidatura();
-
-                    msg.origem = token;
-                    msg.valida = 1;
 
                     if (processo[token].souCandidato &&
                         (token > msg.candidato)) {
@@ -397,6 +427,8 @@ int main(int argc, char* argv[]) {
                         "no "
                         "tempo %4.1f\n",
                         token, msg.origem, time());
+                    sendAck(msg.origem);
+
                     // Está participando da eleição de líder atual
                     if (msg.epoch <= processo[token].epoch) {
                         // Encontrou um líder com ID maior
@@ -410,7 +442,6 @@ int main(int argc, char* argv[]) {
                                 processo[token].proxProc);
                             processo[token].lider = msg.candidato;
                             processo[token].epoch = msg.epoch;
-                            msg.origem = token;
 
                             if (send(token, processo[token].proxProc, msg) == 1)
                                 numMensagensEleicao++;
