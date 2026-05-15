@@ -7,7 +7,7 @@
 #define FAULT 1
 #define RECOVERY 2
 #define ELEICAO_DE_LIDER 3
-#define RECIEVE 4
+#define RECEIVE 4
 #define END 5
 
 // Definição de um print para debug
@@ -53,12 +53,10 @@ static int N;
 int umLider() {
     static int cont = 0;
     static int sorteado = -1;
-    static int contador_ciclos = 0;
 
     if (cont >= N || sorteado == -1) {
         cont = 0;
         sorteado = rand() % N;
-        contador_ciclos++;
     }
 
     int resultado = (cont == sorteado) ? 1 : 0;
@@ -111,7 +109,7 @@ int send(int proc, int prox, Mensagem msg) {
     msg.valida = 1;
     msg.tempo = time() + 1;
     processo[prox].msg = msg;
-    schedule(RECIEVE, 1.0, prox);
+    schedule(RECEIVE, 1.0, prox);
 
     processo[proc].sent = 1;
     processo[proc].buff = msg;
@@ -154,7 +152,6 @@ int main(int argc, char* argv[]) {
     int fault = 0;
     int op, prox = 0;
     int procStatus = 0;
-    Mensagem msg;
 
     // Controle de estatísticas da eleição
     int estatisticasInicializadas = 0;
@@ -249,6 +246,9 @@ int main(int argc, char* argv[]) {
     schedule(END, MaxTempoSimulac, -1);
 
     while (time() < MaxTempoSimulac) {
+        Mensagem novaMsg;
+        Mensagem recMsg;
+
         cause(&event, &token);
         switch (event) {
             case TEST:
@@ -345,7 +345,7 @@ int main(int argc, char* argv[]) {
                     "tempo %4.1f\n",
                     token, time());
 
-                ret = recv(token, &msg);
+                ret = recv(token, &recMsg);
 
                 // Processo está iniciando uma eleição de líder
                 if (ret == 0) {
@@ -365,7 +365,6 @@ int main(int argc, char* argv[]) {
 
                     if (processo[token].souCandidato) {
                         printf("O processo %d é candidato a líder\n", token);
-                        Mensagem novaMsg;
 
                         novaMsg.epoch = processo[token].epoch;
                         novaMsg.candidato = token;
@@ -376,8 +375,9 @@ int main(int argc, char* argv[]) {
                             numMensagensEleicao++;
                         } else
                             printf(
-                                "O próximo processo ainda não processou a "
-                                "mensagem anterior\n");
+                                "O processo %d ainda não processou a "
+                                "mensagem anterior\n",
+                                processo[token].proxProc);
                     } else {
                         processo[token].lider = -1;
                     }
@@ -385,39 +385,40 @@ int main(int argc, char* argv[]) {
 
                 // Recebeu uma nova mensagem de eleição de líder, ou seja, o
                 // líder anterior falhou
-                if ((ret == 1) && (msg.epoch > processo[token].epoch)) {
-                    processo[token].epoch = msg.epoch;
+                if ((ret == 1) && (recMsg.epoch > processo[token].epoch)) {
+                    processo[token].epoch = recMsg.epoch;
                     processo[token].souCandidato = candidatura();
 
                     if (processo[token].souCandidato &&
-                        (token > msg.candidato)) {
+                        (token > recMsg.candidato)) {
                         printf(
                             "O processo %d é candidato a líder e avisará os "
                             "demais\n",
                             token);
                         processo[token].lider = token;
-                        msg.candidato = token;
+                        recMsg.candidato = token;
                     } else
                         printf("O líder do processo %d é o processo %d\n",
-                               token, msg.candidato);
-                    processo[token].lider = msg.candidato;
+                               token, recMsg.candidato);
+                    processo[token].lider = recMsg.candidato;
 
-                    if (send(token, processo[token].proxProc, msg) == 1)
+                    if (send(token, processo[token].proxProc, recMsg) == 1)
                         numMensagensEleicao++;
                     else
                         printf(
-                            "O próximo processo ainda não processou a "
-                            "mensagem anterior\n");
+                            "O processo %d ainda não processou a "
+                            "mensagem anterior\n",
+                            processo[token].proxProc);
 
                     commit(token);
                 }
                 break;
 
-            case RECIEVE:
+            case RECEIVE:
                 if (status(processo[token].id) != 0)
                     break;  // Se o processo está falho, não recebe mensagem!
 
-                ret = recv(token, &msg);
+                ret = recv(token, &recMsg);
 
                 // Recebeu uma mensagem
                 if (ret == 1) {
@@ -426,38 +427,40 @@ int main(int argc, char* argv[]) {
                         "%d "
                         "no "
                         "tempo %4.1f\n",
-                        token, msg.origem, time());
-                    sendAck(msg.origem);
+                        token, recMsg.origem, time());
+                    sendAck(recMsg.origem);
 
                     // Está participando da eleição de líder atual
-                    if (msg.epoch <= processo[token].epoch) {
+                    if (recMsg.epoch <= processo[token].epoch) {
                         // Encontrou um líder com ID maior
-                        if (msg.candidato > processo[token].lider) {
+                        if (recMsg.candidato > processo[token].lider) {
                             printf(
                                 "O processo %d mudou do candidato %d para "
                                 "o "
                                 "candidato %d e enviara a mensagem para o "
                                 "processo %d\n",
-                                token, processo[token].lider, msg.candidato,
+                                token, processo[token].lider, recMsg.candidato,
                                 processo[token].proxProc);
-                            processo[token].lider = msg.candidato;
-                            processo[token].epoch = msg.epoch;
+                            processo[token].lider = recMsg.candidato;
+                            processo[token].epoch = recMsg.epoch;
 
-                            if (send(token, processo[token].proxProc, msg) == 1)
+                            if (send(token, processo[token].proxProc, recMsg) ==
+                                1)
                                 numMensagensEleicao++;
                             else
                                 printf(
-                                    "O próximo processo ainda não processou a "
-                                    "mensagem anterior\n");
+                                    "O processo %d ainda não processou a "
+                                    "mensagem anterior\n",
+                                    processo[token].proxProc);
 
-                        } else if (msg.candidato < processo[token].lider) {
+                        } else if (recMsg.candidato < processo[token].lider) {
                             // O líder para esse processo tem ID maior do
                             // que o sugerido
                             printf(
                                 "O candidato sugerido %d não possui ID "
                                 "maior "
                                 "que o do candidato %d\n",
-                                msg.candidato, processo[token].lider);
+                                recMsg.candidato, processo[token].lider);
 
                         } else {
                             // Recebeu a própria mensagem, logo, todos os
