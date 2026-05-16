@@ -1,23 +1,17 @@
-#include <stdlib.h>
-#include <string.h>
-
-typedef struct nodo_t nodo_t;
-
-struct nodo_t {
-    void* elemento;
-    nodo_t* prox;
-};
+#define TAMANHO_INICIAL 8
+#define FATOR_MULT 2
 
 typedef struct {
+    int it;
+    int ocupacao;
     int tamanho;
-    nodo_t* it;
-    nodo_t* inicio;
-    nodo_t* fim;
     int tamanhoElemento;
+    void* elementos;
 } fila_t;
 
 // Cria uma nova fila
-fila_t* cria_fila(int (*comparador)(void*, void*), int tamanhoElemento);
+fila_t* cria_fila(int (*comparador)(void*, void*),
+                  void (*atribuidor)(void*, void*), int tamanhoElemento);
 
 // Destroi uma fila, liberando a memória alocada por ela.
 int destroi_fila(fila_t* fila);
@@ -34,13 +28,15 @@ int tamanho_fila(fila_t* fila);
 // Atualiza um elemento da fila, substituindo o antigo pelo novo
 int atualiza_elemento(fila_t* fila, void* antigo, void* novo);
 
-// Põe o iterador no início da fila e devolve o item apontado por ele
-// Retorno: item se ele existe na posição do iterador
-//          NULL se a fila estiver vazia ou não existir
-void* fila_head(fila_t* fila);
+// Põe o iterador no início da fila e devolve o item apontado por ele no
+// ponteiro
+// Retorno: 1 se ele existe na posição do iterador
+//          0 se a fila estiver vazia ou não existir
+int fila_head(fila_t* fila, void* item);
 
 // Avança o iterador ao próximo item na fila e devolve o item apontado por ele
-// Retorno: item se ele existe na posição do iterador
-//          NULL se o iterador passou do último item da fila
-//          NULL se a fila estiver vazia ou não existir
-void* fila_prox(fila_t* fila);
+// no ponteiro
+// Retorno: 1 se ele existe na posição do iterador
+//          0 se o iterador passou do último item da fila
+//          0 se a fila estiver vazia ou não existir
+int fila_prox(fila_t* fila, void* item);

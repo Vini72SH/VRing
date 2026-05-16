@@ -59,6 +59,13 @@ int comparaMensagens(void* a, void* b) {
     return ((msga->criador == msgb->criador) && (msga->seq == msgb->seq));
 }
 
+void atribuiMensagens(void* a, void* b) {
+    Mensagem* msga = (Mensagem*)a;
+    Mensagem* msgb = (Mensagem*)b;
+
+    msga->ack = msgb->ack;
+}
+
 // Função que atualiza o vetor State de um processo
 void atualizaState(int proc, int prox) {
     int it = (prox + 1) % N;
@@ -93,7 +100,6 @@ void send(int proc, int prox, Mensagem msg) {
     msg.ack = 0;
     msg.origem = proc;
     msg.destino = prox;
-    msg.seq = processo[proc].contador++;
     msg.tempo = time() + 1;
 
     insere_fila(processo[proc].sentMsgs, &msg);
@@ -104,16 +110,18 @@ void send(int proc, int prox, Mensagem msg) {
 
 // Primitiva para receber uma mensagem
 int recv(int proc, Mensagem* msg) {
+    int ret;
     float tempoAtual = time();
 
-    Mensagem* aux = fila_head(processo[proc].msgs);
-    while (aux != NULL) {
-        if (aux->tempo <= tempoAtual) {
-            memcpy(msg, aux, sizeof(Mensagem));
+    Mensagem aux;
+    ret = fila_head(processo[proc].msgs, &aux);
+    while (ret) {
+        if (aux.tempo <= tempoAtual) {
+            memcpy(msg, &aux, sizeof(Mensagem));
             return 1;
         }
 
-        aux = fila_prox(processo[proc].msgs);
+        ret = fila_prox(processo[proc].msgs, &aux);
     }
 
     return 0;
@@ -180,8 +188,10 @@ int main(int argc, char* argv[]) {
         processo[i].receivedRound = malloc(sizeof(int) * N);
 
         processo[i].contador = 0;
-        processo[i].msgs = cria_fila(comparaMensagens, sizeof(Mensagem));
-        processo[i].sentMsgs = cria_fila(comparaMensagens, sizeof(Mensagem));
+        processo[i].msgs =
+            cria_fila(comparaMensagens, atribuiMensagens, sizeof(Mensagem));
+        processo[i].sentMsgs =
+            cria_fila(comparaMensagens, atribuiMensagens, sizeof(Mensagem));
 
         for (j = 0; j < N; j++) {
             processo[i].state[j] = -1;
@@ -309,6 +319,7 @@ int main(int argc, char* argv[]) {
                 novaMsg.criador = token;
                 novaMsg.bit = processo[token].bit;
                 novaMsg.epoch = processo[token].epoch;
+                novaMsg.seq = processo[token].contador++;
                 send(token, processo[token].proxProc, novaMsg);
 
                 break;
