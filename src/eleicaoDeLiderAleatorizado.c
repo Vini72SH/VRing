@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 #include "fila.h"
 #include "smpl.h"
@@ -63,7 +64,7 @@ void atribuiMensagens(void* a, void* b) {
     Mensagem* msga = (Mensagem*)a;
     Mensagem* msgb = (Mensagem*)b;
 
-    msga->ack = msgb->ack;
+    memcpy(msga, msgb, sizeof(Mensagem));
 }
 
 // Função que atualiza o vetor State de um processo
@@ -108,6 +109,16 @@ void send(int proc, int prox, Mensagem msg) {
     schedule(RECEIVE, 1.0, prox);
 }
 
+void resend(int proc, int prox, Mensagem msg) {
+    msg.ack = 0;
+    msg.origem = proc;
+    msg.destino = prox;
+    msg.tempo = time() + 1;
+
+    insere_fila(processo[prox].msgs, &msg);
+    schedule(RECEIVE, 1.0, prox);
+}
+
 // Primitiva para receber uma mensagem
 int recv(int proc, Mensagem* msg) {
     int ret;
@@ -127,10 +138,37 @@ int recv(int proc, Mensagem* msg) {
     return 0;
 }
 
-void sendAck(int proc) {}
+void sendAck(int proc, Mensagem msg) {
+    msg.ack = 1;
+    atualiza_elemento(processo[proc].sentMsgs, &msg, &msg);
+}
 
 // Remove uma mensagem da fila de recebidas
 void commit(int proc, Mensagem* msg) { fila_del(processo[proc].msgs, msg); }
+
+void freeMsg(int proc, Mensagem msg) {
+    fila_del(processo[proc].sentMsgs, &msg);
+}
+
+void reenviaMensagens(int proc) {
+    int ret;
+    Mensagem msg;
+
+    ret = fila_head(processo[proc].sentMsgs, &msg);
+    while (ret) {
+        if (msg.ack == 0) {
+            printf(
+                "O processo %d enviou uma mensagem para o processo "
+                "%d e não recebeu "
+                "um ACK\n",
+                proc, msg.destino);
+            resend(proc, processo[proc].proxProc, msg);
+            printf("Enviando a mensagem para %d\n", processo[proc].proxProc);
+        }
+
+        ret = fila_prox(processo[proc].sentMsgs, &msg);
+    }
+}
 
 int main(int argc, char* argv[]) {
 #ifdef DEBUG
@@ -262,21 +300,8 @@ int main(int argc, char* argv[]) {
 
                 imprimeState(token);
 
-                // Se não recebeu ACK da mensagem enviada, envia novamente.
-                /*
-                if (processo[token].sent) {
-                    if (processo[token].recievedAck == 0) {
-                        printf(
-                            "O processo %d enviou uma mensagem para o processo "
-                            "%d e não recebeu "
-                            "um ACK\n",
-                            token, processo[token].buff.destino);
-
-                        printf("Enviando a mensagem para %d\n", prox);
-                        // send(token, prox, processo[token].buff);
-                    }
-                }
-                */
+                // Se não recebeu ACK das mensagens enviadas, envia novamente.
+                reenviaMensagens(token);
 
                 schedule(TEST, 30.0, token);
                 break;
@@ -331,15 +356,22 @@ int main(int argc, char* argv[]) {
                 Mensagem recMsg;
                 while (recv(token, &recMsg)) {
                     printf(
-                        "O processo %d recebeu uma mensagem do processo %d\n",
-                        token, recMsg.origem);
+                        "O processo %d recebeu uma mensagem do processo %d no "
+                        "tempo %4.1f\n",
+                        token, recMsg.origem, time());
+                    sendAck(recMsg.origem, recMsg);
                     commit(token, &recMsg);
 
                     if (recMsg.criador != token) {
+                        if (recMsg.bit == 1)
+                            processo[token].candidato[recMsg.criador] = 1;
                         send(token, processo[token].proxProc, recMsg);
+
                     } else {
-                        fila_del(processo[token].sentMsgs, &recMsg);
+                        freeMsg(token, recMsg);
                     }
+
+                    processo[token].receivedRound[recMsg.criador] = 1;
                 }
 
                 break;
@@ -354,8 +386,8 @@ int main(int argc, char* argv[]) {
         free(processo[i].state);
         free(processo[i].candidato);
         free(processo[i].receivedRound);
-        destroi_fila(processo[i].sentMsgs);
-        destroi_fila(processo[i].msgs);
+        destroi_fila(&processo[i].sentMsgs);
+        destroi_fila(&processo[i].msgs);
     }
 
     free(processo);

@@ -3,38 +3,37 @@
 #include <stdlib.h>
 #include <string.h>
 
-int (*comp)(void*, void*);
-void (*atrib)(void*, void*);
-
-int fila_cheia(fila_t* fila) { return fila->ocupacao == fila->tamanho; }
+int fila_cheia(fila_t* fila) { return fila->ocupacao == fila->capacidade; }
 int fila_vazia(fila_t* fila) { return fila->ocupacao == 0; }
 
 fila_t* cria_fila(int (*comparador)(void*, void*),
                   void (*atribuidor)(void*, void*), int tamanhoElemento) {
-    fila_t* fila;
-
-    fila = malloc(sizeof(fila_t));
+    fila_t* fila = malloc(sizeof(fila_t));
     if (fila == NULL) return NULL;
+
+    fila->elementos = malloc(tamanhoElemento * TAMANHO_INICIAL);
+    if (fila->elementos == NULL) {
+        free(fila);
+        return NULL;
+    }
 
     fila->it = 0;
     fila->ocupacao = 0;
-    fila->tamanho = TAMANHO_INICIAL;
+    fila->capacidade = TAMANHO_INICIAL;
     fila->tamanhoElemento = tamanhoElemento;
 
-    comp = comparador;
-    atrib = atribuidor;
-
-    fila->elementos = malloc(tamanhoElemento * TAMANHO_INICIAL);
+    fila->comp = comparador;
+    fila->atrib = atribuidor;
 
     return fila;
-};
+}
 
-int destroi_fila(fila_t* fila) {
-    if (fila == NULL) return 0;
+int destroi_fila(fila_t** fila) {
+    if (fila == NULL || *fila == NULL) return 0;
 
-    free(fila->elementos);
-    free(fila);
-    fila = NULL;
+    free((*fila)->elementos);
+    free(*fila);
+    *fila = NULL;
 
     return 1;
 }
@@ -42,27 +41,20 @@ int destroi_fila(fila_t* fila) {
 int insere_fila(fila_t* fila, void* item) {
     if (fila == NULL) return 0;
 
-    // Quando a fila está cheia, aumenta o tamanho do buffer e copia os
-    // elementos já inseridos
     if (fila_cheia(fila)) {
-        char* it;
-        int idx;
+        int novaCapacidade = fila->capacidade * FATOR_MULT;
+        void* buffer = malloc(novaCapacidade * fila->tamanhoElemento);
+        if (buffer == NULL) return 0;
 
-        fila->tamanho = fila->tamanho * FATOR_MULT;
-        void* buffer = malloc(fila->tamanho * fila->tamanhoElemento);
-
-        for (int i = 0; i < fila->ocupacao; i++) {
-            memcpy(buffer + (i * fila->tamanhoElemento),
-                   fila->elementos + (i * fila->tamanhoElemento),
-                   fila->tamanhoElemento);
-        }
+        memcpy(buffer, fila->elementos, fila->ocupacao * fila->tamanhoElemento);
 
         free(fila->elementos);
         fila->elementos = buffer;
+        fila->capacidade = novaCapacidade;
     }
 
     char* endereco =
-        (char*)((fila->elementos) + (fila->ocupacao * fila->tamanhoElemento));
+        (char*)fila->elementos + (fila->ocupacao * fila->tamanhoElemento);
 
     memcpy(endereco, item, fila->tamanhoElemento);
     fila->ocupacao++;
@@ -71,21 +63,25 @@ int insere_fila(fila_t* fila, void* item) {
 }
 
 int fila_del(fila_t* fila, void* item) {
-    if ((fila == NULL) || fila_vazia(fila)) return 0;
+    if (fila == NULL || fila_vazia(fila)) return 0;
 
     int idx;
-    char* endereco = fila->elementos;
+    char* endereco;
+
     for (idx = 0; idx < fila->ocupacao; idx++) {
-        endereco = endereco + (idx * fila->tamanhoElemento);
-        if (comp(endereco, item)) break;
+        endereco = (char*)fila->elementos + (idx * fila->tamanhoElemento);
+        if (fila->comp(endereco, item)) break;
     }
 
     if (idx >= fila->ocupacao) return 0;
 
-    char* substituto =
-        fila->elementos + ((fila->ocupacao - 1) * fila->tamanhoElemento);
+    int offset = fila->ocupacao - idx - 1;
+    if (offset > 0) {
+        memmove((char*)fila->elementos + (idx * fila->tamanhoElemento),
+                (char*)fila->elementos + ((idx + 1) * fila->tamanhoElemento),
+                offset * fila->tamanhoElemento);
+    }
 
-    memcpy(endereco, substituto, fila->tamanhoElemento);
     fila->ocupacao--;
 
     return 1;
@@ -93,32 +89,31 @@ int fila_del(fila_t* fila, void* item) {
 
 int tamanho_fila(fila_t* fila) {
     if (fila == NULL) return 0;
-
-    return fila->tamanho;
+    return fila->ocupacao;
 }
 
 int atualiza_elemento(fila_t* fila, void* antigo, void* novo) {
+    if (fila == NULL) return 0;
+
+    int i;
     char* elemento;
 
-    int i = 0;
-    elemento = fila->elementos;
-    while ((i < fila->ocupacao) && (comp(elemento, antigo) == 0)) {
-        i++;
-        elemento = fila->elementos + (i * fila->tamanhoElemento);
+    for (i = 0; i < fila->ocupacao; i++) {
+        elemento = (char*)fila->elementos + (i * fila->tamanhoElemento);
+        if (fila->comp(elemento, antigo)) {
+            fila->atrib(elemento, novo);
+            return 1;
+        }
     }
 
-    if (i >= fila->ocupacao) return 0;
-
-    atrib(elemento, novo);
-
-    return 1;
+    return 0;
 }
 
 int fila_head(fila_t* fila, void* item) {
-    if ((fila == NULL) || (fila_vazia(fila))) return 0;
+    if (fila == NULL || fila_vazia(fila)) return 0;
 
     fila->it = 0;
-    memcpy(item, fila->elementos + (fila->it * fila->tamanhoElemento),
+    memcpy(item, (char*)fila->elementos + (fila->it * fila->tamanhoElemento),
            fila->tamanhoElemento);
 
     return 1;
@@ -130,7 +125,7 @@ int fila_prox(fila_t* fila, void* item) {
     fila->it++;
     if (fila->it >= fila->ocupacao) return 0;
 
-    memcpy(item, fila->elementos + (fila->it * fila->tamanho),
+    memcpy(item, (char*)fila->elementos + (fila->it * fila->tamanhoElemento),
            fila->tamanhoElemento);
 
     return 1;

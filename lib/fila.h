@@ -1,20 +1,28 @@
+#ifndef FILA_H
+#define FILA_H
+
 #define TAMANHO_INICIAL 8
 #define FATOR_MULT 2
 
 typedef struct {
     int it;
     int ocupacao;
-    int tamanho;
+    int capacidade;
     int tamanhoElemento;
     void* elementos;
+    int (*comp)(void*, void*);
+    void (*atrib)(void*, void*);
 } fila_t;
+
+int fila_cheia(fila_t* fila);
+int fila_vazia(fila_t* fila);
 
 // Cria uma nova fila
 fila_t* cria_fila(int (*comparador)(void*, void*),
                   void (*atribuidor)(void*, void*), int tamanhoElemento);
 
 // Destroi uma fila, liberando a memória alocada por ela.
-int destroi_fila(fila_t* fila);
+int destroi_fila(fila_t** fila);
 
 // Insere um item na fila
 int insere_fila(fila_t* fila, void* item);
@@ -40,3 +48,5 @@ int fila_head(fila_t* fila, void* item);
 //          0 se o iterador passou do último item da fila
 //          0 se a fila estiver vazia ou não existir
 int fila_prox(fila_t* fila, void* item);
+
+#endif
