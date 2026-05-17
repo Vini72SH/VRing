@@ -74,6 +74,7 @@ int fila_del(fila_t* fila, void* item) {
     }
 
     if (idx >= fila->ocupacao) return 0;
+    if (idx == fila->it) fila->it = (fila->it > 0) ? (fila->it - 1) : 0;
 
     int offset = fila->ocupacao - idx - 1;
     if (offset > 0) {

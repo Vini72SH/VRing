@@ -28,6 +28,8 @@ int destroi_fila(fila_t** fila);
 int insere_fila(fila_t* fila, void* item);
 
 // Remove uma item da fila
+// Se o iterador estiver sobre esse elemento, ele é movido para o elemento
+// anterior
 int fila_del(fila_t* fila, void* item);
 
 // Retorna o tamanho da fila
