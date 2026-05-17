@@ -47,6 +47,7 @@ typedef struct {
     int contador;      // Contador do número de sequência
     fila_t* msgs;      // Mensagens que pode receber dos outros processos
     fila_t* sentMsgs;  // Mensagens que enviou para outros processos
+    int* acks;         // Contador de acks que enviou para cada processo
 } TipoProcesso;
 
 TipoProcesso* processo;
@@ -119,6 +120,19 @@ void resend(int proc, int prox, Mensagem msg) {
     schedule(RECEIVE, 1.0, prox);
 }
 
+void sendAck(Mensagem msg) {
+    msg.ack = 1;
+
+    if (processo[msg.destino].acks[msg.criador] == msg.seq) {
+        processo[msg.destino].acks[msg.criador]++;
+    }
+
+    atualiza_elemento(processo[msg.origem].sentMsgs, &msg, &msg);
+}
+
+// Remove uma mensagem da fila de recebidas
+void commit(int proc, Mensagem* msg) { fila_del(processo[proc].msgs, msg); }
+
 // Primitiva para receber uma mensagem
 int recv(int proc, Mensagem* msg) {
     int ret;
@@ -126,28 +140,14 @@ int recv(int proc, Mensagem* msg) {
 
     Mensagem aux;
     ret = fila_head(processo[proc].msgs, &aux);
-    while (ret) {
-        if (aux.tempo <= tempoAtual) {
-            memcpy(msg, &aux, sizeof(Mensagem));
-            return 1;
-        }
 
-        ret = fila_prox(processo[proc].msgs, &aux);
+    // Se a mensagem for válida, a coloca no ponteiro
+    if ((ret) && (aux.tempo <= tempoAtual)) {
+        memcpy(msg, &aux, sizeof(Mensagem));
+        return 1;
     }
 
     return 0;
-}
-
-void sendAck(int proc, Mensagem msg) {
-    msg.ack = 1;
-    atualiza_elemento(processo[proc].sentMsgs, &msg, &msg);
-}
-
-// Remove uma mensagem da fila de recebidas
-void commit(int proc, Mensagem* msg) { fila_del(processo[proc].msgs, msg); }
-
-void freeMsg(int proc, Mensagem msg) {
-    fila_del(processo[proc].sentMsgs, &msg);
 }
 
 void reenviaMensagens(int proc) {
@@ -168,6 +168,11 @@ void reenviaMensagens(int proc) {
 
         ret = fila_prox(processo[proc].sentMsgs, &msg);
     }
+}
+
+// Remove uma mensagem da fila de enviadas
+void freeMsg(int proc, Mensagem msg) {
+    fila_del(processo[proc].sentMsgs, &msg);
 }
 
 int main(int argc, char* argv[]) {
@@ -231,8 +236,11 @@ int main(int argc, char* argv[]) {
         processo[i].sentMsgs =
             cria_fila(comparaMensagens, atribuiMensagens, sizeof(Mensagem));
 
+        processo[i].acks = malloc(sizeof(int) * N);
+
         for (j = 0; j < N; j++) {
             processo[i].state[j] = -1;
+            processo[i].acks[j] = 0;
         }
 
         processo[i].state[i] = 0;
@@ -331,6 +339,11 @@ int main(int argc, char* argv[]) {
                     break;  // Se o processo está falho, não participa da
                             // eleição!
 
+                printf(
+                    "O processo %d está se preparando para eleger um líder\n",
+                    token);
+
+                processo[token].lider = -1;
                 processo[token].epoch++;
                 for (j = 0; j < N; j++) {
                     processo[token].candidato[j] = 0;
@@ -339,6 +352,11 @@ int main(int argc, char* argv[]) {
 
                 processo[token].bit = random() % 2;
                 processo[token].candidato[token] = processo[token].bit;
+
+                if (processo[token].bit)
+                    printf("O processo %d é candidato a líder\n", token);
+                else
+                    printf("O processo %d não é candidato a líder\n", token);
 
                 Mensagem novaMsg;
                 novaMsg.criador = token;
@@ -355,23 +373,28 @@ int main(int argc, char* argv[]) {
 
                 Mensagem recMsg;
                 while (recv(token, &recMsg)) {
-                    printf(
-                        "O processo %d recebeu uma mensagem do processo %d no "
-                        "tempo %4.1f\n",
-                        token, recMsg.origem, time());
-                    sendAck(recMsg.origem, recMsg);
-                    commit(token, &recMsg);
+                    // O processo recebeu uma mensagem ainda não processada
+                    if (processo[token].acks[recMsg.criador] == recMsg.seq) {
+                        printf(
+                            "O processo %d recebeu uma mensagem do processo %d "
+                            "no "
+                            "tempo %4.1f\n",
+                            token, recMsg.origem, time());
 
-                    if (recMsg.criador != token) {
-                        if (recMsg.bit == 1)
-                            processo[token].candidato[recMsg.criador] = 1;
-                        send(token, processo[token].proxProc, recMsg);
+                        if (recMsg.criador != token) {
+                            if (recMsg.bit == 1)
+                                processo[token].candidato[recMsg.criador] = 1;
+                            send(token, processo[token].proxProc, recMsg);
 
-                    } else {
-                        freeMsg(token, recMsg);
+                        } else {
+                            freeMsg(token, recMsg);
+                        }
+
+                        processo[token].receivedRound[recMsg.criador] = 1;
                     }
 
-                    processo[token].receivedRound[recMsg.criador] = 1;
+                    sendAck(recMsg);
+                    commit(token, &recMsg);
                 }
 
                 break;
@@ -388,6 +411,7 @@ int main(int argc, char* argv[]) {
         free(processo[i].receivedRound);
         destroi_fila(&processo[i].sentMsgs);
         destroi_fila(&processo[i].msgs);
+        free(processo[i].acks);
     }
 
     free(processo);
