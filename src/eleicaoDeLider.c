@@ -169,7 +169,9 @@ int main(int argc, char* argv[]) {
     puts("===============================================================");
     puts("           Sistemas Distribuídos Prof. Elias");
     puts("                LOG do Trabalho Prático");
-    puts("              Algoritmos de Eleição de Líder");
+    puts("              Vinícius Jeremias dos Santos");
+    puts("              Algoritmo de Eleição de Líder");
+    puts("             Última Modificação: 18/05/2026");
     printf("   Este programa foi executado para: N=%d processos.\n", N);
     printf("           Tempo Total de Simulação = %d\n", MaxTempoSimulac);
     puts("===============================================================");

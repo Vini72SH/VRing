@@ -30,6 +30,7 @@ typedef struct {
     int origem;   // ID do processo de origem
     int destino;  // ID do processo destino
     int bit;      // Bit de candidatura do processo criador
+    int rodada;   // Rodada atual da eleição
     int epoch;    // Época da eleição
     int seq;      // Número de sequencia da mensagem
     float tempo;  // Quando a mensagem será recebida
@@ -45,6 +46,9 @@ typedef struct {
     int lider;           // Id do processo líder
     int epoch;           // Época da eleição atual
     int rodada;          // Rodada da eleição atual
+    int novaRodada;      // Define que vai começar uma nova rodada
+    int att;  // Indica se é necessário se atualizar para a nova eleição de
+              // líder
 
     int contador;      // Contador do número de sequência
     fila_t* msgs;      // Mensagens que pode receber dos outros processos
@@ -195,7 +199,7 @@ int main(int argc, char* argv[]) {
     printf("DEBUG mode is OFF\n");
 #endif
 
-    static int ret, token, event, r, i, j, MaxTempoSimulac = 150;
+    static int ret, token, event, r, i, j, MaxTempoSimulac = 1000;
     static char fa_name[5];
 
     int fault = 0;
@@ -219,7 +223,7 @@ int main(int argc, char* argv[]) {
     puts("           Sistemas Distribuídos Prof. Elias");
     puts("                LOG do Trabalho Prático");
     puts("              Vinícius Jeremias dos Santos");
-    puts("             Última Modificação: 15/04/2026");
+    puts("             Última Modificação: 18/05/2026");
     puts("        Algoritmo de Eleição de Líder Aleatorizado");
     printf("   Este programa foi executado para: N=%d processos.\n", N);
     printf("           Tempo Total de Simulação = %d\n", MaxTempoSimulac);
@@ -260,6 +264,9 @@ int main(int argc, char* argv[]) {
         processo[i].proxProc = (i + 1) % N;
         processo[i].lider = -1;
         processo[i].epoch = 0;
+        processo[i].rodada = 0;
+        processo[i].novaRodada = 0;
+        processo[i].att = 0;
     }
 
     printf("Nesta execução, processos podem falhar (incluindo o líder)?:\n");
@@ -376,6 +383,7 @@ int main(int argc, char* argv[]) {
                 Mensagem novaMsg;
                 novaMsg.criador = token;
                 novaMsg.bit = processo[token].bit;
+                novaMsg.rodada = 1;
                 novaMsg.epoch = processo[token].epoch;
                 novaMsg.seq = processo[token].contador++;
                 send(token, processo[token].proxProc, novaMsg);
@@ -386,19 +394,24 @@ int main(int argc, char* argv[]) {
                 if (status(processo[token].id) != 0)
                     break;  // Se o processo está falho, não participa
 
-                printf(
-                    "\nO processo %02d está iniciando uma nova rodada no tempo "
-                    "%4.1f\n",
-                    token, time());
+                printf("\nVetor de Bits do Processo %d\n", token);
+                printf("[ ");
+                for (int i = 0; i < N; i++) {
+                    printf("%d ", processo[token].candidato[i]);
+                }
+                printf("]\n");
 
-                processo[token].rodada++;
+                // Caso seja necessário se atualizar utilizando os dados da
+                // mensagem recebida
+                ret = 0;
+                Mensagem msgAnterior;
+                if ((recv(token, &msgAnterior)) && (processo[token].att)) {
+                    processo[token].att = 0;
+                    commit(token, &msgAnterior);
+                    ret = 1;
+                }
 
-                // TODO: Calcular tamanho do vetor de candidatos
-                // Se não houver candidatos, escalona ELEICAO_DE_LIDER
-                // Se há um candidato, ele é o líder
-                // Caso contrário, o bit(token) é sortado novamente caso seja 1
-                // Os processos enviam uma mensagem para o próximo informando o
-                // novo valor de bit
+                processo[token].novaRodada = 0;
 
                 int lider = -1;
                 int candidatos = 0;
@@ -410,13 +423,29 @@ int main(int argc, char* argv[]) {
                 }
 
                 if (candidatos == 0) {
+                    printf(
+                        "O processo %d detectou que não há nenhum candidato a "
+                        "líder\n",
+                        token);
                     schedule(ELEICAO_DE_LIDER, 5.0, token);
                 } else if (candidatos == 1) {
                     processo[token].lider = lider;
-                    printf(
-                        "O processo %02d considera o processo %02d o líder\n",
-                        token, lider);
+                    if (lider != token)
+                        printf(
+                            "O processo %02d considera o processo %02d o "
+                            "líder\n",
+                            token, lider);
+                    else
+                        printf("Eu, o processo %d sou o líder!\n", token);
+
                 } else {
+                    printf(
+                        "\nO processo %02d está iniciando uma nova rodada no "
+                        "tempo "
+                        "%4.1f\n",
+                        token, time());
+
+                    processo[token].rodada++;
                     for (i = 0; i < N; i++) {
                         processo[token].candidato[i] = 0;
                         processo[token].receivedRound[i] = 0;
@@ -432,12 +461,21 @@ int main(int argc, char* argv[]) {
                         processo[token].candidato[token] = 1;
                     }
 
-                    // Mensagem novaMsgRodada;
-                    // novaMsgRodada.criador = token;
-                    // novaMsgRodada.bit = processo[token].bit;
-                    // novaMsgRodada.epoch = processo[token].epoch;
-                    // novaMsgRodada.seq = processo[token].contador++;
-                    // send(token, processo[token].proxProc, novaMsgRodada);
+                    if (ret) {
+                        processo[token].rodada = msgAnterior.rodada;
+                        processo[token].candidato[msgAnterior.criador] =
+                            msgAnterior.bit;
+                        processo[token].receivedRound[msgAnterior.criador] = 1;
+                        send(token, processo[token].proxProc, msgAnterior);
+                    }
+
+                    Mensagem novaMsgRodada;
+                    novaMsgRodada.criador = token;
+                    novaMsgRodada.bit = processo[token].bit;
+                    novaMsgRodada.rodada = processo[token].rodada;
+                    novaMsgRodada.epoch = processo[token].epoch;
+                    novaMsgRodada.seq = processo[token].contador++;
+                    send(token, processo[token].proxProc, novaMsgRodada);
                 }
 
                 break;
@@ -446,40 +484,73 @@ int main(int argc, char* argv[]) {
                 if (status(processo[token].id) != 0)
                     break;  // Se o processo está falho, não recebe mensagem!
 
+                int recebendoMensagens = 1;
                 Mensagem recMsg;
-                while (recv(token, &recMsg)) {
+                while (recv(token, &recMsg) && (recebendoMensagens)) {
                     printf(
                         "\nSou o processo %02d e recebi uma mensagem do "
                         "processo "
-                        "%02d "
+                        "%02d sobre a candidatura do processo %02d "
                         "no "
                         "tempo %4.1f\n",
-                        token, recMsg.origem, time());
+                        token, recMsg.origem, recMsg.criador, time());
 
-                    if (recMsg.criador != token) {
-                        processo[token].candidato[recMsg.criador] = recMsg.bit;
-                        send(token, processo[token].proxProc, recMsg);
-                    } else {
-                        freeMsg(token, recMsg);
+                    // Está participando da eleição atual
+                    if (recMsg.rodada == processo[token].rodada) {
+                        if (recMsg.criador != token) {
+                            processo[token].candidato[recMsg.criador] =
+                                recMsg.bit;
+                            send(token, processo[token].proxProc, recMsg);
+                        } else {
+                            freeMsg(token, recMsg);
+                        }
+
+                        processo[token].receivedRound[recMsg.criador] = 1;
+
+                        // Verifica se todos os processos corretos mandaram
+                        // mensagem
+                        int recebeuTodasAsMensagens = 1;
+                        for (i = 0; i < N; i++) {
+                            if ((processo[token].state[i] != 1) &&
+                                (processo[token].receivedRound[i] == 0)) {
+                                recebeuTodasAsMensagens = 0;
+                                break;
+                            }
+                        }
+
+                        // Inicia a próxima rodada do algoritmo
+                        if ((recebeuTodasAsMensagens) &&
+                            (processo[token].novaRodada == 0)) {
+                            processo[token].novaRodada = 1;
+                            schedule(NOVA_RODADA, 1.0, token);
+                        }
+
+                        sendAck(recMsg);
+                        commit(token, &recMsg);
                     }
 
-                    processo[token].receivedRound[recMsg.criador] = 1;
+                    if (recMsg.rodada < processo[token].rodada) {
+                        if (recMsg.criador == token) freeMsg(token, recMsg);
+                        printf(
+                            "O processo %d recebeu uma mensagem sobre uma "
+                            "rodada anterior\n",
+                            token);
 
-                    // Verifica se todos os processos corretos mandaram mensagem
-                    int novaRodada = 1;
-                    for (i = 0; i < N; i++) {
-                        if ((processo[token].state[i] != 1) &&
-                            (processo[token].receivedRound[i] == 0))
-                            novaRodada = 0;
+                        sendAck(recMsg);
+                        commit(token, &recMsg);
                     }
 
-                    // Inicia a próxima rodada do algoritmo
-                    if (novaRodada) {
+                    if (recMsg.rodada > processo[token].rodada) {
+                        if (recMsg.criador == token) freeMsg(token, recMsg);
+
+                        printf("O processo %d não está na rodada correta!\n",
+                               token);
+
+                        recebendoMensagens = 0;
+                        processo[token].att = 1;
                         schedule(NOVA_RODADA, 1.0, token);
+                        sendAck(recMsg);
                     }
-
-                    sendAck(recMsg);
-                    commit(token, &recMsg);
                 }
 
                 break;
