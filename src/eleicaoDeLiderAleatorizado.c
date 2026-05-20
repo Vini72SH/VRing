@@ -37,17 +37,18 @@ typedef struct {
 } Mensagem;
 
 typedef struct {
-    int id;              // Id do processo
-    int bit;             // Indica se o processo é candidato a ser líder
-    int* state;          // Tabela de estados dos demais processos
-    int* candidato;      // Vetor de candidatos
-    int* receivedRound;  // Vetor de mensagens recebidas naquela rodada
-    int proxProc;        // Id do próximo processo no anel
-    int lider;           // Id do processo líder
-    int epoch;           // Época da eleição atual
-    int rodada;          // Rodada da eleição atual
-    int novaRodada;      // Define que vai começar uma nova rodada
-    int att;             // Indica se é necessário se atualizar
+    int id;                  // Id do processo
+    int bit;                 // Indica se o processo é candidato a ser líder
+    int* state;              // Tabela de estados dos demais processos
+    int* candidato;          // Vetor de candidatos
+    int* receivedRound;      // Vetor de mensagens recebidas naquela rodada
+    int proxProc;            // Id do próximo processo no anel
+    int lider;               // Id do processo líder
+    int epoch;               // Época da eleição atual
+    int rodada;              // Rodada da eleição atual
+    int novaRodada;          // Define que vai começar uma nova rodada
+    int att;                 // Indica se é necessário se atualizar
+    int recebendoMensagens;  // Habilita recepção de mensagens
 
     int contador;      // Contador do número de sequência
     fila_t* msgs;      // Mensagens que pode receber dos outros processos
@@ -266,6 +267,7 @@ int main(int argc, char* argv[]) {
         processo[i].rodada = 0;
         processo[i].novaRodada = 0;
         processo[i].att = 0;
+        processo[i].recebendoMensagens = 1;
     }
 
     printf("Nesta execução, processos podem falhar (incluindo o líder)?:\n");
@@ -300,7 +302,8 @@ int main(int argc, char* argv[]) {
                 procStatus = status(processo[prox].id);
                 while ((procStatus != 0) && (prox != token)) {
                     vring_debug(
-                        "O processo %d testou o processo %d suspeito no tempo "
+                        "O processo %02d testou o processo %02d suspeito no "
+                        "tempo "
                         "%4.1f\n",
                         token, prox, time());
 
@@ -315,20 +318,33 @@ int main(int argc, char* argv[]) {
                 // processos não testados nessa rodada
                 if (prox != token) {
                     vring_debug(
-                        "O processo %d testou o processo %d correto no tempo "
+                        "O processo %02d testou o processo %02d correto no "
+                        "tempo "
                         "%4.1f\n",
                         token, prox, time());
                     processo[token].state[prox] = 0;
                     atualizaState(token, prox);
 
                 } else
-                    vring_debug("O processo %d é o único processo correto\n",
+                    vring_debug("O processo %02d é o único processo correto\n",
                                 token);
 
                 imprimeState(token);
 
                 // Se não recebeu ACK das mensagens enviadas, envia novamente.
                 reenviaMensagens(token);
+
+                if ((processo[token].lider >= 0) &&
+                    (processo[token].state[processo[token].lider] > 0)) {
+                    printf(
+                        "\nO processo %02d detectou que o líder %02d falhou no "
+                        "tempo %4.1f\n",
+                        token, processo[token].lider, time());
+
+                    printf(
+                        "Iniciando nova eleição de líder para esse processo\n");
+                    schedule(ELEICAO_DE_LIDER, 1.0, token);
+                }
 
                 schedule(TEST, 30.0, token);
                 break;
@@ -358,6 +374,24 @@ int main(int argc, char* argv[]) {
                 if (status(processo[token].id) != 0)
                     break;  // Se o processo está falho, não participa da
                             // eleição!
+
+                // Caso seja necessário se atualizar utilizando os dados da
+                // mensagem recebida
+                ret = 0;
+                Mensagem msgAnteriorEpoch;
+                if ((recv(token, &msgAnteriorEpoch)) && (processo[token].att)) {
+                    printf(
+                        "O processo %02d irá se atualizar para a eleição de "
+                        "líder\n",
+                        token);
+                    processo[token].att = 0;
+                    processo[token].recebendoMensagens = 1;
+                    commit(token, &msgAnteriorEpoch);
+                    ret = 1;
+                    break;
+                    // TODO: Reiniciar os valores e se atualizar para a nova
+                    // eleição de líder
+                }
 
                 printf(
                     "O processo %02d está se preparando para eleger um líder\n",
@@ -396,7 +430,8 @@ int main(int argc, char* argv[]) {
                 if (status(processo[token].id) != 0)
                     break;  // Se o processo está falho, não participa
 
-                printf("\nVetor de Bits do Processo %d\n", token);
+                printf("\nFIM DE RODADA PARA O PROCESSO %02d\n", token);
+                printf("Vetor de Bits do Processo %02d\n", token);
                 printf("[ ");
                 for (int i = 0; i < N; i++) {
                     printf("%d ", processo[token].candidato[i]);
@@ -409,6 +444,7 @@ int main(int argc, char* argv[]) {
                 Mensagem msgAnterior;
                 if ((recv(token, &msgAnterior)) && (processo[token].att)) {
                     processo[token].att = 0;
+                    processo[token].recebendoMensagens = 1;
                     commit(token, &msgAnterior);
                     ret = 1;
                 }
@@ -427,7 +463,8 @@ int main(int argc, char* argv[]) {
 
                 if (candidatos == 0) {
                     printf(
-                        "O processo %d detectou que não há nenhum candidato a "
+                        "O processo %02d detectou que não há nenhum candidato "
+                        "a "
                         "líder\n",
                         token);
                     schedule(ELEICAO_DE_LIDER, 5.0, token);
@@ -439,14 +476,18 @@ int main(int argc, char* argv[]) {
                             "O processo %02d considera o processo %02d o "
                             "líder\n",
                             token, lider);
-                    else
-                        printf("Eu, o processo %d sou o líder!\n", token);
-
+                    else {
+                        printf("Eu, o processo %02d, sou o líder!\n", token);
+                        if (fault) {
+                            schedule(FAULT, 30.0, token);
+                            fault = 0;
+                        }
+                    }
                 } else {
                     // Há mais de 1 processo concorrendo, é necessário uma nova
                     // rodada de mensagens
                     printf(
-                        "\nO processo %02d está iniciando uma nova rodada no "
+                        "O processo %02d está iniciando uma nova rodada no "
                         "tempo "
                         "%4.1f\n",
                         token, time());
@@ -502,9 +543,9 @@ int main(int argc, char* argv[]) {
 
                 // Loop de tratamento de mensagens, trata apenas as mensagens
                 // novas que são válidas no tempo atual
-                int recebendoMensagens = 1;
                 Mensagem recMsg;
-                while (recv(token, &recMsg) && (recebendoMensagens)) {
+                while (recv(token, &recMsg) &&
+                       (processo[token].recebendoMensagens)) {
                     printf(
                         "\nSou o processo %02d e recebi uma mensagem do "
                         "processo "
@@ -513,73 +554,99 @@ int main(int argc, char* argv[]) {
                         "tempo %4.1f\n",
                         token, recMsg.origem, recMsg.criador, time());
 
-                    // Está participando da eleição atual, atualiza seus dados
-                    // internos com as informações da mensagem
-                    if (recMsg.rodada == processo[token].rodada) {
-                        if (recMsg.criador != token) {
-                            processo[token].candidato[recMsg.criador] =
-                                recMsg.bit;
-                            send(token, processo[token].proxProc, recMsg);
-                        } else {
-                            // Recebeu a própria mensagem, retira ela do anel
-                            freeMsg(token, recMsg);
-                        }
-
-                        processo[token].receivedRound[recMsg.criador] = 1;
-
-                        // Verifica se todos os processos corretos mandaram
-                        // mensagem
-                        int recebeuTodasAsMensagens = 1;
-                        for (i = 0; i < N; i++) {
-                            if ((processo[token].state[i] != 1) &&
-                                (processo[token].receivedRound[i] == 0)) {
-                                recebeuTodasAsMensagens = 0;
-                                break;
+                    if (recMsg.epoch == processo[token].epoch) {
+                        // Está participando da eleição atual, atualiza seus
+                        // dados internos com as informações da mensagem
+                        if (recMsg.rodada == processo[token].rodada) {
+                            if (recMsg.criador != token) {
+                                processo[token].candidato[recMsg.criador] =
+                                    recMsg.bit;
+                                send(token, processo[token].proxProc, recMsg);
+                            } else {
+                                // Recebeu a própria mensagem, retira ela do
+                                // anel
+                                freeMsg(token, recMsg);
                             }
+
+                            processo[token].receivedRound[recMsg.criador] = 1;
+
+                            // Verifica se todos os processos corretos mandaram
+                            // mensagem
+                            int recebeuTodasAsMensagens = 1;
+                            for (i = 0; i < N; i++) {
+                                if ((processo[token].state[i] != 1) &&
+                                    (processo[token].receivedRound[i] == 0)) {
+                                    recebeuTodasAsMensagens = 0;
+                                    break;
+                                }
+                            }
+
+                            // Inicia a próxima rodada do algoritmo, escalonando
+                            // um evento de nova rodada
+                            if ((recebeuTodasAsMensagens) &&
+                                (processo[token].novaRodada == 0)) {
+                                processo[token].novaRodada = 1;
+                                schedule(NOVA_RODADA, 1.0, token);
+                            }
+
+                            // Envia um ack sobre essa mensagem e retira ela da
+                            // fila de mensagens recebidas
+                            sendAck(recMsg);
+                            commit(token, &recMsg);
                         }
 
-                        // Inicia a próxima rodada do algoritmo, escalonando um
-                        // evento de nova rodada
-                        if ((recebeuTodasAsMensagens) &&
-                            (processo[token].novaRodada == 0)) {
-                            processo[token].novaRodada = 1;
+                        // Essa mensagem pertence a uma rodada anterior no anel,
+                        // apenas manda um ack e a retira da fila de mensagens
+                        // recebidas
+                        if (recMsg.rodada < processo[token].rodada) {
+                            if (recMsg.criador == token) freeMsg(token, recMsg);
+                            printf(
+                                "O processo %02d recebeu uma mensagem sobre "
+                                "uma "
+                                "rodada anterior\n",
+                                token);
+
+                            sendAck(recMsg);
+                            commit(token, &recMsg);
+                        }
+
+                        // O processo recebeu uma mensagem de um processo que
+                        // está em uma rodada posterior, é necessário mudar para
+                        // a nova rodada e se atualizar
+                        if (recMsg.rodada > processo[token].rodada) {
+                            if (recMsg.criador == token) freeMsg(token, recMsg);
+
+                            printf(
+                                "O processo %02d não está na rodada correta!\n",
+                                token);
+
+                            // Define certas variáveis e escalona uma nova
+                            // rodada
+                            processo[token].recebendoMensagens = 0;
+                            processo[token].att = 1;
+                            sendAck(recMsg);
                             schedule(NOVA_RODADA, 1.0, token);
                         }
 
-                        // Envia um ack sobre essa mensagem e retira ela da fila
-                        // de mensagens recebidas
-                        sendAck(recMsg);
-                        commit(token, &recMsg);
-                    }
-
-                    // Essa mensagem pertence a uma rodada anterior no anel,
-                    // apenas manda um ack e a retira da fila de mensagens
-                    // recebidas
-                    if (recMsg.rodada < processo[token].rodada) {
-                        if (recMsg.criador == token) freeMsg(token, recMsg);
+                    } else if (recMsg.epoch > processo[token].epoch) {
+                        // Recebeu mensagem sobre nova eleição, é necessário se
+                        // atualizar
                         printf(
-                            "O processo %d recebeu uma mensagem sobre uma "
-                            "rodada anterior\n",
-                            token);
+                            "O processo recebeu uma mensagem sobre uma "
+                            "eleição futura\n");
 
+                        sendAck(recMsg);
+                        processo[token].recebendoMensagens = 0;
+                        processo[token].att = 1;
+                        schedule(ELEICAO_DE_LIDER, 1.0, token);
+                    } else {
+                        // Recebeu mensagem sobre uma eleição antiga, apenas
+                        // descarta a mensagem
+                        printf(
+                            "O processo recebeu uma mensagem sobre uma eleição "
+                            "passada\n");
                         sendAck(recMsg);
                         commit(token, &recMsg);
-                    }
-
-                    // O processo recebeu uma mensagem de um processo que está
-                    // em uma rodada posterior, é necessário mudar para a nova
-                    // rodada e se atualizar
-                    if (recMsg.rodada > processo[token].rodada) {
-                        if (recMsg.criador == token) freeMsg(token, recMsg);
-
-                        printf("O processo %d não está na rodada correta!\n",
-                               token);
-
-                        // Define certas variáveis e escalona uma nova rodada
-                        recebendoMensagens = 0;
-                        processo[token].att = 1;
-                        schedule(NOVA_RODADA, 1.0, token);
-                        sendAck(recMsg);
                     }
                 }
 
