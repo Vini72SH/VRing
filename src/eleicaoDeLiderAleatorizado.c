@@ -149,9 +149,10 @@ int recv(int proc, Mensagem* msg) {
     Mensagem aux;
     ret = fila_head(processo[proc].msgs, &aux);
 
-    while ((ret) && (aux.tempo <= tempoAtual)) {
+    while (ret) {
         // Se a mensagem for válida, a coloca no ponteiro
-        if (processo[proc].acks[aux.criador] <= aux.seq) {
+        if ((processo[proc].acks[aux.criador] == aux.seq) &&
+            ((aux.tempo <= tempoAtual))) {
             memcpy(msg, &aux, sizeof(Mensagem));
             return 1;
         }
@@ -159,7 +160,6 @@ int recv(int proc, Mensagem* msg) {
         // A mensagem já foi tratada e é descartada
         sendAck(aux);
         commit(proc, &aux);
-        fila_del(processo[proc].msgs, &aux);
 
         ret = fila_prox(processo[proc].msgs, &aux);
     }
@@ -215,8 +215,10 @@ int main(int argc, char* argv[]) {
     int epocaEleicao = 0;  // Época global da eleição
 
     if (argc != 2) {
-        puts("Uso correto: ./eleicaoDeLiderAleatorizado <número de processos>");
-        exit(1);
+        fprintf(stderr,
+                "Uso correto: ./eleicaoDeLiderAleatorizado <número de "
+                "processos>\n");
+        exit(EXIT_FAILURE);
     }
 
     N = atoi(argv[1]);
@@ -270,13 +272,22 @@ int main(int argc, char* argv[]) {
         processo[i].novaRodada = 0;
         processo[i].att = 0;
         processo[i].recebendoMensagens = 1;
+        processo[i].novaEleicao = 0;
     }
 
     printf("Nesta execução, processos podem falhar (incluindo o líder)?:\n");
     printf("1) Sim\n");
     printf("2) Não\n");
     printf("Selecione uma opção entre 1 e 2: ");
-    scanf("%d", &op);
+
+    if (scanf("%d", &op) != 1 || (op != 1 && op != 2)) {
+        fprintf(stderr,
+                "Entrada inválida. Digite 1 para habilitar falhas ou 2 para "
+                "desabilitar.\n");
+        return EXIT_FAILURE;
+    }
+
+    printf("Opção de falha selecionada: %d\n", op);
 
     if (op == 1) {
         printf("Gerando eventos de falha...\n");
@@ -346,6 +357,13 @@ int main(int argc, char* argv[]) {
                     printf(
                         "Iniciando nova eleição de líder para esse processo\n");
                     schedule(ELEICAO_DE_LIDER, 1.0, token);
+                }
+
+                // Se há mensagens na fila de recebidas, escalona um evento de
+                // tratamento de mensagens
+                Mensagem msg;
+                if (recv(token, &msg)) {
+                    schedule(RECEIVE, 1.0, token);
                 }
 
                 schedule(TEST, 30.0, token);
@@ -476,15 +494,19 @@ int main(int argc, char* argv[]) {
                     }
                 }
 
-                if ((candidatos == 0) && (processo[token].novaEleicao == 0)) {
-                    printf(
-                        "O processo %02d detectou que não há nenhum candidato "
-                        "a "
-                        "líder\n",
-                        token);
-                    processo[token].rodada = 0;
-                    processo[token].novaEleicao = 1;
-                    schedule(ELEICAO_DE_LIDER, 5.0, token);
+                if (candidatos == 0) {
+                    if (processo[token].novaEleicao == 0) {
+                        printf(
+                            "O processo %02d detectou que não há nenhum "
+                            "candidato "
+                            "a "
+                            "líder\n",
+                            token);
+                        processo[token].rodada++;
+                        processo[token].novaEleicao = 1;
+                        schedule(ELEICAO_DE_LIDER, 5.0, token);
+                    }
+
                 } else if (candidatos == 1) {
                     // Um líder foi eleito
                     processo[token].rodada++;
@@ -576,9 +598,10 @@ int main(int argc, char* argv[]) {
                                 "do "
                                 "processo "
                                 "%02d sobre a candidatura do processo %02d "
-                                "no "
+                                "na rodada %02d no "
                                 "tempo %4.1f\n",
-                                token, recMsg.origem, recMsg.criador, time());
+                                token, recMsg.origem, recMsg.criador,
+                                recMsg.rodada, time());
 
                             if (recMsg.criador != token) {
                                 processo[token].candidato[recMsg.criador] =
