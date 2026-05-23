@@ -16,7 +16,6 @@ lib:
 	@echo "=== Compilando $@ ==="
 	-test -s $@/Makefile && $(MAKE) -C $@
 
-
 eleicaoDeLider: lib src/eleicaoDeLider.c
 	@echo "=== Compilando $@ ==="
 	$(CC) $(CFLAGS) -c src/eleicaoDeLider.c -o src/eleicaoDeLider.o
