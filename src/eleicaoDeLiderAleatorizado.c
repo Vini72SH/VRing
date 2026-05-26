@@ -694,6 +694,7 @@ int main(int argc, char* argv[]) {
                         processo[token].recebendoMensagens = 0;
                         processo[token].buff = recMsg;
                         processo[token].att = 1;
+                        processo[token].epochAgendamento = recMsg.epoch;
                         send(token, processo[token].proxProc, recMsg);
                         schedule(ELEICAO_DE_LIDER, 5.0, token);
                     }
