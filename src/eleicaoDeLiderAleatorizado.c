@@ -50,7 +50,7 @@ typedef struct {
     int att;                 // Indica se é necessário se atualizar
     int recebendoMensagens;  // Habilita recepção de mensagens
     int epochAgendamento;    // Armazena a época da eleição agendada para evitar
-                             // múltiplos escalonamentos simultâneos
+    // múltiplos escalonamentos simultâneos
 
     int contador;      // Contador do número de sequência
     fila_t* msgs;      // Mensagens que pode receber dos outros processos
@@ -506,6 +506,7 @@ int main(int argc, char* argv[]) {
                     ret = 1;
                 }
 
+                processo[token].rodada++;
                 processo[token].novaRodada = 0;
 
                 // Verificação do número de candidatos e de quem é o líder
@@ -518,7 +519,7 @@ int main(int argc, char* argv[]) {
                     }
                 }
 
-                if (ret) candidatos = N;
+                // if (ret) candidatos = N;
 
                 if (candidatos == 0) {
                     printf(
@@ -527,14 +528,27 @@ int main(int argc, char* argv[]) {
                         "a "
                         "líder\n",
                         token);
-                    processo[token].rodada++;
                     processo[token].epochAgendamento =
                         processo[token].epoch + 1;
                     schedule(ELEICAO_DE_LIDER, 1.0, token);
 
                 } else if (candidatos == 1) {
                     // Um líder foi eleito
-                    processo[token].rodada++;
+
+                    if (processo[token].lider == -1) {
+                        Mensagem msgFinal;
+
+                        msgFinal.criador = token;
+                        msgFinal.bit = (lider == token) ? 1 : 0;
+                        msgFinal.rodada = processo[token].rodada;
+                        msgFinal.epoch = processo[token].epoch;
+                        msgFinal.seq = processo[token].contador++;
+
+                        printf("Enviando a mensagem dessa rodada para %d\n",
+                               processo[token].proxProc);
+                        send(token, processo[token].proxProc, msgFinal);
+                    }
+
                     processo[token].lider = lider;
                     if (lider != token)
                         printf(
@@ -558,7 +572,6 @@ int main(int argc, char* argv[]) {
                         token, time());
 
                     // Reinicialização das variáveis utilizadas
-                    processo[token].rodada++;
                     for (i = 0; i < N; i++) {
                         processo[token].candidato[i] = 0;
                         processo[token].receivedRound[i] = 0;
