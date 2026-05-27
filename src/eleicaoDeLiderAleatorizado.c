@@ -71,13 +71,6 @@ int comparaMensagens(void* a, void* b) {
     return ((msga->criador == msgb->criador) && (msga->seq == msgb->seq));
 }
 
-void atribuiMensagens(void* a, void* b) {
-    Mensagem* msga = (Mensagem*)a;
-    Mensagem* msgb = (Mensagem*)b;
-
-    memcpy(msga, msgb, sizeof(Mensagem));
-}
-
 // Função que atualiza o vetor State de um processo
 void atualizaState(int proc, int prox) {
     int it = (prox + 1) % N;
@@ -255,10 +248,8 @@ int main(int argc, char* argv[]) {
         processo[i].receivedRound = malloc(sizeof(int) * N);
 
         processo[i].contador = 0;
-        processo[i].msgs =
-            cria_fila(comparaMensagens, atribuiMensagens, sizeof(Mensagem));
-        processo[i].sentMsgs =
-            cria_fila(comparaMensagens, atribuiMensagens, sizeof(Mensagem));
+        processo[i].msgs = cria_fila(comparaMensagens, sizeof(Mensagem));
+        processo[i].sentMsgs = cria_fila(comparaMensagens, sizeof(Mensagem));
 
         processo[i].acks = malloc(sizeof(int) * N);
 
@@ -479,7 +470,7 @@ int main(int argc, char* argv[]) {
                 novaMsg.epoch = processo[token].epoch;
                 novaMsg.seq = processo[token].contador++;
 
-                printf("Enviando a mensagem dessa eleição para %d\n",
+                printf("Enviando a mensagem dessa eleição para %02d\n",
                        processo[token].proxProc);
                 send(token, processo[token].proxProc, novaMsg);
 
@@ -489,8 +480,10 @@ int main(int argc, char* argv[]) {
                 if (status(processo[token].id) != 0)
                     break;  // Se o processo está falho, não participa
 
-                printf("\nFIM DA RODADA %02d PARA O PROCESSO %02d\n",
-                       processo[token].rodada, token);
+                printf(
+                    "\nFIM DA RODADA %02d PARA O PROCESSO %02d NO TEMPO "
+                    "%4.1f\n",
+                    processo[token].rodada, token, time());
                 printf("Vetor de Bits do Processo %02d\n", token);
                 printf("[ ");
                 for (int i = 0; i < N; i++) {
@@ -519,8 +512,6 @@ int main(int argc, char* argv[]) {
                         candidatos++;
                     }
                 }
-
-                // if (ret) candidatos = N;
 
                 if (candidatos == 0) {
                     printf(
@@ -586,8 +577,10 @@ int main(int argc, char* argv[]) {
                     if (processo[token].bit) {
                         printf("O processo %02d ainda é candidato a líder\n",
                                token);
-
                         processo[token].candidato[token] = 1;
+                    } else {
+                        printf("O processo %02d não é candidato a líder\n",
+                               token);
                     }
 
                     // O processo recebeu uma mensagem de uma rodada posterior,
@@ -612,8 +605,10 @@ int main(int argc, char* argv[]) {
                     novaMsgRodada.epoch = processo[token].epoch;
                     novaMsgRodada.seq = processo[token].contador++;
 
-                    printf("Enviando a mensagem dessa rodada para %d\n",
-                           processo[token].proxProc);
+                    printf(
+                        "Enviando a mensagem dessa rodada para o processo "
+                        "%02d\n",
+                        processo[token].proxProc);
                     send(token, processo[token].proxProc, novaMsgRodada);
                 }
 
@@ -630,8 +625,8 @@ int main(int argc, char* argv[]) {
                     if (recMsg.criador == token) {
                         printf(
                             "\nO processo %02d recebeu a própria mensagem, a "
-                            "retirando do anel\n",
-                            token);
+                            "retirando do anel no tempo %4.1f\n",
+                            token, time());
                         sendAck(recMsg);
                         commit(token, &recMsg);
                         freeMsg(token, recMsg);
@@ -654,7 +649,7 @@ int main(int argc, char* argv[]) {
                             processo[token].receivedRound[recMsg.criador] = 1;
 
                             send(token, processo[token].proxProc, recMsg);
-                            printf("Enviando mensagem para %02d\n",
+                            printf("Enviando mensagem para o processo %02d\n",
                                    processo[token].proxProc);
                         } else if (recMsg.rodada < processo[token].rodada) {
                             // Pertence a uma rodada anterior

@@ -6,8 +6,7 @@
 int fila_cheia(fila_t* fila) { return fila->ocupacao == fila->capacidade; }
 int fila_vazia(fila_t* fila) { return fila->ocupacao == 0; }
 
-fila_t* cria_fila(int (*comparador)(void*, void*),
-                  void (*atribuidor)(void*, void*), int tamanhoElemento) {
+fila_t* cria_fila(int (*comparador)(void*, void*), int tamanhoElemento) {
     fila_t* fila = malloc(sizeof(fila_t));
     if (fila == NULL) return NULL;
 
@@ -23,7 +22,6 @@ fila_t* cria_fila(int (*comparador)(void*, void*),
     fila->tamanhoElemento = tamanhoElemento;
 
     fila->comp = comparador;
-    fila->atrib = atribuidor;
 
     return fila;
 }
@@ -102,7 +100,7 @@ int atualiza_elemento(fila_t* fila, void* antigo, void* novo) {
     for (i = 0; i < fila->ocupacao; i++) {
         elemento = (char*)fila->elementos + (i * fila->tamanhoElemento);
         if (fila->comp(elemento, antigo)) {
-            fila->atrib(elemento, novo);
+            memcpy(elemento, novo, sizeof(fila->tamanhoElemento));
             return 1;
         }
     }

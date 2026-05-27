@@ -11,15 +11,13 @@ typedef struct {
     int tamanhoElemento;
     void* elementos;
     int (*comp)(void*, void*);
-    void (*atrib)(void*, void*);
 } fila_t;
 
 int fila_cheia(fila_t* fila);
 int fila_vazia(fila_t* fila);
 
 // Cria uma nova fila
-fila_t* cria_fila(int (*comparador)(void*, void*),
-                  void (*atribuidor)(void*, void*), int tamanhoElemento);
+fila_t* cria_fila(int (*comparador)(void*, void*), int tamanhoElemento);
 
 // Destroi uma fila, liberando a memória alocada por ela.
 int destroi_fila(fila_t** fila);
