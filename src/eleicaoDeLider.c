@@ -494,6 +494,11 @@ int main(int argc, char* argv[]) {
                                 fault = 0;
                             }
 
+                            int numProcCorretos = 0;
+                            for (i = 0; i < N; i++)
+                                numProcCorretos +=
+                                    (status(processo[i].id) == 0);
+
                             estatisticasInicializadas = 0;
                             timestampEleicao = time() - timestampEleicao;
                             printf("\n===================================\n");
@@ -502,6 +507,11 @@ int main(int argc, char* argv[]) {
                                    numMensagensEleicao);
                             printf("Tempo de eleição (SMPL): %4.1f\n",
                                    timestampEleicao);
+                            printf("Número de Processos Corretos: %02d\n",
+                                   numProcCorretos);
+                            printf("Número de Processos Falhos: %02d\n",
+                                   N - numProcCorretos);
+
                             printf("===================================\n\n");
                         }
                         commit(token);
