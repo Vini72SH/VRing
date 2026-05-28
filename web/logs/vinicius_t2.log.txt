@@ -1,0 +1,47 @@
+===============================================================
+           Sistemas Distribuídos Prof. Elias
+          LOG do Trabalho Prático 0, Tarefa 2
+Cada processo correto executa testes até achar outro processo
+correto. Lembre-se de tratar o caso em que todos os demais processos
+       estão falhos. Imprimir os testes e resultados.
+
+   Este programa foi executado para: N=8 processos.
+           Tempo Total de Simulação = 150
+===============================================================
+O processo 0 testou o processo 1 correto no tempo 30.0
+O processo 1 testou o processo 2 correto no tempo 30.0
+O processo 2 testou o processo 3 correto no tempo 30.0
+O processo 3 testou o processo 4 correto no tempo 30.0
+O processo 4 testou o processo 5 correto no tempo 30.0
+O processo 5 testou o processo 6 correto no tempo 30.0
+O processo 6 testou o processo 7 correto no tempo 30.0
+O processo 7 testou o processo 0 correto no tempo 30.0
+Socorro!!! Sou o processo 1 e estou falhando no tempo 60.0
+O processo 0 testou o processo 1 suspeito no tempo 60.0
+O processo 0 testou o processo 2 correto no tempo 60.0
+O processo 2 testou o processo 3 correto no tempo 60.0
+O processo 3 testou o processo 4 correto no tempo 60.0
+O processo 4 testou o processo 5 correto no tempo 60.0
+O processo 5 testou o processo 6 correto no tempo 60.0
+O processo 6 testou o processo 7 correto no tempo 60.0
+O processo 7 testou o processo 0 correto no tempo 60.0
+Socorro!!! Sou o processo 4 e estou falhando no tempo 75.0
+Socorro!!! Sou o processo 3 e estou falhando no tempo 90.0
+O processo 0 testou o processo 1 suspeito no tempo 90.0
+O processo 0 testou o processo 2 correto no tempo 90.0
+O processo 2 testou o processo 3 suspeito no tempo 90.0
+O processo 2 testou o processo 4 suspeito no tempo 90.0
+O processo 2 testou o processo 5 correto no tempo 90.0
+O processo 5 testou o processo 6 correto no tempo 90.0
+O processo 6 testou o processo 7 correto no tempo 90.0
+O processo 7 testou o processo 0 correto no tempo 90.0
+Socorro!!! Sou o processo 2 e estou falhando no tempo 105.0
+O processo 0 testou o processo 1 suspeito no tempo 120.0
+O processo 0 testou o processo 2 suspeito no tempo 120.0
+O processo 0 testou o processo 3 suspeito no tempo 120.0
+O processo 0 testou o processo 4 suspeito no tempo 120.0
+O processo 0 testou o processo 5 correto no tempo 120.0
+O processo 5 testou o processo 6 correto no tempo 120.0
+O processo 6 testou o processo 7 correto no tempo 120.0
+O processo 7 testou o processo 0 correto no tempo 120.0
+Fim de Simulação no tempo 150.0...

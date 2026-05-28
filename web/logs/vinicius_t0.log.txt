@@ -1,0 +1,42 @@
+===============================================================
+           Sistemas Distribuídos Prof. Elias
+          LOG do Trabalho Prático 0, Tarefa 0
+      Digitar, compilar e executar o programa tempo.c
+   Este programa foi executado para: N=8 processos.
+           Tempo Total de Simulação = 150
+===============================================================
+Processo 0: estou testando no tempo 30.0
+Processo 1: estou testando no tempo 30.0
+Processo 2: estou testando no tempo 30.0
+Processo 3: estou testando no tempo 30.0
+Processo 4: estou testando no tempo 30.0
+Processo 5: estou testando no tempo 30.0
+Processo 6: estou testando no tempo 30.0
+Processo 7: estou testando no tempo 30.0
+Socorro!!! Sou o processo 1 e estou falhando no tempo 31.0
+Processo 0: estou testando no tempo 60.0
+Processo 2: estou testando no tempo 60.0
+Processo 3: estou testando no tempo 60.0
+Processo 4: estou testando no tempo 60.0
+Processo 5: estou testando no tempo 60.0
+Processo 6: estou testando no tempo 60.0
+Processo 7: estou testando no tempo 60.0
+Viva!!! Sou o processo 1 e acabo de recuperar no tempo 61.0
+Processo 1: estou testando no tempo 62.0
+Processo 0: estou testando no tempo 90.0
+Processo 2: estou testando no tempo 90.0
+Processo 3: estou testando no tempo 90.0
+Processo 4: estou testando no tempo 90.0
+Processo 5: estou testando no tempo 90.0
+Processo 6: estou testando no tempo 90.0
+Processo 7: estou testando no tempo 90.0
+Processo 1: estou testando no tempo 92.0
+Processo 0: estou testando no tempo 120.0
+Processo 2: estou testando no tempo 120.0
+Processo 3: estou testando no tempo 120.0
+Processo 4: estou testando no tempo 120.0
+Processo 5: estou testando no tempo 120.0
+Processo 6: estou testando no tempo 120.0
+Processo 7: estou testando no tempo 120.0
+Processo 1: estou testando no tempo 122.0
+Processo 0: estou testando no tempo 150.0
