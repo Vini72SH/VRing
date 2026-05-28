@@ -205,9 +205,9 @@ void freeMsg(int proc, Mensagem msg) {
 
 int main(int argc, char* argv[]) {
 #ifdef DEBUG
-    printf("DEBUG mode is ON\n");
+    printf("DEBUG MODE is ON\n");
 #else
-    printf("DEBUG mode is OFF\n");
+    printf("DEBUG MODE is OFF\n");
 #endif
 
     static int ret, token, event, i, j, MaxTempoSimulac = 1000;
@@ -231,6 +231,10 @@ int main(int argc, char* argv[]) {
     }
 
     N = atoi(argv[1]);
+    if (N <= 0) {
+        fprintf(stderr, "Número de processos deve ser um inteiro positivo.\n");
+        return EXIT_FAILURE;
+    }
 
     puts("===============================================================");
     puts("           Sistemas Distribuídos Prof. Elias");

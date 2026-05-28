@@ -144,9 +144,9 @@ void commit(int proc) { processo[proc].msg.valida = 0; }
 
 int main(int argc, char* argv[]) {
 #ifdef DEBUG
-    printf("DEBUG mode is ON\n");
+    printf("DEBUG MODE is ON\n");
 #else
-    printf("DEBUG mode is OFF\n");
+    printf("DEBUG MODE is OFF\n");
 #endif
 
     static int ret, token, event, r, i, j, MaxTempoSimulac = 1000;
@@ -170,6 +170,10 @@ int main(int argc, char* argv[]) {
     }
 
     N = atoi(argv[1]);
+    if (N <= 0) {
+        fprintf(stderr, "Número de processos deve ser um inteiro positivo.\n");
+        return EXIT_FAILURE;
+    }
 
     puts("===============================================================");
     puts("           Sistemas Distribuídos Prof. Elias");
@@ -215,7 +219,12 @@ int main(int argc, char* argv[]) {
     printf("2) Um número aleatório de candidatos\n");
     printf("3) Todos os processos são candidatos\n");
     printf("Selecione uma opção entre 1 e 3: ");
-    scanf("%d", &op);
+    if (scanf("%d", &op) != 1 || (op != 1 && op != 2 && op != 3)) {
+        fprintf(stderr, "Entrada inválida.\n");
+        return EXIT_FAILURE;
+    }
+
+    printf("Opção de eleição selecionada: %d\n", op);
 
     // Definição de candidatos
     switch (op) {
@@ -236,7 +245,14 @@ int main(int argc, char* argv[]) {
     printf("1) Sim\n");
     printf("2) Não\n");
     printf("Selecione uma opção entre 1 e 2: ");
-    scanf("%d", &op);
+    if (scanf("%d", &op) != 1 || (op != 1 && op != 2)) {
+        fprintf(stderr,
+                "Entrada inválida. Digite 1 para habilitar falhas ou 2 para "
+                "desabilitar.\n");
+        return EXIT_FAILURE;
+    }
+
+    printf("Opção de falha selecionada: %d\n", op);
 
     if (op == 1) {
         printf("Gerando eventos de falha...\n");
