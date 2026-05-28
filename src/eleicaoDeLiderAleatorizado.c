@@ -370,12 +370,11 @@ int main(int argc, char* argv[]) {
 
                 if ((processo[token].lider >= 0) &&
                     (processo[token].state[processo[token].lider] > 0)) {
-                    if (habilitarLog)
-                        printf(
-                            "\nO processo %02d detectou que o líder %02d "
-                            "falhou no "
-                            "tempo %4.1f e irá iniciar uma nova eleição\n",
-                            token, processo[token].lider, time());
+                    printf(
+                        "\nO processo %02d detectou que o líder %02d "
+                        "falhou no "
+                        "tempo %4.1f e irá iniciar uma nova eleição\n",
+                        token, processo[token].lider, time());
 
                     processo[token].epochAgendamento =
                         processo[token].epoch + 1;
@@ -511,14 +510,16 @@ int main(int argc, char* argv[]) {
                 Mensagem novaMsg;
                 novaMsg.criador = token;
                 novaMsg.bit = processo[token].bit;
-                novaMsg.rodada = 1;
+                novaMsg.rodada = processo[token].rodada;
                 novaMsg.epoch = processo[token].epoch;
                 novaMsg.seq = processo[token].contador++;
 
                 numMensagensEleicao++;
                 if (habilitarLog)
-                    printf("Enviando a mensagem dessa eleição para %02d\n",
-                           processo[token].proxProc);
+                    printf(
+                        "Enviando a mensagem dessa eleição para o processo "
+                        "%02d\n",
+                        processo[token].proxProc);
                 send(token, processo[token].proxProc, novaMsg);
 
                 break;
@@ -639,7 +640,8 @@ int main(int argc, char* argv[]) {
                         if (habilitarLog)
                             printf(
                                 "Enviando a mensagem da rodada adicional para "
-                                "%d\n",
+                                "o processo "
+                                "%02d\n",
                                 processo[token].proxProc);
                         send(token, processo[token].proxProc, msgFinal);
                     }
@@ -758,7 +760,7 @@ int main(int argc, char* argv[]) {
                                 printf(
                                     "A mensagem pertence a uma rodada "
                                     "anterior, "
-                                    "enviando para %02d\n",
+                                    "enviando para o processo %02d\n",
                                     processo[token].proxProc);
                             send(token, processo[token].proxProc, recMsg);
                         } else {
@@ -767,7 +769,8 @@ int main(int argc, char* argv[]) {
                             if (habilitarLog)
                                 printf(
                                     "A mensagem pertence a uma rodada futura, "
-                                    "atualizando e enviando para %02d\n",
+                                    "atualizando e enviando para o processo "
+                                    "%02d\n",
                                     processo[token].proxProc);
                             processo[token].novaRodada = 1;
                             processo[token].recebendoMensagens = 0;
@@ -782,7 +785,7 @@ int main(int argc, char* argv[]) {
                         if (habilitarLog)
                             printf(
                                 "A mensagem pertence a uma eleição anterior, "
-                                "enviando para %02d\n",
+                                "enviando para o processo %02d\n",
                                 processo[token].proxProc);
                         send(token, processo[token].proxProc, recMsg);
 
@@ -791,7 +794,7 @@ int main(int argc, char* argv[]) {
                         if (habilitarLog)
                             printf(
                                 "A mensagem pertence a uma eleição futura, "
-                                "atualizando e enviando para %02d\n",
+                                "atualizando e enviando para o processo %02d\n",
                                 processo[token].proxProc);
                         processo[token].recebendoMensagens = 0;
                         processo[token].buff = recMsg;

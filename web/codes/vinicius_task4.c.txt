@@ -50,9 +50,9 @@ int main(int argc, char* argv[]) {
     puts("          LOG do Trabalho Prático 0, Tarefa 4");
     puts(
         "Quando um processo correto testa outro processo correto obtém as\n"
-        "informações do estado dos demais processos do sistema, processos do\n"
-        "sistema exceto aqueles que testou nesta rodada, além do próprio\n"
-        "testador.\n");
+        "       informações do estado dos demais processos do sistema\n"
+        "       exceto aqueles que testou nesta rodada, além do próprio\n"
+        "                               testador.\n");
     printf("   Este programa foi executado para: N=%d processos.\n", N);
     printf("           Tempo Total de Simulação = %d\n", MaxTempoSimulac);
     puts("===============================================================");

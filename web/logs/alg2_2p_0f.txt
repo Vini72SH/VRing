@@ -1,0 +1,56 @@
+DEBUG MODE is OFF
+===============================================================
+           Sistemas Distribuídos Prof. Elias
+                LOG do Trabalho Prático
+   Vinícius Jeremias dos Santos e Agathe My Anh Rabasse
+             Última Modificação: 27/05/2026
+        Algoritmo de Eleição de Líder Aleatorizado
+   Este programa foi executado para: N=2 processos.
+           Tempo Total de Simulação = 1000
+===============================================================
+Nesta execução, processos podem falhar (incluindo o líder)?:
+1) Sim
+2) Não
+Selecione uma opção entre 1 e 2: Opção de falha selecionada: 2
+O processo 00 está se preparando para eleger um líder no tempo 35.0
+O processo 00 é candidato a líder
+Enviando a mensagem dessa eleição para o processo 01
+O processo 01 está se preparando para eleger um líder no tempo 35.0
+O processo 01 não é candidato a líder
+Enviando a mensagem dessa eleição para o processo 00
+
+Sou o processo 01 e recebi uma mensagem do processo 00
+Sobre a candidatura do processo 00 na rodada 01 da eleição 01 no tempo 36.0
+Enviando mensagem para o processo 00
+O processo 01 detectou que todos os corretos responderam no tempo 36.0
+
+Sou o processo 00 e recebi uma mensagem do processo 01
+Sobre a candidatura do processo 01 na rodada 01 da eleição 01 no tempo 36.0
+Enviando mensagem para o processo 01
+O processo 00 detectou que todos os corretos responderam no tempo 36.0
+
+O processo 00 recebeu a própria mensagem, a retirando do anel no tempo 37.0
+
+O processo 01 recebeu a própria mensagem, a retirando do anel no tempo 37.0
+
+FIM DA RODADA 01 PARA O PROCESSO 01 NO TEMPO 41.0
+Vetor de Bits do Processo 01
+[ 1 0 ]
+O processo 01 considera o processo 00 o líder
+Enviando a mensagem da rodada adicional para o processo 00
+
+FIM DA RODADA 01 PARA O PROCESSO 00 NO TEMPO 41.0
+Vetor de Bits do Processo 00
+[ 1 0 ]
+Eu, o processo 00, sou o líder!
+
+===================================
+Processo Líder: 0
+Número de mensagens para a eleição: 4
+Tempo de eleição (SMPL):  6.0
+Número de Rodadas da Eleição: 02
+Número de Processos Corretos: 02
+Número de Processos Falhos: 00
+===================================
+
+Fim de Simulação no tempo 1000.0...

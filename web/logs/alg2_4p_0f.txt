@@ -1,0 +1,296 @@
+DEBUG MODE is OFF
+===============================================================
+           Sistemas Distribuídos Prof. Elias
+                LOG do Trabalho Prático
+   Vinícius Jeremias dos Santos e Agathe My Anh Rabasse
+             Última Modificação: 27/05/2026
+        Algoritmo de Eleição de Líder Aleatorizado
+   Este programa foi executado para: N=4 processos.
+           Tempo Total de Simulação = 1000
+===============================================================
+Nesta execução, processos podem falhar (incluindo o líder)?:
+1) Sim
+2) Não
+Selecione uma opção entre 1 e 2: Opção de falha selecionada: 2
+O processo 00 está se preparando para eleger um líder no tempo 35.0
+O processo 00 é candidato a líder
+Enviando a mensagem dessa eleição para o processo 01
+O processo 01 está se preparando para eleger um líder no tempo 35.0
+O processo 01 não é candidato a líder
+Enviando a mensagem dessa eleição para o processo 02
+O processo 02 está se preparando para eleger um líder no tempo 35.0
+O processo 02 é candidato a líder
+Enviando a mensagem dessa eleição para o processo 03
+O processo 03 está se preparando para eleger um líder no tempo 35.0
+O processo 03 é candidato a líder
+Enviando a mensagem dessa eleição para o processo 00
+
+Sou o processo 01 e recebi uma mensagem do processo 00
+Sobre a candidatura do processo 00 na rodada 01 da eleição 01 no tempo 36.0
+Enviando mensagem para o processo 02
+
+Sou o processo 02 e recebi uma mensagem do processo 01
+Sobre a candidatura do processo 01 na rodada 01 da eleição 01 no tempo 36.0
+Enviando mensagem para o processo 03
+
+Sou o processo 03 e recebi uma mensagem do processo 02
+Sobre a candidatura do processo 02 na rodada 01 da eleição 01 no tempo 36.0
+Enviando mensagem para o processo 00
+
+Sou o processo 00 e recebi uma mensagem do processo 03
+Sobre a candidatura do processo 03 na rodada 01 da eleição 01 no tempo 36.0
+Enviando mensagem para o processo 01
+
+Sou o processo 02 e recebi uma mensagem do processo 01
+Sobre a candidatura do processo 00 na rodada 01 da eleição 01 no tempo 37.0
+Enviando mensagem para o processo 03
+
+Sou o processo 03 e recebi uma mensagem do processo 02
+Sobre a candidatura do processo 01 na rodada 01 da eleição 01 no tempo 37.0
+Enviando mensagem para o processo 00
+
+Sou o processo 00 e recebi uma mensagem do processo 03
+Sobre a candidatura do processo 02 na rodada 01 da eleição 01 no tempo 37.0
+Enviando mensagem para o processo 01
+
+Sou o processo 01 e recebi uma mensagem do processo 00
+Sobre a candidatura do processo 03 na rodada 01 da eleição 01 no tempo 37.0
+Enviando mensagem para o processo 02
+
+Sou o processo 03 e recebi uma mensagem do processo 02
+Sobre a candidatura do processo 00 na rodada 01 da eleição 01 no tempo 38.0
+Enviando mensagem para o processo 00
+O processo 03 detectou que todos os corretos responderam no tempo 38.0
+
+Sou o processo 00 e recebi uma mensagem do processo 03
+Sobre a candidatura do processo 01 na rodada 01 da eleição 01 no tempo 38.0
+Enviando mensagem para o processo 01
+O processo 00 detectou que todos os corretos responderam no tempo 38.0
+
+Sou o processo 01 e recebi uma mensagem do processo 00
+Sobre a candidatura do processo 02 na rodada 01 da eleição 01 no tempo 38.0
+Enviando mensagem para o processo 02
+O processo 01 detectou que todos os corretos responderam no tempo 38.0
+
+Sou o processo 02 e recebi uma mensagem do processo 01
+Sobre a candidatura do processo 03 na rodada 01 da eleição 01 no tempo 38.0
+Enviando mensagem para o processo 03
+O processo 02 detectou que todos os corretos responderam no tempo 38.0
+
+O processo 00 recebeu a própria mensagem, a retirando do anel no tempo 39.0
+
+O processo 01 recebeu a própria mensagem, a retirando do anel no tempo 39.0
+
+O processo 02 recebeu a própria mensagem, a retirando do anel no tempo 39.0
+
+O processo 03 recebeu a própria mensagem, a retirando do anel no tempo 39.0
+
+FIM DA RODADA 01 PARA O PROCESSO 03 NO TEMPO 43.0
+Vetor de Bits do Processo 03
+[ 1 0 1 1 ]
+O processo 03 está iniciando uma nova rodada no tempo 43.0
+O processo 03 ainda é candidato a líder
+Enviando a mensagem dessa rodada para o processo 00
+
+FIM DA RODADA 01 PARA O PROCESSO 00 NO TEMPO 43.0
+Vetor de Bits do Processo 00
+[ 1 0 1 1 ]
+O processo 00 está iniciando uma nova rodada no tempo 43.0
+O processo 00 ainda é candidato a líder
+Enviando a mensagem dessa rodada para o processo 01
+
+FIM DA RODADA 01 PARA O PROCESSO 01 NO TEMPO 43.0
+Vetor de Bits do Processo 01
+[ 1 0 1 1 ]
+O processo 01 está iniciando uma nova rodada no tempo 43.0
+O processo 01 não é candidato a líder
+Enviando a mensagem dessa rodada para o processo 02
+
+FIM DA RODADA 01 PARA O PROCESSO 02 NO TEMPO 43.0
+Vetor de Bits do Processo 02
+[ 1 0 1 1 ]
+O processo 02 está iniciando uma nova rodada no tempo 43.0
+O processo 02 não é candidato a líder
+Enviando a mensagem dessa rodada para o processo 03
+
+Sou o processo 00 e recebi uma mensagem do processo 03
+Sobre a candidatura do processo 03 na rodada 02 da eleição 01 no tempo 44.0
+Enviando mensagem para o processo 01
+
+Sou o processo 01 e recebi uma mensagem do processo 00
+Sobre a candidatura do processo 00 na rodada 02 da eleição 01 no tempo 44.0
+Enviando mensagem para o processo 02
+
+Sou o processo 02 e recebi uma mensagem do processo 01
+Sobre a candidatura do processo 01 na rodada 02 da eleição 01 no tempo 44.0
+Enviando mensagem para o processo 03
+
+Sou o processo 03 e recebi uma mensagem do processo 02
+Sobre a candidatura do processo 02 na rodada 02 da eleição 01 no tempo 44.0
+Enviando mensagem para o processo 00
+
+Sou o processo 01 e recebi uma mensagem do processo 00
+Sobre a candidatura do processo 03 na rodada 02 da eleição 01 no tempo 45.0
+Enviando mensagem para o processo 02
+
+Sou o processo 02 e recebi uma mensagem do processo 01
+Sobre a candidatura do processo 00 na rodada 02 da eleição 01 no tempo 45.0
+Enviando mensagem para o processo 03
+
+Sou o processo 03 e recebi uma mensagem do processo 02
+Sobre a candidatura do processo 01 na rodada 02 da eleição 01 no tempo 45.0
+Enviando mensagem para o processo 00
+
+Sou o processo 00 e recebi uma mensagem do processo 03
+Sobre a candidatura do processo 02 na rodada 02 da eleição 01 no tempo 45.0
+Enviando mensagem para o processo 01
+
+Sou o processo 02 e recebi uma mensagem do processo 01
+Sobre a candidatura do processo 03 na rodada 02 da eleição 01 no tempo 46.0
+Enviando mensagem para o processo 03
+O processo 02 detectou que todos os corretos responderam no tempo 46.0
+
+Sou o processo 03 e recebi uma mensagem do processo 02
+Sobre a candidatura do processo 00 na rodada 02 da eleição 01 no tempo 46.0
+Enviando mensagem para o processo 00
+O processo 03 detectou que todos os corretos responderam no tempo 46.0
+
+Sou o processo 00 e recebi uma mensagem do processo 03
+Sobre a candidatura do processo 01 na rodada 02 da eleição 01 no tempo 46.0
+Enviando mensagem para o processo 01
+O processo 00 detectou que todos os corretos responderam no tempo 46.0
+
+Sou o processo 01 e recebi uma mensagem do processo 00
+Sobre a candidatura do processo 02 na rodada 02 da eleição 01 no tempo 46.0
+Enviando mensagem para o processo 02
+O processo 01 detectou que todos os corretos responderam no tempo 46.0
+
+O processo 03 recebeu a própria mensagem, a retirando do anel no tempo 47.0
+
+O processo 00 recebeu a própria mensagem, a retirando do anel no tempo 47.0
+
+O processo 01 recebeu a própria mensagem, a retirando do anel no tempo 47.0
+
+O processo 02 recebeu a própria mensagem, a retirando do anel no tempo 47.0
+
+FIM DA RODADA 02 PARA O PROCESSO 02 NO TEMPO 51.0
+Vetor de Bits do Processo 02
+[ 1 0 0 1 ]
+O processo 02 está iniciando uma nova rodada no tempo 51.0
+O processo 02 não é candidato a líder
+Enviando a mensagem dessa rodada para o processo 03
+
+FIM DA RODADA 02 PARA O PROCESSO 03 NO TEMPO 51.0
+Vetor de Bits do Processo 03
+[ 1 0 0 1 ]
+O processo 03 está iniciando uma nova rodada no tempo 51.0
+O processo 03 não é candidato a líder
+Enviando a mensagem dessa rodada para o processo 00
+
+FIM DA RODADA 02 PARA O PROCESSO 00 NO TEMPO 51.0
+Vetor de Bits do Processo 00
+[ 1 0 0 1 ]
+O processo 00 está iniciando uma nova rodada no tempo 51.0
+O processo 00 ainda é candidato a líder
+Enviando a mensagem dessa rodada para o processo 01
+
+FIM DA RODADA 02 PARA O PROCESSO 01 NO TEMPO 51.0
+Vetor de Bits do Processo 01
+[ 1 0 0 1 ]
+O processo 01 está iniciando uma nova rodada no tempo 51.0
+O processo 01 não é candidato a líder
+Enviando a mensagem dessa rodada para o processo 02
+
+Sou o processo 03 e recebi uma mensagem do processo 02
+Sobre a candidatura do processo 02 na rodada 03 da eleição 01 no tempo 52.0
+Enviando mensagem para o processo 00
+
+Sou o processo 00 e recebi uma mensagem do processo 03
+Sobre a candidatura do processo 03 na rodada 03 da eleição 01 no tempo 52.0
+Enviando mensagem para o processo 01
+
+Sou o processo 01 e recebi uma mensagem do processo 00
+Sobre a candidatura do processo 00 na rodada 03 da eleição 01 no tempo 52.0
+Enviando mensagem para o processo 02
+
+Sou o processo 02 e recebi uma mensagem do processo 01
+Sobre a candidatura do processo 01 na rodada 03 da eleição 01 no tempo 52.0
+Enviando mensagem para o processo 03
+
+Sou o processo 00 e recebi uma mensagem do processo 03
+Sobre a candidatura do processo 02 na rodada 03 da eleição 01 no tempo 53.0
+Enviando mensagem para o processo 01
+
+Sou o processo 01 e recebi uma mensagem do processo 00
+Sobre a candidatura do processo 03 na rodada 03 da eleição 01 no tempo 53.0
+Enviando mensagem para o processo 02
+
+Sou o processo 02 e recebi uma mensagem do processo 01
+Sobre a candidatura do processo 00 na rodada 03 da eleição 01 no tempo 53.0
+Enviando mensagem para o processo 03
+
+Sou o processo 03 e recebi uma mensagem do processo 02
+Sobre a candidatura do processo 01 na rodada 03 da eleição 01 no tempo 53.0
+Enviando mensagem para o processo 00
+
+Sou o processo 01 e recebi uma mensagem do processo 00
+Sobre a candidatura do processo 02 na rodada 03 da eleição 01 no tempo 54.0
+Enviando mensagem para o processo 02
+O processo 01 detectou que todos os corretos responderam no tempo 54.0
+
+Sou o processo 02 e recebi uma mensagem do processo 01
+Sobre a candidatura do processo 03 na rodada 03 da eleição 01 no tempo 54.0
+Enviando mensagem para o processo 03
+O processo 02 detectou que todos os corretos responderam no tempo 54.0
+
+Sou o processo 03 e recebi uma mensagem do processo 02
+Sobre a candidatura do processo 00 na rodada 03 da eleição 01 no tempo 54.0
+Enviando mensagem para o processo 00
+O processo 03 detectou que todos os corretos responderam no tempo 54.0
+
+Sou o processo 00 e recebi uma mensagem do processo 03
+Sobre a candidatura do processo 01 na rodada 03 da eleição 01 no tempo 54.0
+Enviando mensagem para o processo 01
+O processo 00 detectou que todos os corretos responderam no tempo 54.0
+
+O processo 02 recebeu a própria mensagem, a retirando do anel no tempo 55.0
+
+O processo 03 recebeu a própria mensagem, a retirando do anel no tempo 55.0
+
+O processo 00 recebeu a própria mensagem, a retirando do anel no tempo 55.0
+
+O processo 01 recebeu a própria mensagem, a retirando do anel no tempo 55.0
+
+FIM DA RODADA 03 PARA O PROCESSO 01 NO TEMPO 59.0
+Vetor de Bits do Processo 01
+[ 1 0 0 0 ]
+O processo 01 considera o processo 00 o líder
+Enviando a mensagem da rodada adicional para o processo 02
+
+FIM DA RODADA 03 PARA O PROCESSO 02 NO TEMPO 59.0
+Vetor de Bits do Processo 02
+[ 1 0 0 0 ]
+O processo 02 considera o processo 00 o líder
+Enviando a mensagem da rodada adicional para o processo 03
+
+FIM DA RODADA 03 PARA O PROCESSO 03 NO TEMPO 59.0
+Vetor de Bits do Processo 03
+[ 1 0 0 0 ]
+O processo 03 considera o processo 00 o líder
+Enviando a mensagem da rodada adicional para o processo 00
+
+FIM DA RODADA 03 PARA O PROCESSO 00 NO TEMPO 59.0
+Vetor de Bits do Processo 00
+[ 1 0 0 0 ]
+Eu, o processo 00, sou o líder!
+
+===================================
+Processo Líder: 0
+Número de mensagens para a eleição: 16
+Tempo de eleição (SMPL): 24.0
+Número de Rodadas da Eleição: 04
+Número de Processos Corretos: 04
+Número de Processos Falhos: 00
+===================================
+
+Fim de Simulação no tempo 1000.0...

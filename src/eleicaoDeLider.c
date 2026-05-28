@@ -47,7 +47,7 @@ typedef struct {
 
     int sent;         // Indica se a mensagem bufferizada foi enviada / é válida
     Mensagem buff;    // Mensagem bufferizada
-    int recievedAck;  // Indica se a mensagem bufferizada recebeu ack
+    int receivedAck;  // Indica se a mensagem bufferizada recebeu ack
 } TipoProcesso;
 
 TipoProcesso* processo;
@@ -118,7 +118,7 @@ int send(int proc, int prox, Mensagem msg) {
 
     processo[proc].sent = 1;
     processo[proc].buff = msg;
-    processo[proc].recievedAck = 0;
+    processo[proc].receivedAck = 0;
 
     return 1;
 }
@@ -135,7 +135,7 @@ int recv(int proc, Mensagem* msg) {
 }
 
 void sendAck(int proc) {
-    processo[proc].recievedAck = 1;
+    processo[proc].receivedAck = 1;
     processo[proc].sent = 0;
 }
 
@@ -211,7 +211,7 @@ int main(int argc, char* argv[]) {
         processo[i].epoch = 0;
 
         processo[i].sent = 0;
-        processo[i].recievedAck = 0;
+        processo[i].receivedAck = 0;
     }
 
     printf("Nesta execução, a eleição de líder deve ser com:\n");
@@ -323,7 +323,7 @@ int main(int argc, char* argv[]) {
 
                 // Se não recebeu ACK da mensagem enviada, envia novamente.
                 if (processo[token].sent) {
-                    if (processo[token].recievedAck == 0) {
+                    if (processo[token].receivedAck == 0) {
                         printf(
                             "O processo %d enviou uma mensagem para o processo "
                             "%d e não recebeu "

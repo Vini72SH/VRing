@@ -1,0 +1,119 @@
+DEBUG MODE is OFF
+===============================================================
+           Sistemas Distribuídos Prof. Elias
+                LOG do Trabalho Prático
+   Vinícius Jeremias dos Santos e Agathe My Anh Rabasse
+              Algoritmo de Eleição de Líder
+             Última Modificação: 27/05/2026
+   Este programa foi executado para: N=8 processos.
+           Tempo Total de Simulação = 1000
+===============================================================
+Nesta execução, a eleição de líder deve ser com:
+1) 1 candidato aleatório
+2) Um número aleatório de candidatos
+3) Todos os processos são candidatos
+Selecione uma opção entre 1 e 3: Opção de eleição selecionada: 1
+Nesta execução, processos podem falhar (incluindo o líder)?:
+1) Sim
+2) Não
+Selecione uma opção entre 1 e 2: Opção de falha selecionada: 1
+Gerando eventos de falha...
+O processo 0 está se preparando para eleger um líder no tempo 35.0
+O processo 1 está se preparando para eleger um líder no tempo 35.0
+O processo 1 é candidato a líder
+O processo 2 está se preparando para eleger um líder no tempo 35.0
+O processo 3 está se preparando para eleger um líder no tempo 35.0
+O processo 4 está se preparando para eleger um líder no tempo 35.0
+O processo 5 está se preparando para eleger um líder no tempo 35.0
+O processo 6 está se preparando para eleger um líder no tempo 35.0
+O processo 7 está se preparando para eleger um líder no tempo 35.0
+
+Sou o processo 2 e recebi uma mensagem do processo 1 no tempo 36.0
+O processo 2 mudou do candidato -1 para o candidato 1 e enviara a mensagem para o processo 3
+
+Sou o processo 3 e recebi uma mensagem do processo 2 no tempo 37.0
+O processo 3 mudou do candidato -1 para o candidato 1 e enviara a mensagem para o processo 4
+
+Sou o processo 4 e recebi uma mensagem do processo 3 no tempo 38.0
+O processo 4 mudou do candidato -1 para o candidato 1 e enviara a mensagem para o processo 5
+
+Sou o processo 5 e recebi uma mensagem do processo 4 no tempo 39.0
+O processo 5 mudou do candidato -1 para o candidato 1 e enviara a mensagem para o processo 6
+
+Sou o processo 6 e recebi uma mensagem do processo 5 no tempo 40.0
+O processo 6 mudou do candidato -1 para o candidato 1 e enviara a mensagem para o processo 7
+
+Sou o processo 7 e recebi uma mensagem do processo 6 no tempo 41.0
+O processo 7 mudou do candidato -1 para o candidato 1 e enviara a mensagem para o processo 0
+
+Sou o processo 0 e recebi uma mensagem do processo 7 no tempo 42.0
+O processo 0 mudou do candidato -1 para o candidato 1 e enviara a mensagem para o processo 1
+
+Sou o processo 1 e recebi uma mensagem do processo 0 no tempo 43.0
+O processo 1 é o líder
+
+===================================
+Processo Líder: 1
+Número de mensagens para a eleição: 8
+Tempo de eleição (SMPL):  8.0
+Número de Processos Corretos: 08
+Número de Processos Falhos: 00
+===================================
+
+
+Socorro!!! Sou o processo 7 e estou falhando no tempo 60.0
+
+Socorro!!! Sou o processo 1 e estou falhando no tempo 73.0
+
+O processo 0 detectou que o líder 1 falhou no tempo 90.0
+Iniciando nova eleição de líder para esse processo
+
+O processo 6 detectou que o líder 1 falhou no tempo 90.0
+Iniciando nova eleição de líder para esse processo
+O processo 0 está se preparando para eleger um líder no tempo 91.0
+O processo 6 está se preparando para eleger um líder no tempo 91.0
+
+O processo 5 detectou que o líder 1 falhou no tempo 120.0
+Iniciando nova eleição de líder para esse processo
+O processo 5 está se preparando para eleger um líder no tempo 121.0
+
+O processo 4 detectou que o líder 1 falhou no tempo 150.0
+Iniciando nova eleição de líder para esse processo
+O processo 4 está se preparando para eleger um líder no tempo 151.0
+
+O processo 3 detectou que o líder 1 falhou no tempo 180.0
+Iniciando nova eleição de líder para esse processo
+O processo 3 está se preparando para eleger um líder no tempo 181.0
+
+O processo 2 detectou que o líder 1 falhou no tempo 210.0
+Iniciando nova eleição de líder para esse processo
+O processo 2 está se preparando para eleger um líder no tempo 211.0
+O processo 2 é candidato a líder
+
+Sou o processo 3 e recebi uma mensagem do processo 2 no tempo 212.0
+O processo 3 mudou do candidato -1 para o candidato 2 e enviara a mensagem para o processo 4
+
+Sou o processo 4 e recebi uma mensagem do processo 3 no tempo 213.0
+O processo 4 mudou do candidato -1 para o candidato 2 e enviara a mensagem para o processo 5
+
+Sou o processo 5 e recebi uma mensagem do processo 4 no tempo 214.0
+O processo 5 mudou do candidato -1 para o candidato 2 e enviara a mensagem para o processo 6
+
+Sou o processo 6 e recebi uma mensagem do processo 5 no tempo 215.0
+O processo 6 mudou do candidato -1 para o candidato 2 e enviara a mensagem para o processo 0
+
+Sou o processo 0 e recebi uma mensagem do processo 6 no tempo 216.0
+O processo 0 mudou do candidato -1 para o candidato 2 e enviara a mensagem para o processo 2
+
+Sou o processo 2 e recebi uma mensagem do processo 0 no tempo 217.0
+O processo 2 é o líder
+
+===================================
+Processo Líder: 2
+Número de mensagens para a eleição: 6
+Tempo de eleição (SMPL): 126.0
+Número de Processos Corretos: 06
+Número de Processos Falhos: 02
+===================================
+
+Fim de Simulação no tempo 1000.0...

@@ -1,0 +1,51 @@
+Algoritmo de Eleição de Líder Aleatorizado
+
+O Algoritmo de Eleição de Líder Aleatorizado desenvolvido neste 
+trabalho funciona em rodadas, a cada rodada um processo aleatoriamente define se 
+irá continuar candidato ou irá desistir de participar da eleição de líder.
+
+Na primeira rodada, cada processo sorteia seu bit de eleição (1 para candidato, 0 para não-candidato)
+e o envia no anel. Quando recebe mensagens dos bits de todos os processos corretos, inicia uma nova rodada.
+
+A ordem que os eventos de teste são escalonados é crescente, ou seja, é praticamente
+o pior caso possível para a execução do VRing, pois eventos tem alta latência para serem detectados.
+
+Nesse algoritmo, há um fluxo de mensagens muito maior do que no algoritmo baseado
+em Chang-Roberts, dessa forma, para comportar o recebimento de múltiplas mensagens
+por um processo, uma estrutura de dados de fila é necessária.
+
+As primitivas de envio e recebimento de mensagem evoluíram para trabalhar com filas de mensagens.
+A estrutura TipoProcesso mantém duas filas de mensagens, uma fila de mensagens enviadas "sentMsgs"
+e uma fila de mensagens recebidas pelo processo "msgs".
+Ao enviar uma mensagem, a chamada de Send insere a mensagem na fila de recebidas do processo destino
+e insere a mensagem na fila de enviadas do processo origem.
+
+A primitiva de recebimento de mensagens lida com mensagens repetidas, enviando ACK's para os processos
+de origem e retirando essas mensagens da fila. Cada processo armazena seu próprio vetor de números
+de sequência de mensagens dos demais processos, facilitando o gerenciamento e descarte de 
+mensagens que já foram tratadas pelo processo.
+Essa estrutura de troca de mensagens mais robusta foi utilizada para possibilitar a implementação do algoritmo.
+
+Após sortear o próprio "bit", um processo envia a sua mensagem no anel e espera receber as mensagens
+de todos os outros processos corretos, quando isso ocorre, define se é necessário uma nova rodada para 
+eleger um líder, se o líder foi eleito ou se é necessário uma nova eleição caso não tenha nenhum candidato.
+
+Nesse algoritmo, é necessário verificar se cada mensagem está na eleição atual e na rodada atual antes de
+tomar as devidas providências de tratamento. Quando um processo recebe uma mensagem de uma rodada
+ou eleição futura, ele precisa interromper o recebimento de mensagens e se atualizar para manter a 
+consistência com os demais processos.
+
+Assim como a implementação baseada em Chang-Roberts, é possível definir na entrada de dados se os 
+processos podem falhar durante a simulação. Caso isso seja configurado, um número aleatório de processos
+falha no tempo 60.0 e o líder eleito falha após 30.0 unidades de tempo.
+
+Devido a estrutura mais robusta de comunicação, os processos rapidamente mantém a consistência do anel
+quando algum processo falha, pois, a cada intervalo de testes, fazem verificações para cada mensagem
+armazenada na fila de enviadas. Se ainda não receberam ACK, são reenviadas para o próximo processo correto.
+
+É fácil detectar que nenhum processo é candidato ao fim de uma rodada de mensagens, neste caso, os processos
+iniciam uma nova eleição de líder e as estatísticas são reiniciadas para refletir a nova eleição.
+
+Como o fluxo de mensagens é muito grande nesse algoritmo, é recomendado verificar a corretude com poucos
+processos e apenas conferir os resultados finais da eleição de líder com muitos processos, pois os logs
+de execução crescem rapidamente conforme N aumenta.

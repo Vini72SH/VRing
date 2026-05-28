@@ -1,0 +1,55 @@
+Algoritmo de Eleição de Líder baseado em Chang-Roberts
+
+O algoritmo de eleição de líder baseado em Chang-Roberts desenvolvido neste 
+trabalho elege o processo com maior idenficador como líder.
+
+Processos definem se são candidatos e enviam uma mensagem para o próximo no anel.
+O processo que recebe a mensagem verifica se o candidato tem ID maior do que o processo 
+que considera líder, se sim, muda o processo que considera líder e envia a mensagem para o próximo.
+Caso contrário, apenas descarta a mensagem, pois enviou anteriormente uma mensagem de um candidato
+que considera líder com o ID maior do que o candidato indicado pela mensagem.
+
+A ordem que os eventos de teste são escalonados é crescente, ou seja, é praticamente
+o pior caso possível para a execução do VRing, pois eventos tem alta latência para serem detectados.
+
+Baseado em um valor de entrada, é possível simular uma eleição de líder onde apenas 1 processo é candidato,
+múltiplos processos aleatórios são candidatos ou todos os processos são candidatos.
+
+Nessa implementação, os processos se comunicam utilizando memória compartilhada 
+e uma estrutura de dados que representa uma mensagem, cada processo possui
+em sua própria estrutura TipoProcesso um espaço onde outro processo pode inserir uma mensagem.
+Os processos só podem receber uma mensagem por vez.
+
+Ao decidir ser um candidato, um processo cria uma mensagem utilizando a estrutura de dados, 
+insere a mensagem na estrutura do próximo processo e escalona um evento de recebimento de mensagem
+para 1 unidade de tempo no futuro. O próximo processo ao receber esse evento, trata a mensagem recebida
+e a envia para o seu próximo processo no anel, e segue dessa forma até finalizar a eleição.
+
+A implementação suporta a falha dos processos, antes de iniciar a simulação, é possível escolher se os processos
+podem falhar durante o andamento dos eventos, caso essa opção seja escolhida, um número aleatório de 
+processos falha exatamente no tempo 60.0 e após o líder ser eleito, ele irá falhar 30.0 unidades de tempo depois.
+
+Para lidar com processos falhando, é necessário resolver dois problemas que surgem com isso.
+
+* A falha do líder: Durante a rodada de testes, os processos sempre verificam o estado do líder.
+Quando um processo detecta que o líder falhou, ele escalona uma nova eleição de líder e o algoritmo reinicia.
+Quando ocorre a reiniciação, os parâmetros iniciais da simulação são mantidos, ou seja, apenas um novo processo, 
+múltiplos processos aleatórios ou todos os processos concorrem na nova eleição de líder, dependendo 
+da configuração inicial.
+Se algum processo recebe uma mensagem de uma eleição futura, ele atualiza seu estado para participar da nova eleição.
+
+* Processos falham durante a eleição: Conforme a quantidade de processos aumenta, se torna provável que
+os processos falhem no tempo 60.0 enquanto a eleição de líder ainda não foi finalizada nesse tempo, 
+para combater esse problema é necessário que os processos corretos confirmem o recebimento de suas mensagens 
+utilizando ACK's.
+Quando um processo recebe uma mensagem, ele manda ACK para o processo que enviou essa mensagem a ele,
+isto é feito de forma simples, há um conjunto de campos na estrutura TipoProcesso que indica se o processo
+enviou uma mensagem e se recebeu ACK para a mensagem que enviou, que é bufferizada enquanto não receber um ACK.
+Então, se um processo envia um ACK para o processo que o enviou uma mensagem, uma flag ACK é definida como 1.
+Dessa forma, a cada intervalo de testes, os processos verificam se receberam ACK de uma mensagem que enviaram,
+caso não tenham recebido, enviam para o próximo processo que consideram corretos.
+Essa implementação permitiu que os processos mantivessem a consistência do anel mesmo se alguns processos
+falharem durante a eleição de líder.
+
+O único caso não tratado nessa implemetação ocorre quando uma eleição é iniciada e nenhum processo é candidato.
+Quando isso ocorre, a eleição não é finalizada pois nenhum processo envia uma mensagem anunciando o seu candidato.

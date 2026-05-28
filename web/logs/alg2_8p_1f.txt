@@ -1,0 +1,1956 @@
+DEBUG MODE is OFF
+===============================================================
+           Sistemas Distribuídos Prof. Elias
+                LOG do Trabalho Prático
+   Vinícius Jeremias dos Santos e Agathe My Anh Rabasse
+             Última Modificação: 27/05/2026
+        Algoritmo de Eleição de Líder Aleatorizado
+   Este programa foi executado para: N=8 processos.
+           Tempo Total de Simulação = 1000
+===============================================================
+Nesta execução, processos podem falhar (incluindo o líder)?:
+1) Sim
+2) Não
+Selecione uma opção entre 1 e 2: Opção de falha selecionada: 1
+Gerando eventos de falha...
+O processo 00 está se preparando para eleger um líder no tempo 35.0
+O processo 00 é candidato a líder
+Enviando a mensagem dessa eleição para o processo 01
+O processo 01 está se preparando para eleger um líder no tempo 35.0
+O processo 01 é candidato a líder
+Enviando a mensagem dessa eleição para o processo 02
+O processo 02 está se preparando para eleger um líder no tempo 35.0
+O processo 02 não é candidato a líder
+Enviando a mensagem dessa eleição para o processo 03
+O processo 03 está se preparando para eleger um líder no tempo 35.0
+O processo 03 é candidato a líder
+Enviando a mensagem dessa eleição para o processo 04
+O processo 04 está se preparando para eleger um líder no tempo 35.0
+O processo 04 não é candidato a líder
+Enviando a mensagem dessa eleição para o processo 05
+O processo 05 está se preparando para eleger um líder no tempo 35.0
+O processo 05 é candidato a líder
+Enviando a mensagem dessa eleição para o processo 06
+O processo 06 está se preparando para eleger um líder no tempo 35.0
+O processo 06 é candidato a líder
+Enviando a mensagem dessa eleição para o processo 07
+O processo 07 está se preparando para eleger um líder no tempo 35.0
+O processo 07 não é candidato a líder
+Enviando a mensagem dessa eleição para o processo 00
+
+Sou o processo 01 e recebi uma mensagem do processo 00
+Sobre a candidatura do processo 00 na rodada 01 da eleição 01 no tempo 36.0
+Enviando mensagem para o processo 02
+
+Sou o processo 02 e recebi uma mensagem do processo 01
+Sobre a candidatura do processo 01 na rodada 01 da eleição 01 no tempo 36.0
+Enviando mensagem para o processo 03
+
+Sou o processo 03 e recebi uma mensagem do processo 02
+Sobre a candidatura do processo 02 na rodada 01 da eleição 01 no tempo 36.0
+Enviando mensagem para o processo 04
+
+Sou o processo 04 e recebi uma mensagem do processo 03
+Sobre a candidatura do processo 03 na rodada 01 da eleição 01 no tempo 36.0
+Enviando mensagem para o processo 05
+
+Sou o processo 05 e recebi uma mensagem do processo 04
+Sobre a candidatura do processo 04 na rodada 01 da eleição 01 no tempo 36.0
+Enviando mensagem para o processo 06
+
+Sou o processo 06 e recebi uma mensagem do processo 05
+Sobre a candidatura do processo 05 na rodada 01 da eleição 01 no tempo 36.0
+Enviando mensagem para o processo 07
+
+Sou o processo 07 e recebi uma mensagem do processo 06
+Sobre a candidatura do processo 06 na rodada 01 da eleição 01 no tempo 36.0
+Enviando mensagem para o processo 00
+
+Sou o processo 00 e recebi uma mensagem do processo 07
+Sobre a candidatura do processo 07 na rodada 01 da eleição 01 no tempo 36.0
+Enviando mensagem para o processo 01
+
+Sou o processo 02 e recebi uma mensagem do processo 01
+Sobre a candidatura do processo 00 na rodada 01 da eleição 01 no tempo 37.0
+Enviando mensagem para o processo 03
+
+Sou o processo 03 e recebi uma mensagem do processo 02
+Sobre a candidatura do processo 01 na rodada 01 da eleição 01 no tempo 37.0
+Enviando mensagem para o processo 04
+
+Sou o processo 04 e recebi uma mensagem do processo 03
+Sobre a candidatura do processo 02 na rodada 01 da eleição 01 no tempo 37.0
+Enviando mensagem para o processo 05
+
+Sou o processo 05 e recebi uma mensagem do processo 04
+Sobre a candidatura do processo 03 na rodada 01 da eleição 01 no tempo 37.0
+Enviando mensagem para o processo 06
+
+Sou o processo 06 e recebi uma mensagem do processo 05
+Sobre a candidatura do processo 04 na rodada 01 da eleição 01 no tempo 37.0
+Enviando mensagem para o processo 07
+
+Sou o processo 07 e recebi uma mensagem do processo 06
+Sobre a candidatura do processo 05 na rodada 01 da eleição 01 no tempo 37.0
+Enviando mensagem para o processo 00
+
+Sou o processo 00 e recebi uma mensagem do processo 07
+Sobre a candidatura do processo 06 na rodada 01 da eleição 01 no tempo 37.0
+Enviando mensagem para o processo 01
+
+Sou o processo 01 e recebi uma mensagem do processo 00
+Sobre a candidatura do processo 07 na rodada 01 da eleição 01 no tempo 37.0
+Enviando mensagem para o processo 02
+
+Sou o processo 03 e recebi uma mensagem do processo 02
+Sobre a candidatura do processo 00 na rodada 01 da eleição 01 no tempo 38.0
+Enviando mensagem para o processo 04
+
+Sou o processo 04 e recebi uma mensagem do processo 03
+Sobre a candidatura do processo 01 na rodada 01 da eleição 01 no tempo 38.0
+Enviando mensagem para o processo 05
+
+Sou o processo 05 e recebi uma mensagem do processo 04
+Sobre a candidatura do processo 02 na rodada 01 da eleição 01 no tempo 38.0
+Enviando mensagem para o processo 06
+
+Sou o processo 06 e recebi uma mensagem do processo 05
+Sobre a candidatura do processo 03 na rodada 01 da eleição 01 no tempo 38.0
+Enviando mensagem para o processo 07
+
+Sou o processo 07 e recebi uma mensagem do processo 06
+Sobre a candidatura do processo 04 na rodada 01 da eleição 01 no tempo 38.0
+Enviando mensagem para o processo 00
+
+Sou o processo 00 e recebi uma mensagem do processo 07
+Sobre a candidatura do processo 05 na rodada 01 da eleição 01 no tempo 38.0
+Enviando mensagem para o processo 01
+
+Sou o processo 01 e recebi uma mensagem do processo 00
+Sobre a candidatura do processo 06 na rodada 01 da eleição 01 no tempo 38.0
+Enviando mensagem para o processo 02
+
+Sou o processo 02 e recebi uma mensagem do processo 01
+Sobre a candidatura do processo 07 na rodada 01 da eleição 01 no tempo 38.0
+Enviando mensagem para o processo 03
+
+Sou o processo 04 e recebi uma mensagem do processo 03
+Sobre a candidatura do processo 00 na rodada 01 da eleição 01 no tempo 39.0
+Enviando mensagem para o processo 05
+
+Sou o processo 05 e recebi uma mensagem do processo 04
+Sobre a candidatura do processo 01 na rodada 01 da eleição 01 no tempo 39.0
+Enviando mensagem para o processo 06
+
+Sou o processo 06 e recebi uma mensagem do processo 05
+Sobre a candidatura do processo 02 na rodada 01 da eleição 01 no tempo 39.0
+Enviando mensagem para o processo 07
+
+Sou o processo 07 e recebi uma mensagem do processo 06
+Sobre a candidatura do processo 03 na rodada 01 da eleição 01 no tempo 39.0
+Enviando mensagem para o processo 00
+
+Sou o processo 00 e recebi uma mensagem do processo 07
+Sobre a candidatura do processo 04 na rodada 01 da eleição 01 no tempo 39.0
+Enviando mensagem para o processo 01
+
+Sou o processo 01 e recebi uma mensagem do processo 00
+Sobre a candidatura do processo 05 na rodada 01 da eleição 01 no tempo 39.0
+Enviando mensagem para o processo 02
+
+Sou o processo 02 e recebi uma mensagem do processo 01
+Sobre a candidatura do processo 06 na rodada 01 da eleição 01 no tempo 39.0
+Enviando mensagem para o processo 03
+
+Sou o processo 03 e recebi uma mensagem do processo 02
+Sobre a candidatura do processo 07 na rodada 01 da eleição 01 no tempo 39.0
+Enviando mensagem para o processo 04
+
+Sou o processo 05 e recebi uma mensagem do processo 04
+Sobre a candidatura do processo 00 na rodada 01 da eleição 01 no tempo 40.0
+Enviando mensagem para o processo 06
+
+Sou o processo 06 e recebi uma mensagem do processo 05
+Sobre a candidatura do processo 01 na rodada 01 da eleição 01 no tempo 40.0
+Enviando mensagem para o processo 07
+
+Sou o processo 07 e recebi uma mensagem do processo 06
+Sobre a candidatura do processo 02 na rodada 01 da eleição 01 no tempo 40.0
+Enviando mensagem para o processo 00
+
+Sou o processo 00 e recebi uma mensagem do processo 07
+Sobre a candidatura do processo 03 na rodada 01 da eleição 01 no tempo 40.0
+Enviando mensagem para o processo 01
+
+Sou o processo 01 e recebi uma mensagem do processo 00
+Sobre a candidatura do processo 04 na rodada 01 da eleição 01 no tempo 40.0
+Enviando mensagem para o processo 02
+
+Sou o processo 02 e recebi uma mensagem do processo 01
+Sobre a candidatura do processo 05 na rodada 01 da eleição 01 no tempo 40.0
+Enviando mensagem para o processo 03
+
+Sou o processo 03 e recebi uma mensagem do processo 02
+Sobre a candidatura do processo 06 na rodada 01 da eleição 01 no tempo 40.0
+Enviando mensagem para o processo 04
+
+Sou o processo 04 e recebi uma mensagem do processo 03
+Sobre a candidatura do processo 07 na rodada 01 da eleição 01 no tempo 40.0
+Enviando mensagem para o processo 05
+
+Sou o processo 06 e recebi uma mensagem do processo 05
+Sobre a candidatura do processo 00 na rodada 01 da eleição 01 no tempo 41.0
+Enviando mensagem para o processo 07
+
+Sou o processo 07 e recebi uma mensagem do processo 06
+Sobre a candidatura do processo 01 na rodada 01 da eleição 01 no tempo 41.0
+Enviando mensagem para o processo 00
+
+Sou o processo 00 e recebi uma mensagem do processo 07
+Sobre a candidatura do processo 02 na rodada 01 da eleição 01 no tempo 41.0
+Enviando mensagem para o processo 01
+
+Sou o processo 01 e recebi uma mensagem do processo 00
+Sobre a candidatura do processo 03 na rodada 01 da eleição 01 no tempo 41.0
+Enviando mensagem para o processo 02
+
+Sou o processo 02 e recebi uma mensagem do processo 01
+Sobre a candidatura do processo 04 na rodada 01 da eleição 01 no tempo 41.0
+Enviando mensagem para o processo 03
+
+Sou o processo 03 e recebi uma mensagem do processo 02
+Sobre a candidatura do processo 05 na rodada 01 da eleição 01 no tempo 41.0
+Enviando mensagem para o processo 04
+
+Sou o processo 04 e recebi uma mensagem do processo 03
+Sobre a candidatura do processo 06 na rodada 01 da eleição 01 no tempo 41.0
+Enviando mensagem para o processo 05
+
+Sou o processo 05 e recebi uma mensagem do processo 04
+Sobre a candidatura do processo 07 na rodada 01 da eleição 01 no tempo 41.0
+Enviando mensagem para o processo 06
+
+Sou o processo 07 e recebi uma mensagem do processo 06
+Sobre a candidatura do processo 00 na rodada 01 da eleição 01 no tempo 42.0
+Enviando mensagem para o processo 00
+O processo 07 detectou que todos os corretos responderam no tempo 42.0
+
+Sou o processo 00 e recebi uma mensagem do processo 07
+Sobre a candidatura do processo 01 na rodada 01 da eleição 01 no tempo 42.0
+Enviando mensagem para o processo 01
+O processo 00 detectou que todos os corretos responderam no tempo 42.0
+
+Sou o processo 01 e recebi uma mensagem do processo 00
+Sobre a candidatura do processo 02 na rodada 01 da eleição 01 no tempo 42.0
+Enviando mensagem para o processo 02
+O processo 01 detectou que todos os corretos responderam no tempo 42.0
+
+Sou o processo 02 e recebi uma mensagem do processo 01
+Sobre a candidatura do processo 03 na rodada 01 da eleição 01 no tempo 42.0
+Enviando mensagem para o processo 03
+O processo 02 detectou que todos os corretos responderam no tempo 42.0
+
+Sou o processo 03 e recebi uma mensagem do processo 02
+Sobre a candidatura do processo 04 na rodada 01 da eleição 01 no tempo 42.0
+Enviando mensagem para o processo 04
+O processo 03 detectou que todos os corretos responderam no tempo 42.0
+
+Sou o processo 04 e recebi uma mensagem do processo 03
+Sobre a candidatura do processo 05 na rodada 01 da eleição 01 no tempo 42.0
+Enviando mensagem para o processo 05
+O processo 04 detectou que todos os corretos responderam no tempo 42.0
+
+Sou o processo 05 e recebi uma mensagem do processo 04
+Sobre a candidatura do processo 06 na rodada 01 da eleição 01 no tempo 42.0
+Enviando mensagem para o processo 06
+O processo 05 detectou que todos os corretos responderam no tempo 42.0
+
+Sou o processo 06 e recebi uma mensagem do processo 05
+Sobre a candidatura do processo 07 na rodada 01 da eleição 01 no tempo 42.0
+Enviando mensagem para o processo 07
+O processo 06 detectou que todos os corretos responderam no tempo 42.0
+
+O processo 00 recebeu a própria mensagem, a retirando do anel no tempo 43.0
+
+O processo 01 recebeu a própria mensagem, a retirando do anel no tempo 43.0
+
+O processo 02 recebeu a própria mensagem, a retirando do anel no tempo 43.0
+
+O processo 03 recebeu a própria mensagem, a retirando do anel no tempo 43.0
+
+O processo 04 recebeu a própria mensagem, a retirando do anel no tempo 43.0
+
+O processo 05 recebeu a própria mensagem, a retirando do anel no tempo 43.0
+
+O processo 06 recebeu a própria mensagem, a retirando do anel no tempo 43.0
+
+O processo 07 recebeu a própria mensagem, a retirando do anel no tempo 43.0
+
+FIM DA RODADA 01 PARA O PROCESSO 07 NO TEMPO 47.0
+Vetor de Bits do Processo 07
+[ 1 1 0 1 0 1 1 0 ]
+O processo 07 está iniciando uma nova rodada no tempo 47.0
+O processo 07 não é candidato a líder
+Enviando a mensagem dessa rodada para o processo 00
+
+FIM DA RODADA 01 PARA O PROCESSO 00 NO TEMPO 47.0
+Vetor de Bits do Processo 00
+[ 1 1 0 1 0 1 1 0 ]
+O processo 00 está iniciando uma nova rodada no tempo 47.0
+O processo 00 não é candidato a líder
+Enviando a mensagem dessa rodada para o processo 01
+
+FIM DA RODADA 01 PARA O PROCESSO 01 NO TEMPO 47.0
+Vetor de Bits do Processo 01
+[ 1 1 0 1 0 1 1 0 ]
+O processo 01 está iniciando uma nova rodada no tempo 47.0
+O processo 01 não é candidato a líder
+Enviando a mensagem dessa rodada para o processo 02
+
+FIM DA RODADA 01 PARA O PROCESSO 02 NO TEMPO 47.0
+Vetor de Bits do Processo 02
+[ 1 1 0 1 0 1 1 0 ]
+O processo 02 está iniciando uma nova rodada no tempo 47.0
+O processo 02 não é candidato a líder
+Enviando a mensagem dessa rodada para o processo 03
+
+FIM DA RODADA 01 PARA O PROCESSO 03 NO TEMPO 47.0
+Vetor de Bits do Processo 03
+[ 1 1 0 1 0 1 1 0 ]
+O processo 03 está iniciando uma nova rodada no tempo 47.0
+O processo 03 não é candidato a líder
+Enviando a mensagem dessa rodada para o processo 04
+
+FIM DA RODADA 01 PARA O PROCESSO 04 NO TEMPO 47.0
+Vetor de Bits do Processo 04
+[ 1 1 0 1 0 1 1 0 ]
+O processo 04 está iniciando uma nova rodada no tempo 47.0
+O processo 04 não é candidato a líder
+Enviando a mensagem dessa rodada para o processo 05
+
+FIM DA RODADA 01 PARA O PROCESSO 05 NO TEMPO 47.0
+Vetor de Bits do Processo 05
+[ 1 1 0 1 0 1 1 0 ]
+O processo 05 está iniciando uma nova rodada no tempo 47.0
+O processo 05 não é candidato a líder
+Enviando a mensagem dessa rodada para o processo 06
+
+FIM DA RODADA 01 PARA O PROCESSO 06 NO TEMPO 47.0
+Vetor de Bits do Processo 06
+[ 1 1 0 1 0 1 1 0 ]
+O processo 06 está iniciando uma nova rodada no tempo 47.0
+O processo 06 ainda é candidato a líder
+Enviando a mensagem dessa rodada para o processo 07
+
+Sou o processo 00 e recebi uma mensagem do processo 07
+Sobre a candidatura do processo 07 na rodada 02 da eleição 01 no tempo 48.0
+Enviando mensagem para o processo 01
+
+Sou o processo 01 e recebi uma mensagem do processo 00
+Sobre a candidatura do processo 00 na rodada 02 da eleição 01 no tempo 48.0
+Enviando mensagem para o processo 02
+
+Sou o processo 02 e recebi uma mensagem do processo 01
+Sobre a candidatura do processo 01 na rodada 02 da eleição 01 no tempo 48.0
+Enviando mensagem para o processo 03
+
+Sou o processo 03 e recebi uma mensagem do processo 02
+Sobre a candidatura do processo 02 na rodada 02 da eleição 01 no tempo 48.0
+Enviando mensagem para o processo 04
+
+Sou o processo 04 e recebi uma mensagem do processo 03
+Sobre a candidatura do processo 03 na rodada 02 da eleição 01 no tempo 48.0
+Enviando mensagem para o processo 05
+
+Sou o processo 05 e recebi uma mensagem do processo 04
+Sobre a candidatura do processo 04 na rodada 02 da eleição 01 no tempo 48.0
+Enviando mensagem para o processo 06
+
+Sou o processo 06 e recebi uma mensagem do processo 05
+Sobre a candidatura do processo 05 na rodada 02 da eleição 01 no tempo 48.0
+Enviando mensagem para o processo 07
+
+Sou o processo 07 e recebi uma mensagem do processo 06
+Sobre a candidatura do processo 06 na rodada 02 da eleição 01 no tempo 48.0
+Enviando mensagem para o processo 00
+
+Sou o processo 01 e recebi uma mensagem do processo 00
+Sobre a candidatura do processo 07 na rodada 02 da eleição 01 no tempo 49.0
+Enviando mensagem para o processo 02
+
+Sou o processo 02 e recebi uma mensagem do processo 01
+Sobre a candidatura do processo 00 na rodada 02 da eleição 01 no tempo 49.0
+Enviando mensagem para o processo 03
+
+Sou o processo 03 e recebi uma mensagem do processo 02
+Sobre a candidatura do processo 01 na rodada 02 da eleição 01 no tempo 49.0
+Enviando mensagem para o processo 04
+
+Sou o processo 04 e recebi uma mensagem do processo 03
+Sobre a candidatura do processo 02 na rodada 02 da eleição 01 no tempo 49.0
+Enviando mensagem para o processo 05
+
+Sou o processo 05 e recebi uma mensagem do processo 04
+Sobre a candidatura do processo 03 na rodada 02 da eleição 01 no tempo 49.0
+Enviando mensagem para o processo 06
+
+Sou o processo 06 e recebi uma mensagem do processo 05
+Sobre a candidatura do processo 04 na rodada 02 da eleição 01 no tempo 49.0
+Enviando mensagem para o processo 07
+
+Sou o processo 07 e recebi uma mensagem do processo 06
+Sobre a candidatura do processo 05 na rodada 02 da eleição 01 no tempo 49.0
+Enviando mensagem para o processo 00
+
+Sou o processo 00 e recebi uma mensagem do processo 07
+Sobre a candidatura do processo 06 na rodada 02 da eleição 01 no tempo 49.0
+Enviando mensagem para o processo 01
+
+Sou o processo 02 e recebi uma mensagem do processo 01
+Sobre a candidatura do processo 07 na rodada 02 da eleição 01 no tempo 50.0
+Enviando mensagem para o processo 03
+
+Sou o processo 03 e recebi uma mensagem do processo 02
+Sobre a candidatura do processo 00 na rodada 02 da eleição 01 no tempo 50.0
+Enviando mensagem para o processo 04
+
+Sou o processo 04 e recebi uma mensagem do processo 03
+Sobre a candidatura do processo 01 na rodada 02 da eleição 01 no tempo 50.0
+Enviando mensagem para o processo 05
+
+Sou o processo 05 e recebi uma mensagem do processo 04
+Sobre a candidatura do processo 02 na rodada 02 da eleição 01 no tempo 50.0
+Enviando mensagem para o processo 06
+
+Sou o processo 06 e recebi uma mensagem do processo 05
+Sobre a candidatura do processo 03 na rodada 02 da eleição 01 no tempo 50.0
+Enviando mensagem para o processo 07
+
+Sou o processo 07 e recebi uma mensagem do processo 06
+Sobre a candidatura do processo 04 na rodada 02 da eleição 01 no tempo 50.0
+Enviando mensagem para o processo 00
+
+Sou o processo 00 e recebi uma mensagem do processo 07
+Sobre a candidatura do processo 05 na rodada 02 da eleição 01 no tempo 50.0
+Enviando mensagem para o processo 01
+
+Sou o processo 01 e recebi uma mensagem do processo 00
+Sobre a candidatura do processo 06 na rodada 02 da eleição 01 no tempo 50.0
+Enviando mensagem para o processo 02
+
+Sou o processo 03 e recebi uma mensagem do processo 02
+Sobre a candidatura do processo 07 na rodada 02 da eleição 01 no tempo 51.0
+Enviando mensagem para o processo 04
+
+Sou o processo 04 e recebi uma mensagem do processo 03
+Sobre a candidatura do processo 00 na rodada 02 da eleição 01 no tempo 51.0
+Enviando mensagem para o processo 05
+
+Sou o processo 05 e recebi uma mensagem do processo 04
+Sobre a candidatura do processo 01 na rodada 02 da eleição 01 no tempo 51.0
+Enviando mensagem para o processo 06
+
+Sou o processo 06 e recebi uma mensagem do processo 05
+Sobre a candidatura do processo 02 na rodada 02 da eleição 01 no tempo 51.0
+Enviando mensagem para o processo 07
+
+Sou o processo 07 e recebi uma mensagem do processo 06
+Sobre a candidatura do processo 03 na rodada 02 da eleição 01 no tempo 51.0
+Enviando mensagem para o processo 00
+
+Sou o processo 00 e recebi uma mensagem do processo 07
+Sobre a candidatura do processo 04 na rodada 02 da eleição 01 no tempo 51.0
+Enviando mensagem para o processo 01
+
+Sou o processo 01 e recebi uma mensagem do processo 00
+Sobre a candidatura do processo 05 na rodada 02 da eleição 01 no tempo 51.0
+Enviando mensagem para o processo 02
+
+Sou o processo 02 e recebi uma mensagem do processo 01
+Sobre a candidatura do processo 06 na rodada 02 da eleição 01 no tempo 51.0
+Enviando mensagem para o processo 03
+
+Sou o processo 04 e recebi uma mensagem do processo 03
+Sobre a candidatura do processo 07 na rodada 02 da eleição 01 no tempo 52.0
+Enviando mensagem para o processo 05
+
+Sou o processo 05 e recebi uma mensagem do processo 04
+Sobre a candidatura do processo 00 na rodada 02 da eleição 01 no tempo 52.0
+Enviando mensagem para o processo 06
+
+Sou o processo 06 e recebi uma mensagem do processo 05
+Sobre a candidatura do processo 01 na rodada 02 da eleição 01 no tempo 52.0
+Enviando mensagem para o processo 07
+
+Sou o processo 07 e recebi uma mensagem do processo 06
+Sobre a candidatura do processo 02 na rodada 02 da eleição 01 no tempo 52.0
+Enviando mensagem para o processo 00
+
+Sou o processo 00 e recebi uma mensagem do processo 07
+Sobre a candidatura do processo 03 na rodada 02 da eleição 01 no tempo 52.0
+Enviando mensagem para o processo 01
+
+Sou o processo 01 e recebi uma mensagem do processo 00
+Sobre a candidatura do processo 04 na rodada 02 da eleição 01 no tempo 52.0
+Enviando mensagem para o processo 02
+
+Sou o processo 02 e recebi uma mensagem do processo 01
+Sobre a candidatura do processo 05 na rodada 02 da eleição 01 no tempo 52.0
+Enviando mensagem para o processo 03
+
+Sou o processo 03 e recebi uma mensagem do processo 02
+Sobre a candidatura do processo 06 na rodada 02 da eleição 01 no tempo 52.0
+Enviando mensagem para o processo 04
+
+Sou o processo 05 e recebi uma mensagem do processo 04
+Sobre a candidatura do processo 07 na rodada 02 da eleição 01 no tempo 53.0
+Enviando mensagem para o processo 06
+
+Sou o processo 06 e recebi uma mensagem do processo 05
+Sobre a candidatura do processo 00 na rodada 02 da eleição 01 no tempo 53.0
+Enviando mensagem para o processo 07
+
+Sou o processo 07 e recebi uma mensagem do processo 06
+Sobre a candidatura do processo 01 na rodada 02 da eleição 01 no tempo 53.0
+Enviando mensagem para o processo 00
+
+Sou o processo 00 e recebi uma mensagem do processo 07
+Sobre a candidatura do processo 02 na rodada 02 da eleição 01 no tempo 53.0
+Enviando mensagem para o processo 01
+
+Sou o processo 01 e recebi uma mensagem do processo 00
+Sobre a candidatura do processo 03 na rodada 02 da eleição 01 no tempo 53.0
+Enviando mensagem para o processo 02
+
+Sou o processo 02 e recebi uma mensagem do processo 01
+Sobre a candidatura do processo 04 na rodada 02 da eleição 01 no tempo 53.0
+Enviando mensagem para o processo 03
+
+Sou o processo 03 e recebi uma mensagem do processo 02
+Sobre a candidatura do processo 05 na rodada 02 da eleição 01 no tempo 53.0
+Enviando mensagem para o processo 04
+
+Sou o processo 04 e recebi uma mensagem do processo 03
+Sobre a candidatura do processo 06 na rodada 02 da eleição 01 no tempo 53.0
+Enviando mensagem para o processo 05
+
+Sou o processo 06 e recebi uma mensagem do processo 05
+Sobre a candidatura do processo 07 na rodada 02 da eleição 01 no tempo 54.0
+Enviando mensagem para o processo 07
+O processo 06 detectou que todos os corretos responderam no tempo 54.0
+
+Sou o processo 07 e recebi uma mensagem do processo 06
+Sobre a candidatura do processo 00 na rodada 02 da eleição 01 no tempo 54.0
+Enviando mensagem para o processo 00
+O processo 07 detectou que todos os corretos responderam no tempo 54.0
+
+Sou o processo 00 e recebi uma mensagem do processo 07
+Sobre a candidatura do processo 01 na rodada 02 da eleição 01 no tempo 54.0
+Enviando mensagem para o processo 01
+O processo 00 detectou que todos os corretos responderam no tempo 54.0
+
+Sou o processo 01 e recebi uma mensagem do processo 00
+Sobre a candidatura do processo 02 na rodada 02 da eleição 01 no tempo 54.0
+Enviando mensagem para o processo 02
+O processo 01 detectou que todos os corretos responderam no tempo 54.0
+
+Sou o processo 02 e recebi uma mensagem do processo 01
+Sobre a candidatura do processo 03 na rodada 02 da eleição 01 no tempo 54.0
+Enviando mensagem para o processo 03
+O processo 02 detectou que todos os corretos responderam no tempo 54.0
+
+Sou o processo 03 e recebi uma mensagem do processo 02
+Sobre a candidatura do processo 04 na rodada 02 da eleição 01 no tempo 54.0
+Enviando mensagem para o processo 04
+O processo 03 detectou que todos os corretos responderam no tempo 54.0
+
+Sou o processo 04 e recebi uma mensagem do processo 03
+Sobre a candidatura do processo 05 na rodada 02 da eleição 01 no tempo 54.0
+Enviando mensagem para o processo 05
+O processo 04 detectou que todos os corretos responderam no tempo 54.0
+
+Sou o processo 05 e recebi uma mensagem do processo 04
+Sobre a candidatura do processo 06 na rodada 02 da eleição 01 no tempo 54.0
+Enviando mensagem para o processo 06
+O processo 05 detectou que todos os corretos responderam no tempo 54.0
+
+O processo 07 recebeu a própria mensagem, a retirando do anel no tempo 55.0
+
+O processo 00 recebeu a própria mensagem, a retirando do anel no tempo 55.0
+
+O processo 01 recebeu a própria mensagem, a retirando do anel no tempo 55.0
+
+O processo 02 recebeu a própria mensagem, a retirando do anel no tempo 55.0
+
+O processo 03 recebeu a própria mensagem, a retirando do anel no tempo 55.0
+
+O processo 04 recebeu a própria mensagem, a retirando do anel no tempo 55.0
+
+O processo 05 recebeu a própria mensagem, a retirando do anel no tempo 55.0
+
+O processo 06 recebeu a própria mensagem, a retirando do anel no tempo 55.0
+
+FIM DA RODADA 02 PARA O PROCESSO 06 NO TEMPO 59.0
+Vetor de Bits do Processo 06
+[ 0 0 0 0 0 0 1 0 ]
+Eu, o processo 06, sou o líder!
+Enviando a mensagem da rodada adicional para o processo 07
+
+FIM DA RODADA 02 PARA O PROCESSO 07 NO TEMPO 59.0
+Vetor de Bits do Processo 07
+[ 0 0 0 0 0 0 1 0 ]
+O processo 07 considera o processo 06 o líder
+Enviando a mensagem da rodada adicional para o processo 00
+
+FIM DA RODADA 02 PARA O PROCESSO 00 NO TEMPO 59.0
+Vetor de Bits do Processo 00
+[ 0 0 0 0 0 0 1 0 ]
+O processo 00 considera o processo 06 o líder
+Enviando a mensagem da rodada adicional para o processo 01
+
+FIM DA RODADA 02 PARA O PROCESSO 01 NO TEMPO 59.0
+Vetor de Bits do Processo 01
+[ 0 0 0 0 0 0 1 0 ]
+O processo 01 considera o processo 06 o líder
+Enviando a mensagem da rodada adicional para o processo 02
+
+FIM DA RODADA 02 PARA O PROCESSO 02 NO TEMPO 59.0
+Vetor de Bits do Processo 02
+[ 0 0 0 0 0 0 1 0 ]
+O processo 02 considera o processo 06 o líder
+Enviando a mensagem da rodada adicional para o processo 03
+
+FIM DA RODADA 02 PARA O PROCESSO 03 NO TEMPO 59.0
+Vetor de Bits do Processo 03
+[ 0 0 0 0 0 0 1 0 ]
+O processo 03 considera o processo 06 o líder
+Enviando a mensagem da rodada adicional para o processo 04
+
+FIM DA RODADA 02 PARA O PROCESSO 04 NO TEMPO 59.0
+Vetor de Bits do Processo 04
+[ 0 0 0 0 0 0 1 0 ]
+O processo 04 considera o processo 06 o líder
+Enviando a mensagem da rodada adicional para o processo 05
+
+FIM DA RODADA 02 PARA O PROCESSO 05 NO TEMPO 59.0
+Vetor de Bits do Processo 05
+[ 0 0 0 0 0 0 1 0 ]
+O processo 05 considera o processo 06 o líder
+
+===================================
+Processo Líder: 6
+Número de mensagens para a eleição: 24
+Tempo de eleição (SMPL): 24.0
+Número de Rodadas da Eleição: 03
+Número de Processos Corretos: 08
+Número de Processos Falhos: 00
+===================================
+
+
+O processo 05 detectou que o líder 06 falhou no tempo 90.0 e irá iniciar uma nova eleição
+O processo 05 não é candidato a líder
+Enviando a mensagem dessa eleição para o processo 00
+
+Sou o processo 00 e recebi uma mensagem do processo 05
+Sobre a candidatura do processo 05 na rodada 01 da eleição 02 no tempo 92.0
+A mensagem pertence a uma eleição futura, atualizando e enviando para o processo 01
+
+Sou o processo 01 e recebi uma mensagem do processo 00
+Sobre a candidatura do processo 05 na rodada 01 da eleição 02 no tempo 93.0
+A mensagem pertence a uma eleição futura, atualizando e enviando para o processo 02
+
+Sou o processo 02 e recebi uma mensagem do processo 01
+Sobre a candidatura do processo 05 na rodada 01 da eleição 02 no tempo 94.0
+A mensagem pertence a uma eleição futura, atualizando e enviando para o processo 03
+
+Sou o processo 03 e recebi uma mensagem do processo 02
+Sobre a candidatura do processo 05 na rodada 01 da eleição 02 no tempo 95.0
+A mensagem pertence a uma eleição futura, atualizando e enviando para o processo 04
+
+Sou o processo 04 e recebi uma mensagem do processo 03
+Sobre a candidatura do processo 05 na rodada 01 da eleição 02 no tempo 96.0
+A mensagem pertence a uma eleição futura, atualizando e enviando para o processo 05
+O processo 00 irá se atualizar para a eleição de líder
+O processo 00 está se preparando para eleger um líder no tempo 97.0
+O processo 00 é candidato a líder
+Enviando a mensagem dessa eleição para o processo 01
+
+O processo 05 recebeu a própria mensagem, a retirando do anel no tempo 97.0
+O processo 01 irá se atualizar para a eleição de líder
+O processo 01 está se preparando para eleger um líder no tempo 98.0
+O processo 01 é candidato a líder
+Enviando a mensagem dessa eleição para o processo 02
+
+Sou o processo 01 e recebi uma mensagem do processo 00
+Sobre a candidatura do processo 00 na rodada 01 da eleição 02 no tempo 98.0
+Enviando mensagem para o processo 02
+O processo 02 irá se atualizar para a eleição de líder
+O processo 02 está se preparando para eleger um líder no tempo 99.0
+O processo 02 não é candidato a líder
+Enviando a mensagem dessa eleição para o processo 03
+
+Sou o processo 02 e recebi uma mensagem do processo 01
+Sobre a candidatura do processo 01 na rodada 01 da eleição 02 no tempo 99.0
+Enviando mensagem para o processo 03
+
+Sou o processo 02 e recebi uma mensagem do processo 01
+Sobre a candidatura do processo 00 na rodada 01 da eleição 02 no tempo 99.0
+Enviando mensagem para o processo 03
+O processo 03 irá se atualizar para a eleição de líder
+O processo 03 está se preparando para eleger um líder no tempo 100.0
+O processo 03 não é candidato a líder
+Enviando a mensagem dessa eleição para o processo 04
+
+Sou o processo 03 e recebi uma mensagem do processo 02
+Sobre a candidatura do processo 02 na rodada 01 da eleição 02 no tempo 100.0
+Enviando mensagem para o processo 04
+
+Sou o processo 03 e recebi uma mensagem do processo 02
+Sobre a candidatura do processo 01 na rodada 01 da eleição 02 no tempo 100.0
+Enviando mensagem para o processo 04
+
+Sou o processo 03 e recebi uma mensagem do processo 02
+Sobre a candidatura do processo 00 na rodada 01 da eleição 02 no tempo 100.0
+Enviando mensagem para o processo 04
+O processo 04 irá se atualizar para a eleição de líder
+O processo 04 está se preparando para eleger um líder no tempo 101.0
+O processo 04 não é candidato a líder
+Enviando a mensagem dessa eleição para o processo 05
+
+Sou o processo 04 e recebi uma mensagem do processo 03
+Sobre a candidatura do processo 03 na rodada 01 da eleição 02 no tempo 101.0
+Enviando mensagem para o processo 05
+
+Sou o processo 04 e recebi uma mensagem do processo 03
+Sobre a candidatura do processo 02 na rodada 01 da eleição 02 no tempo 101.0
+Enviando mensagem para o processo 05
+
+Sou o processo 04 e recebi uma mensagem do processo 03
+Sobre a candidatura do processo 01 na rodada 01 da eleição 02 no tempo 101.0
+Enviando mensagem para o processo 05
+
+Sou o processo 04 e recebi uma mensagem do processo 03
+Sobre a candidatura do processo 00 na rodada 01 da eleição 02 no tempo 101.0
+Enviando mensagem para o processo 05
+
+Sou o processo 05 e recebi uma mensagem do processo 04
+Sobre a candidatura do processo 04 na rodada 01 da eleição 02 no tempo 102.0
+Enviando mensagem para o processo 00
+
+Sou o processo 05 e recebi uma mensagem do processo 04
+Sobre a candidatura do processo 03 na rodada 01 da eleição 02 no tempo 102.0
+Enviando mensagem para o processo 00
+
+Sou o processo 05 e recebi uma mensagem do processo 04
+Sobre a candidatura do processo 02 na rodada 01 da eleição 02 no tempo 102.0
+Enviando mensagem para o processo 00
+
+Sou o processo 05 e recebi uma mensagem do processo 04
+Sobre a candidatura do processo 01 na rodada 01 da eleição 02 no tempo 102.0
+Enviando mensagem para o processo 00
+
+Sou o processo 05 e recebi uma mensagem do processo 04
+Sobre a candidatura do processo 00 na rodada 01 da eleição 02 no tempo 102.0
+Enviando mensagem para o processo 00
+O processo 05 detectou que todos os corretos responderam no tempo 102.0
+
+Sou o processo 00 e recebi uma mensagem do processo 05
+Sobre a candidatura do processo 04 na rodada 01 da eleição 02 no tempo 103.0
+Enviando mensagem para o processo 01
+
+Sou o processo 00 e recebi uma mensagem do processo 05
+Sobre a candidatura do processo 03 na rodada 01 da eleição 02 no tempo 103.0
+Enviando mensagem para o processo 01
+
+Sou o processo 00 e recebi uma mensagem do processo 05
+Sobre a candidatura do processo 02 na rodada 01 da eleição 02 no tempo 103.0
+Enviando mensagem para o processo 01
+
+Sou o processo 00 e recebi uma mensagem do processo 05
+Sobre a candidatura do processo 01 na rodada 01 da eleição 02 no tempo 103.0
+Enviando mensagem para o processo 01
+
+O processo 00 recebeu a própria mensagem, a retirando do anel no tempo 103.0
+
+Sou o processo 01 e recebi uma mensagem do processo 00
+Sobre a candidatura do processo 04 na rodada 01 da eleição 02 no tempo 104.0
+Enviando mensagem para o processo 02
+
+Sou o processo 01 e recebi uma mensagem do processo 00
+Sobre a candidatura do processo 03 na rodada 01 da eleição 02 no tempo 104.0
+Enviando mensagem para o processo 02
+
+Sou o processo 01 e recebi uma mensagem do processo 00
+Sobre a candidatura do processo 02 na rodada 01 da eleição 02 no tempo 104.0
+Enviando mensagem para o processo 02
+
+O processo 01 recebeu a própria mensagem, a retirando do anel no tempo 104.0
+
+Sou o processo 02 e recebi uma mensagem do processo 01
+Sobre a candidatura do processo 04 na rodada 01 da eleição 02 no tempo 105.0
+Enviando mensagem para o processo 03
+
+Sou o processo 02 e recebi uma mensagem do processo 01
+Sobre a candidatura do processo 03 na rodada 01 da eleição 02 no tempo 105.0
+Enviando mensagem para o processo 03
+
+O processo 02 recebeu a própria mensagem, a retirando do anel no tempo 105.0
+
+Sou o processo 03 e recebi uma mensagem do processo 02
+Sobre a candidatura do processo 04 na rodada 01 da eleição 02 no tempo 106.0
+Enviando mensagem para o processo 04
+
+O processo 03 recebeu a própria mensagem, a retirando do anel no tempo 106.0
+
+FIM DA RODADA 01 PARA O PROCESSO 05 NO TEMPO 107.0
+Vetor de Bits do Processo 05
+[ 1 1 0 0 0 0 0 0 ]
+O processo 05 está iniciando uma nova rodada no tempo 107.0
+O processo 05 não é candidato a líder
+Enviando a mensagem dessa rodada para o processo 00
+
+O processo 04 recebeu a própria mensagem, a retirando do anel no tempo 107.0
+
+Sou o processo 00 e recebi uma mensagem do processo 05
+Sobre a candidatura do processo 05 na rodada 02 da eleição 02 no tempo 108.0
+A mensagem pertence a uma rodada futura, atualizando e enviando para o processo 01
+
+Sou o processo 01 e recebi uma mensagem do processo 00
+Sobre a candidatura do processo 05 na rodada 02 da eleição 02 no tempo 109.0
+A mensagem pertence a uma rodada futura, atualizando e enviando para o processo 02
+
+Sou o processo 02 e recebi uma mensagem do processo 01
+Sobre a candidatura do processo 05 na rodada 02 da eleição 02 no tempo 110.0
+A mensagem pertence a uma rodada futura, atualizando e enviando para o processo 03
+
+Sou o processo 03 e recebi uma mensagem do processo 02
+Sobre a candidatura do processo 05 na rodada 02 da eleição 02 no tempo 111.0
+A mensagem pertence a uma rodada futura, atualizando e enviando para o processo 04
+
+Sou o processo 04 e recebi uma mensagem do processo 03
+Sobre a candidatura do processo 05 na rodada 02 da eleição 02 no tempo 112.0
+A mensagem pertence a uma rodada futura, atualizando e enviando para o processo 05
+
+FIM DA RODADA 01 PARA O PROCESSO 00 NO TEMPO 113.0
+Vetor de Bits do Processo 00
+[ 1 1 0 0 0 0 0 0 ]
+O processo 00 está iniciando uma nova rodada no tempo 113.0
+O processo 00 ainda é candidato a líder
+Enviando a mensagem dessa rodada para o processo 01
+
+O processo 05 recebeu a própria mensagem, a retirando do anel no tempo 113.0
+
+FIM DA RODADA 01 PARA O PROCESSO 01 NO TEMPO 114.0
+Vetor de Bits do Processo 01
+[ 1 1 0 0 0 0 0 0 ]
+O processo 01 está iniciando uma nova rodada no tempo 114.0
+O processo 01 ainda é candidato a líder
+Enviando a mensagem dessa rodada para o processo 02
+
+Sou o processo 01 e recebi uma mensagem do processo 00
+Sobre a candidatura do processo 00 na rodada 02 da eleição 02 no tempo 114.0
+Enviando mensagem para o processo 02
+
+FIM DA RODADA 01 PARA O PROCESSO 02 NO TEMPO 115.0
+Vetor de Bits do Processo 02
+[ 1 1 0 0 0 0 0 0 ]
+O processo 02 está iniciando uma nova rodada no tempo 115.0
+O processo 02 não é candidato a líder
+Enviando a mensagem dessa rodada para o processo 03
+
+Sou o processo 02 e recebi uma mensagem do processo 01
+Sobre a candidatura do processo 01 na rodada 02 da eleição 02 no tempo 115.0
+Enviando mensagem para o processo 03
+
+Sou o processo 02 e recebi uma mensagem do processo 01
+Sobre a candidatura do processo 00 na rodada 02 da eleição 02 no tempo 115.0
+Enviando mensagem para o processo 03
+
+FIM DA RODADA 01 PARA O PROCESSO 03 NO TEMPO 116.0
+Vetor de Bits do Processo 03
+[ 1 1 0 0 0 0 0 0 ]
+O processo 03 está iniciando uma nova rodada no tempo 116.0
+O processo 03 não é candidato a líder
+Enviando a mensagem dessa rodada para o processo 04
+
+Sou o processo 03 e recebi uma mensagem do processo 02
+Sobre a candidatura do processo 02 na rodada 02 da eleição 02 no tempo 116.0
+Enviando mensagem para o processo 04
+
+Sou o processo 03 e recebi uma mensagem do processo 02
+Sobre a candidatura do processo 01 na rodada 02 da eleição 02 no tempo 116.0
+Enviando mensagem para o processo 04
+
+Sou o processo 03 e recebi uma mensagem do processo 02
+Sobre a candidatura do processo 00 na rodada 02 da eleição 02 no tempo 116.0
+Enviando mensagem para o processo 04
+
+FIM DA RODADA 01 PARA O PROCESSO 04 NO TEMPO 117.0
+Vetor de Bits do Processo 04
+[ 1 1 0 0 0 0 0 0 ]
+O processo 04 está iniciando uma nova rodada no tempo 117.0
+O processo 04 não é candidato a líder
+Enviando a mensagem dessa rodada para o processo 05
+
+Sou o processo 04 e recebi uma mensagem do processo 03
+Sobre a candidatura do processo 03 na rodada 02 da eleição 02 no tempo 117.0
+Enviando mensagem para o processo 05
+
+Sou o processo 04 e recebi uma mensagem do processo 03
+Sobre a candidatura do processo 02 na rodada 02 da eleição 02 no tempo 117.0
+Enviando mensagem para o processo 05
+
+Sou o processo 04 e recebi uma mensagem do processo 03
+Sobre a candidatura do processo 01 na rodada 02 da eleição 02 no tempo 117.0
+Enviando mensagem para o processo 05
+
+Sou o processo 04 e recebi uma mensagem do processo 03
+Sobre a candidatura do processo 00 na rodada 02 da eleição 02 no tempo 117.0
+Enviando mensagem para o processo 05
+
+Sou o processo 05 e recebi uma mensagem do processo 04
+Sobre a candidatura do processo 04 na rodada 02 da eleição 02 no tempo 118.0
+Enviando mensagem para o processo 00
+
+Sou o processo 05 e recebi uma mensagem do processo 04
+Sobre a candidatura do processo 03 na rodada 02 da eleição 02 no tempo 118.0
+Enviando mensagem para o processo 00
+
+Sou o processo 05 e recebi uma mensagem do processo 04
+Sobre a candidatura do processo 02 na rodada 02 da eleição 02 no tempo 118.0
+Enviando mensagem para o processo 00
+
+Sou o processo 05 e recebi uma mensagem do processo 04
+Sobre a candidatura do processo 01 na rodada 02 da eleição 02 no tempo 118.0
+Enviando mensagem para o processo 00
+
+Sou o processo 05 e recebi uma mensagem do processo 04
+Sobre a candidatura do processo 00 na rodada 02 da eleição 02 no tempo 118.0
+Enviando mensagem para o processo 00
+O processo 05 detectou que todos os corretos responderam no tempo 118.0
+
+Sou o processo 00 e recebi uma mensagem do processo 05
+Sobre a candidatura do processo 04 na rodada 02 da eleição 02 no tempo 119.0
+Enviando mensagem para o processo 01
+
+Sou o processo 00 e recebi uma mensagem do processo 05
+Sobre a candidatura do processo 03 na rodada 02 da eleição 02 no tempo 119.0
+Enviando mensagem para o processo 01
+
+Sou o processo 00 e recebi uma mensagem do processo 05
+Sobre a candidatura do processo 02 na rodada 02 da eleição 02 no tempo 119.0
+Enviando mensagem para o processo 01
+
+Sou o processo 00 e recebi uma mensagem do processo 05
+Sobre a candidatura do processo 01 na rodada 02 da eleição 02 no tempo 119.0
+Enviando mensagem para o processo 01
+
+O processo 00 recebeu a própria mensagem, a retirando do anel no tempo 119.0
+O processo 0 enviou uma mensagem para o processo 1 e não recebeu um ACK
+Enviando a mensagem para 1
+O processo 0 enviou uma mensagem para o processo 1 e não recebeu um ACK
+Enviando a mensagem para 1
+O processo 0 enviou uma mensagem para o processo 1 e não recebeu um ACK
+Enviando a mensagem para 1
+O processo 0 enviou uma mensagem para o processo 1 e não recebeu um ACK
+Enviando a mensagem para 1
+
+Sou o processo 01 e recebi uma mensagem do processo 00
+Sobre a candidatura do processo 04 na rodada 02 da eleição 02 no tempo 120.0
+Enviando mensagem para o processo 02
+
+Sou o processo 01 e recebi uma mensagem do processo 00
+Sobre a candidatura do processo 03 na rodada 02 da eleição 02 no tempo 120.0
+Enviando mensagem para o processo 02
+
+Sou o processo 01 e recebi uma mensagem do processo 00
+Sobre a candidatura do processo 02 na rodada 02 da eleição 02 no tempo 120.0
+Enviando mensagem para o processo 02
+
+O processo 01 recebeu a própria mensagem, a retirando do anel no tempo 120.0
+
+FIM DA RODADA 02 PARA O PROCESSO 04 NO TEMPO 121.0
+Vetor de Bits do Processo 04
+[ 1 1 0 0 0 0 0 0 ]
+O processo 04 está iniciando uma nova rodada no tempo 121.0
+O processo 04 não é candidato a líder
+Enviando a mensagem dessa rodada para o processo 05
+
+Sou o processo 02 e recebi uma mensagem do processo 01
+Sobre a candidatura do processo 04 na rodada 02 da eleição 02 no tempo 121.0
+Enviando mensagem para o processo 03
+
+Sou o processo 02 e recebi uma mensagem do processo 01
+Sobre a candidatura do processo 03 na rodada 02 da eleição 02 no tempo 121.0
+Enviando mensagem para o processo 03
+
+O processo 02 recebeu a própria mensagem, a retirando do anel no tempo 121.0
+
+Sou o processo 05 e recebi uma mensagem do processo 04
+Sobre a candidatura do processo 04 na rodada 03 da eleição 02 no tempo 122.0
+A mensagem pertence a uma rodada futura, atualizando e enviando para o processo 00
+
+Sou o processo 03 e recebi uma mensagem do processo 02
+Sobre a candidatura do processo 04 na rodada 02 da eleição 02 no tempo 122.0
+Enviando mensagem para o processo 04
+
+O processo 03 recebeu a própria mensagem, a retirando do anel no tempo 122.0
+
+FIM DA RODADA 02 PARA O PROCESSO 05 NO TEMPO 123.0
+Vetor de Bits do Processo 05
+[ 1 1 0 0 0 0 0 0 ]
+O processo 05 está iniciando uma nova rodada no tempo 123.0
+O processo 05 não é candidato a líder
+Enviando a mensagem dessa rodada para o processo 00
+
+Sou o processo 00 e recebi uma mensagem do processo 05
+Sobre a candidatura do processo 04 na rodada 03 da eleição 02 no tempo 123.0
+A mensagem pertence a uma rodada futura, atualizando e enviando para o processo 01
+
+O processo 04 recebeu a própria mensagem, a retirando do anel no tempo 123.0
+
+Sou o processo 01 e recebi uma mensagem do processo 00
+Sobre a candidatura do processo 04 na rodada 03 da eleição 02 no tempo 124.0
+A mensagem pertence a uma rodada futura, atualizando e enviando para o processo 02
+
+Sou o processo 02 e recebi uma mensagem do processo 01
+Sobre a candidatura do processo 04 na rodada 03 da eleição 02 no tempo 125.0
+A mensagem pertence a uma rodada futura, atualizando e enviando para o processo 03
+
+Sou o processo 03 e recebi uma mensagem do processo 02
+Sobre a candidatura do processo 04 na rodada 03 da eleição 02 no tempo 126.0
+A mensagem pertence a uma rodada futura, atualizando e enviando para o processo 04
+
+FIM DA RODADA 03 PARA O PROCESSO 05 NO TEMPO 127.0
+Vetor de Bits do Processo 05
+[ 0 0 0 0 0 0 0 0 ]
+O processo 05 detectou que não há nenhum candidato a líder
+
+O processo 04 recebeu a própria mensagem, a retirando do anel no tempo 127.0
+
+FIM DA RODADA 02 PARA O PROCESSO 00 NO TEMPO 128.0
+Vetor de Bits do Processo 00
+[ 1 1 0 0 0 0 0 0 ]
+O processo 00 está iniciando uma nova rodada no tempo 128.0
+O processo 00 ainda é candidato a líder
+Enviando a mensagem dessa rodada para o processo 01
+O processo 05 está se preparando para eleger um líder no tempo 128.0
+O processo 05 é candidato a líder
+Enviando a mensagem dessa eleição para o processo 00
+
+FIM DA RODADA 02 PARA O PROCESSO 01 NO TEMPO 129.0
+Vetor de Bits do Processo 01
+[ 1 1 0 0 0 0 0 0 ]
+O processo 01 está iniciando uma nova rodada no tempo 129.0
+O processo 01 não é candidato a líder
+Enviando a mensagem dessa rodada para o processo 02
+
+Sou o processo 01 e recebi uma mensagem do processo 00
+Sobre a candidatura do processo 00 na rodada 03 da eleição 02 no tempo 129.0
+Enviando mensagem para o processo 02
+
+Sou o processo 00 e recebi uma mensagem do processo 05
+Sobre a candidatura do processo 05 na rodada 03 da eleição 02 no tempo 129.0
+Enviando mensagem para o processo 01
+
+Sou o processo 00 e recebi uma mensagem do processo 05
+Sobre a candidatura do processo 05 na rodada 01 da eleição 03 no tempo 129.0
+A mensagem pertence a uma eleição futura, atualizando e enviando para o processo 01
+
+FIM DA RODADA 02 PARA O PROCESSO 02 NO TEMPO 130.0
+Vetor de Bits do Processo 02
+[ 1 1 0 0 0 0 0 0 ]
+O processo 02 está iniciando uma nova rodada no tempo 130.0
+O processo 02 não é candidato a líder
+Enviando a mensagem dessa rodada para o processo 03
+
+Sou o processo 02 e recebi uma mensagem do processo 01
+Sobre a candidatura do processo 01 na rodada 03 da eleição 02 no tempo 130.0
+Enviando mensagem para o processo 03
+
+Sou o processo 02 e recebi uma mensagem do processo 01
+Sobre a candidatura do processo 00 na rodada 03 da eleição 02 no tempo 130.0
+Enviando mensagem para o processo 03
+
+Sou o processo 01 e recebi uma mensagem do processo 00
+Sobre a candidatura do processo 05 na rodada 03 da eleição 02 no tempo 130.0
+Enviando mensagem para o processo 02
+
+Sou o processo 01 e recebi uma mensagem do processo 00
+Sobre a candidatura do processo 05 na rodada 01 da eleição 03 no tempo 130.0
+A mensagem pertence a uma eleição futura, atualizando e enviando para o processo 02
+
+FIM DA RODADA 02 PARA O PROCESSO 03 NO TEMPO 131.0
+Vetor de Bits do Processo 03
+[ 1 1 0 0 0 0 0 0 ]
+O processo 03 está iniciando uma nova rodada no tempo 131.0
+O processo 03 não é candidato a líder
+Enviando a mensagem dessa rodada para o processo 04
+
+Sou o processo 03 e recebi uma mensagem do processo 02
+Sobre a candidatura do processo 02 na rodada 03 da eleição 02 no tempo 131.0
+Enviando mensagem para o processo 04
+
+Sou o processo 03 e recebi uma mensagem do processo 02
+Sobre a candidatura do processo 01 na rodada 03 da eleição 02 no tempo 131.0
+Enviando mensagem para o processo 04
+
+Sou o processo 03 e recebi uma mensagem do processo 02
+Sobre a candidatura do processo 00 na rodada 03 da eleição 02 no tempo 131.0
+Enviando mensagem para o processo 04
+
+Sou o processo 02 e recebi uma mensagem do processo 01
+Sobre a candidatura do processo 05 na rodada 03 da eleição 02 no tempo 131.0
+Enviando mensagem para o processo 03
+
+Sou o processo 02 e recebi uma mensagem do processo 01
+Sobre a candidatura do processo 05 na rodada 01 da eleição 03 no tempo 131.0
+A mensagem pertence a uma eleição futura, atualizando e enviando para o processo 03
+
+Sou o processo 04 e recebi uma mensagem do processo 03
+Sobre a candidatura do processo 03 na rodada 03 da eleição 02 no tempo 132.0
+Enviando mensagem para o processo 05
+
+Sou o processo 04 e recebi uma mensagem do processo 03
+Sobre a candidatura do processo 02 na rodada 03 da eleição 02 no tempo 132.0
+Enviando mensagem para o processo 05
+
+Sou o processo 04 e recebi uma mensagem do processo 03
+Sobre a candidatura do processo 01 na rodada 03 da eleição 02 no tempo 132.0
+Enviando mensagem para o processo 05
+
+Sou o processo 04 e recebi uma mensagem do processo 03
+Sobre a candidatura do processo 00 na rodada 03 da eleição 02 no tempo 132.0
+Enviando mensagem para o processo 05
+
+Sou o processo 03 e recebi uma mensagem do processo 02
+Sobre a candidatura do processo 05 na rodada 03 da eleição 02 no tempo 132.0
+Enviando mensagem para o processo 04
+
+Sou o processo 03 e recebi uma mensagem do processo 02
+Sobre a candidatura do processo 05 na rodada 01 da eleição 03 no tempo 132.0
+A mensagem pertence a uma eleição futura, atualizando e enviando para o processo 04
+
+Sou o processo 05 e recebi uma mensagem do processo 04
+Sobre a candidatura do processo 03 na rodada 03 da eleição 02 no tempo 133.0
+A mensagem pertence a uma eleição anterior, enviando para o processo 00
+
+Sou o processo 05 e recebi uma mensagem do processo 04
+Sobre a candidatura do processo 02 na rodada 03 da eleição 02 no tempo 133.0
+A mensagem pertence a uma eleição anterior, enviando para o processo 00
+
+Sou o processo 05 e recebi uma mensagem do processo 04
+Sobre a candidatura do processo 01 na rodada 03 da eleição 02 no tempo 133.0
+A mensagem pertence a uma eleição anterior, enviando para o processo 00
+
+Sou o processo 05 e recebi uma mensagem do processo 04
+Sobre a candidatura do processo 00 na rodada 03 da eleição 02 no tempo 133.0
+A mensagem pertence a uma eleição anterior, enviando para o processo 00
+
+Sou o processo 04 e recebi uma mensagem do processo 03
+Sobre a candidatura do processo 05 na rodada 03 da eleição 02 no tempo 133.0
+Enviando mensagem para o processo 05
+
+Sou o processo 04 e recebi uma mensagem do processo 03
+Sobre a candidatura do processo 05 na rodada 01 da eleição 03 no tempo 133.0
+A mensagem pertence a uma eleição futura, atualizando e enviando para o processo 05
+O processo 00 irá se atualizar para a eleição de líder
+O processo 00 está se preparando para eleger um líder no tempo 134.0
+O processo 00 não é candidato a líder
+Enviando a mensagem dessa eleição para o processo 01
+
+Sou o processo 00 e recebi uma mensagem do processo 05
+Sobre a candidatura do processo 03 na rodada 03 da eleição 02 no tempo 134.0
+A mensagem pertence a uma eleição anterior, enviando para o processo 01
+
+Sou o processo 00 e recebi uma mensagem do processo 05
+Sobre a candidatura do processo 02 na rodada 03 da eleição 02 no tempo 134.0
+A mensagem pertence a uma eleição anterior, enviando para o processo 01
+
+Sou o processo 00 e recebi uma mensagem do processo 05
+Sobre a candidatura do processo 01 na rodada 03 da eleição 02 no tempo 134.0
+A mensagem pertence a uma eleição anterior, enviando para o processo 01
+
+O processo 00 recebeu a própria mensagem, a retirando do anel no tempo 134.0
+
+O processo 05 recebeu a própria mensagem, a retirando do anel no tempo 134.0
+
+O processo 05 recebeu a própria mensagem, a retirando do anel no tempo 134.0
+O processo 01 irá se atualizar para a eleição de líder
+O processo 01 está se preparando para eleger um líder no tempo 135.0
+O processo 01 não é candidato a líder
+Enviando a mensagem dessa eleição para o processo 02
+
+Sou o processo 01 e recebi uma mensagem do processo 00
+Sobre a candidatura do processo 00 na rodada 01 da eleição 03 no tempo 135.0
+Enviando mensagem para o processo 02
+
+Sou o processo 01 e recebi uma mensagem do processo 00
+Sobre a candidatura do processo 03 na rodada 03 da eleição 02 no tempo 135.0
+A mensagem pertence a uma eleição anterior, enviando para o processo 02
+
+Sou o processo 01 e recebi uma mensagem do processo 00
+Sobre a candidatura do processo 02 na rodada 03 da eleição 02 no tempo 135.0
+A mensagem pertence a uma eleição anterior, enviando para o processo 02
+
+O processo 01 recebeu a própria mensagem, a retirando do anel no tempo 135.0
+O processo 02 irá se atualizar para a eleição de líder
+O processo 02 está se preparando para eleger um líder no tempo 136.0
+O processo 02 é candidato a líder
+Enviando a mensagem dessa eleição para o processo 03
+
+Sou o processo 02 e recebi uma mensagem do processo 01
+Sobre a candidatura do processo 01 na rodada 01 da eleição 03 no tempo 136.0
+Enviando mensagem para o processo 03
+
+Sou o processo 02 e recebi uma mensagem do processo 01
+Sobre a candidatura do processo 00 na rodada 01 da eleição 03 no tempo 136.0
+Enviando mensagem para o processo 03
+
+Sou o processo 02 e recebi uma mensagem do processo 01
+Sobre a candidatura do processo 03 na rodada 03 da eleição 02 no tempo 136.0
+A mensagem pertence a uma eleição anterior, enviando para o processo 03
+
+O processo 02 recebeu a própria mensagem, a retirando do anel no tempo 136.0
+O processo 03 irá se atualizar para a eleição de líder
+O processo 03 está se preparando para eleger um líder no tempo 137.0
+O processo 03 é candidato a líder
+Enviando a mensagem dessa eleição para o processo 04
+
+Sou o processo 03 e recebi uma mensagem do processo 02
+Sobre a candidatura do processo 02 na rodada 01 da eleição 03 no tempo 137.0
+Enviando mensagem para o processo 04
+
+Sou o processo 03 e recebi uma mensagem do processo 02
+Sobre a candidatura do processo 01 na rodada 01 da eleição 03 no tempo 137.0
+Enviando mensagem para o processo 04
+
+Sou o processo 03 e recebi uma mensagem do processo 02
+Sobre a candidatura do processo 00 na rodada 01 da eleição 03 no tempo 137.0
+Enviando mensagem para o processo 04
+
+O processo 03 recebeu a própria mensagem, a retirando do anel no tempo 137.0
+O processo 04 irá se atualizar para a eleição de líder
+O processo 04 está se preparando para eleger um líder no tempo 138.0
+O processo 04 é candidato a líder
+Enviando a mensagem dessa eleição para o processo 05
+
+Sou o processo 04 e recebi uma mensagem do processo 03
+Sobre a candidatura do processo 03 na rodada 01 da eleição 03 no tempo 138.0
+Enviando mensagem para o processo 05
+
+Sou o processo 04 e recebi uma mensagem do processo 03
+Sobre a candidatura do processo 02 na rodada 01 da eleição 03 no tempo 138.0
+Enviando mensagem para o processo 05
+
+Sou o processo 04 e recebi uma mensagem do processo 03
+Sobre a candidatura do processo 01 na rodada 01 da eleição 03 no tempo 138.0
+Enviando mensagem para o processo 05
+
+Sou o processo 04 e recebi uma mensagem do processo 03
+Sobre a candidatura do processo 00 na rodada 01 da eleição 03 no tempo 138.0
+Enviando mensagem para o processo 05
+O processo 04 detectou que todos os corretos responderam no tempo 138.0
+
+Sou o processo 05 e recebi uma mensagem do processo 04
+Sobre a candidatura do processo 04 na rodada 01 da eleição 03 no tempo 139.0
+Enviando mensagem para o processo 00
+
+Sou o processo 05 e recebi uma mensagem do processo 04
+Sobre a candidatura do processo 03 na rodada 01 da eleição 03 no tempo 139.0
+Enviando mensagem para o processo 00
+
+Sou o processo 05 e recebi uma mensagem do processo 04
+Sobre a candidatura do processo 02 na rodada 01 da eleição 03 no tempo 139.0
+Enviando mensagem para o processo 00
+
+Sou o processo 05 e recebi uma mensagem do processo 04
+Sobre a candidatura do processo 01 na rodada 01 da eleição 03 no tempo 139.0
+Enviando mensagem para o processo 00
+
+Sou o processo 05 e recebi uma mensagem do processo 04
+Sobre a candidatura do processo 00 na rodada 01 da eleição 03 no tempo 139.0
+Enviando mensagem para o processo 00
+O processo 05 detectou que todos os corretos responderam no tempo 139.0
+
+Sou o processo 00 e recebi uma mensagem do processo 05
+Sobre a candidatura do processo 04 na rodada 01 da eleição 03 no tempo 140.0
+Enviando mensagem para o processo 01
+
+Sou o processo 00 e recebi uma mensagem do processo 05
+Sobre a candidatura do processo 03 na rodada 01 da eleição 03 no tempo 140.0
+Enviando mensagem para o processo 01
+
+Sou o processo 00 e recebi uma mensagem do processo 05
+Sobre a candidatura do processo 02 na rodada 01 da eleição 03 no tempo 140.0
+Enviando mensagem para o processo 01
+
+Sou o processo 00 e recebi uma mensagem do processo 05
+Sobre a candidatura do processo 01 na rodada 01 da eleição 03 no tempo 140.0
+Enviando mensagem para o processo 01
+
+O processo 00 recebeu a própria mensagem, a retirando do anel no tempo 140.0
+
+Sou o processo 01 e recebi uma mensagem do processo 00
+Sobre a candidatura do processo 04 na rodada 01 da eleição 03 no tempo 141.0
+Enviando mensagem para o processo 02
+
+Sou o processo 01 e recebi uma mensagem do processo 00
+Sobre a candidatura do processo 03 na rodada 01 da eleição 03 no tempo 141.0
+Enviando mensagem para o processo 02
+
+Sou o processo 01 e recebi uma mensagem do processo 00
+Sobre a candidatura do processo 02 na rodada 01 da eleição 03 no tempo 141.0
+Enviando mensagem para o processo 02
+
+O processo 01 recebeu a própria mensagem, a retirando do anel no tempo 141.0
+
+Sou o processo 02 e recebi uma mensagem do processo 01
+Sobre a candidatura do processo 04 na rodada 01 da eleição 03 no tempo 142.0
+Enviando mensagem para o processo 03
+
+Sou o processo 02 e recebi uma mensagem do processo 01
+Sobre a candidatura do processo 03 na rodada 01 da eleição 03 no tempo 142.0
+Enviando mensagem para o processo 03
+
+O processo 02 recebeu a própria mensagem, a retirando do anel no tempo 142.0
+
+FIM DA RODADA 01 PARA O PROCESSO 04 NO TEMPO 143.0
+Vetor de Bits do Processo 04
+[ 0 0 1 1 1 1 0 0 ]
+O processo 04 está iniciando uma nova rodada no tempo 143.0
+O processo 04 não é candidato a líder
+Enviando a mensagem dessa rodada para o processo 05
+
+Sou o processo 03 e recebi uma mensagem do processo 02
+Sobre a candidatura do processo 04 na rodada 01 da eleição 03 no tempo 143.0
+Enviando mensagem para o processo 04
+
+O processo 03 recebeu a própria mensagem, a retirando do anel no tempo 143.0
+
+FIM DA RODADA 01 PARA O PROCESSO 05 NO TEMPO 144.0
+Vetor de Bits do Processo 05
+[ 0 0 1 1 1 1 0 0 ]
+O processo 05 está iniciando uma nova rodada no tempo 144.0
+O processo 05 ainda é candidato a líder
+Enviando a mensagem dessa rodada para o processo 00
+
+Sou o processo 05 e recebi uma mensagem do processo 04
+Sobre a candidatura do processo 04 na rodada 02 da eleição 03 no tempo 144.0
+Enviando mensagem para o processo 00
+
+O processo 04 recebeu a própria mensagem, a retirando do anel no tempo 144.0
+
+Sou o processo 00 e recebi uma mensagem do processo 05
+Sobre a candidatura do processo 05 na rodada 02 da eleição 03 no tempo 145.0
+A mensagem pertence a uma rodada futura, atualizando e enviando para o processo 01
+
+Sou o processo 01 e recebi uma mensagem do processo 00
+Sobre a candidatura do processo 05 na rodada 02 da eleição 03 no tempo 146.0
+A mensagem pertence a uma rodada futura, atualizando e enviando para o processo 02
+
+Sou o processo 02 e recebi uma mensagem do processo 01
+Sobre a candidatura do processo 05 na rodada 02 da eleição 03 no tempo 147.0
+A mensagem pertence a uma rodada futura, atualizando e enviando para o processo 03
+
+Sou o processo 03 e recebi uma mensagem do processo 02
+Sobre a candidatura do processo 05 na rodada 02 da eleição 03 no tempo 148.0
+A mensagem pertence a uma rodada futura, atualizando e enviando para o processo 04
+
+Sou o processo 04 e recebi uma mensagem do processo 03
+Sobre a candidatura do processo 05 na rodada 02 da eleição 03 no tempo 149.0
+Enviando mensagem para o processo 05
+O processo 4 enviou uma mensagem para o processo 5 e não recebeu um ACK
+Enviando a mensagem para 5
+O processo 5 enviou uma mensagem para o processo 0 e não recebeu um ACK
+Enviando a mensagem para 0
+
+FIM DA RODADA 01 PARA O PROCESSO 00 NO TEMPO 150.0
+Vetor de Bits do Processo 00
+[ 0 0 1 1 1 1 0 0 ]
+O processo 00 está iniciando uma nova rodada no tempo 150.0
+O processo 00 não é candidato a líder
+Enviando a mensagem dessa rodada para o processo 01
+
+O processo 05 recebeu a própria mensagem, a retirando do anel no tempo 150.0
+
+FIM DA RODADA 01 PARA O PROCESSO 01 NO TEMPO 151.0
+Vetor de Bits do Processo 01
+[ 0 0 1 1 1 1 0 0 ]
+O processo 01 está iniciando uma nova rodada no tempo 151.0
+O processo 01 não é candidato a líder
+Enviando a mensagem dessa rodada para o processo 02
+
+Sou o processo 00 e recebi uma mensagem do processo 05
+Sobre a candidatura do processo 04 na rodada 02 da eleição 03 no tempo 151.0
+Enviando mensagem para o processo 01
+
+Sou o processo 01 e recebi uma mensagem do processo 00
+Sobre a candidatura do processo 00 na rodada 02 da eleição 03 no tempo 151.0
+Enviando mensagem para o processo 02
+
+FIM DA RODADA 01 PARA O PROCESSO 02 NO TEMPO 152.0
+Vetor de Bits do Processo 02
+[ 0 0 1 1 1 1 0 0 ]
+O processo 02 está iniciando uma nova rodada no tempo 152.0
+O processo 02 não é candidato a líder
+Enviando a mensagem dessa rodada para o processo 03
+
+Sou o processo 02 e recebi uma mensagem do processo 01
+Sobre a candidatura do processo 01 na rodada 02 da eleição 03 no tempo 152.0
+Enviando mensagem para o processo 03
+
+Sou o processo 02 e recebi uma mensagem do processo 01
+Sobre a candidatura do processo 00 na rodada 02 da eleição 03 no tempo 152.0
+Enviando mensagem para o processo 03
+
+Sou o processo 01 e recebi uma mensagem do processo 00
+Sobre a candidatura do processo 04 na rodada 02 da eleição 03 no tempo 152.0
+Enviando mensagem para o processo 02
+
+FIM DA RODADA 01 PARA O PROCESSO 03 NO TEMPO 153.0
+Vetor de Bits do Processo 03
+[ 0 0 1 1 1 1 0 0 ]
+O processo 03 está iniciando uma nova rodada no tempo 153.0
+O processo 03 ainda é candidato a líder
+Enviando a mensagem dessa rodada para o processo 04
+
+Sou o processo 03 e recebi uma mensagem do processo 02
+Sobre a candidatura do processo 02 na rodada 02 da eleição 03 no tempo 153.0
+Enviando mensagem para o processo 04
+
+Sou o processo 03 e recebi uma mensagem do processo 02
+Sobre a candidatura do processo 01 na rodada 02 da eleição 03 no tempo 153.0
+Enviando mensagem para o processo 04
+
+Sou o processo 03 e recebi uma mensagem do processo 02
+Sobre a candidatura do processo 00 na rodada 02 da eleição 03 no tempo 153.0
+Enviando mensagem para o processo 04
+
+Sou o processo 02 e recebi uma mensagem do processo 01
+Sobre a candidatura do processo 04 na rodada 02 da eleição 03 no tempo 153.0
+Enviando mensagem para o processo 03
+
+Sou o processo 04 e recebi uma mensagem do processo 03
+Sobre a candidatura do processo 03 na rodada 02 da eleição 03 no tempo 154.0
+Enviando mensagem para o processo 05
+
+Sou o processo 04 e recebi uma mensagem do processo 03
+Sobre a candidatura do processo 02 na rodada 02 da eleição 03 no tempo 154.0
+Enviando mensagem para o processo 05
+
+Sou o processo 04 e recebi uma mensagem do processo 03
+Sobre a candidatura do processo 01 na rodada 02 da eleição 03 no tempo 154.0
+Enviando mensagem para o processo 05
+
+Sou o processo 04 e recebi uma mensagem do processo 03
+Sobre a candidatura do processo 00 na rodada 02 da eleição 03 no tempo 154.0
+Enviando mensagem para o processo 05
+O processo 04 detectou que todos os corretos responderam no tempo 154.0
+
+Sou o processo 03 e recebi uma mensagem do processo 02
+Sobre a candidatura do processo 04 na rodada 02 da eleição 03 no tempo 154.0
+Enviando mensagem para o processo 04
+O processo 03 detectou que todos os corretos responderam no tempo 154.0
+
+Sou o processo 05 e recebi uma mensagem do processo 04
+Sobre a candidatura do processo 03 na rodada 02 da eleição 03 no tempo 155.0
+Enviando mensagem para o processo 00
+
+Sou o processo 05 e recebi uma mensagem do processo 04
+Sobre a candidatura do processo 02 na rodada 02 da eleição 03 no tempo 155.0
+Enviando mensagem para o processo 00
+
+Sou o processo 05 e recebi uma mensagem do processo 04
+Sobre a candidatura do processo 01 na rodada 02 da eleição 03 no tempo 155.0
+Enviando mensagem para o processo 00
+
+Sou o processo 05 e recebi uma mensagem do processo 04
+Sobre a candidatura do processo 00 na rodada 02 da eleição 03 no tempo 155.0
+Enviando mensagem para o processo 00
+O processo 05 detectou que todos os corretos responderam no tempo 155.0
+
+O processo 04 recebeu a própria mensagem, a retirando do anel no tempo 155.0
+
+Sou o processo 00 e recebi uma mensagem do processo 05
+Sobre a candidatura do processo 03 na rodada 02 da eleição 03 no tempo 156.0
+Enviando mensagem para o processo 01
+
+Sou o processo 00 e recebi uma mensagem do processo 05
+Sobre a candidatura do processo 02 na rodada 02 da eleição 03 no tempo 156.0
+Enviando mensagem para o processo 01
+
+Sou o processo 00 e recebi uma mensagem do processo 05
+Sobre a candidatura do processo 01 na rodada 02 da eleição 03 no tempo 156.0
+Enviando mensagem para o processo 01
+
+O processo 00 recebeu a própria mensagem, a retirando do anel no tempo 156.0
+
+Sou o processo 01 e recebi uma mensagem do processo 00
+Sobre a candidatura do processo 03 na rodada 02 da eleição 03 no tempo 157.0
+Enviando mensagem para o processo 02
+
+Sou o processo 01 e recebi uma mensagem do processo 00
+Sobre a candidatura do processo 02 na rodada 02 da eleição 03 no tempo 157.0
+Enviando mensagem para o processo 02
+
+O processo 01 recebeu a própria mensagem, a retirando do anel no tempo 157.0
+
+Sou o processo 02 e recebi uma mensagem do processo 01
+Sobre a candidatura do processo 03 na rodada 02 da eleição 03 no tempo 158.0
+Enviando mensagem para o processo 03
+
+O processo 02 recebeu a própria mensagem, a retirando do anel no tempo 158.0
+
+FIM DA RODADA 02 PARA O PROCESSO 04 NO TEMPO 159.0
+Vetor de Bits do Processo 04
+[ 0 0 0 1 0 1 0 0 ]
+O processo 04 está iniciando uma nova rodada no tempo 159.0
+O processo 04 não é candidato a líder
+Enviando a mensagem dessa rodada para o processo 05
+
+FIM DA RODADA 02 PARA O PROCESSO 03 NO TEMPO 159.0
+Vetor de Bits do Processo 03
+[ 0 0 0 1 0 1 0 0 ]
+O processo 03 está iniciando uma nova rodada no tempo 159.0
+O processo 03 ainda é candidato a líder
+Enviando a mensagem dessa rodada para o processo 04
+
+O processo 03 recebeu a própria mensagem, a retirando do anel no tempo 159.0
+
+FIM DA RODADA 02 PARA O PROCESSO 05 NO TEMPO 160.0
+Vetor de Bits do Processo 05
+[ 0 0 0 1 0 1 0 0 ]
+O processo 05 está iniciando uma nova rodada no tempo 160.0
+O processo 05 ainda é candidato a líder
+Enviando a mensagem dessa rodada para o processo 00
+
+Sou o processo 05 e recebi uma mensagem do processo 04
+Sobre a candidatura do processo 04 na rodada 03 da eleição 03 no tempo 160.0
+Enviando mensagem para o processo 00
+
+Sou o processo 04 e recebi uma mensagem do processo 03
+Sobre a candidatura do processo 03 na rodada 03 da eleição 03 no tempo 160.0
+Enviando mensagem para o processo 05
+
+Sou o processo 00 e recebi uma mensagem do processo 05
+Sobre a candidatura do processo 05 na rodada 03 da eleição 03 no tempo 161.0
+A mensagem pertence a uma rodada futura, atualizando e enviando para o processo 01
+
+Sou o processo 05 e recebi uma mensagem do processo 04
+Sobre a candidatura do processo 03 na rodada 03 da eleição 03 no tempo 161.0
+Enviando mensagem para o processo 00
+
+Sou o processo 01 e recebi uma mensagem do processo 00
+Sobre a candidatura do processo 05 na rodada 03 da eleição 03 no tempo 162.0
+A mensagem pertence a uma rodada futura, atualizando e enviando para o processo 02
+
+Sou o processo 02 e recebi uma mensagem do processo 01
+Sobre a candidatura do processo 05 na rodada 03 da eleição 03 no tempo 163.0
+A mensagem pertence a uma rodada futura, atualizando e enviando para o processo 03
+
+Sou o processo 03 e recebi uma mensagem do processo 02
+Sobre a candidatura do processo 05 na rodada 03 da eleição 03 no tempo 164.0
+Enviando mensagem para o processo 04
+
+Sou o processo 04 e recebi uma mensagem do processo 03
+Sobre a candidatura do processo 05 na rodada 03 da eleição 03 no tempo 165.0
+Enviando mensagem para o processo 05
+
+FIM DA RODADA 02 PARA O PROCESSO 00 NO TEMPO 166.0
+Vetor de Bits do Processo 00
+[ 0 0 0 1 0 1 0 0 ]
+O processo 00 está iniciando uma nova rodada no tempo 166.0
+O processo 00 não é candidato a líder
+Enviando a mensagem dessa rodada para o processo 01
+
+O processo 05 recebeu a própria mensagem, a retirando do anel no tempo 166.0
+
+FIM DA RODADA 02 PARA O PROCESSO 01 NO TEMPO 167.0
+Vetor de Bits do Processo 01
+[ 0 0 0 1 0 1 0 0 ]
+O processo 01 está iniciando uma nova rodada no tempo 167.0
+O processo 01 não é candidato a líder
+Enviando a mensagem dessa rodada para o processo 02
+
+Sou o processo 01 e recebi uma mensagem do processo 00
+Sobre a candidatura do processo 00 na rodada 03 da eleição 03 no tempo 167.0
+Enviando mensagem para o processo 02
+
+FIM DA RODADA 02 PARA O PROCESSO 02 NO TEMPO 168.0
+Vetor de Bits do Processo 02
+[ 0 0 0 1 0 1 0 0 ]
+O processo 02 está iniciando uma nova rodada no tempo 168.0
+O processo 02 não é candidato a líder
+Enviando a mensagem dessa rodada para o processo 03
+
+Sou o processo 02 e recebi uma mensagem do processo 01
+Sobre a candidatura do processo 01 na rodada 03 da eleição 03 no tempo 168.0
+Enviando mensagem para o processo 03
+
+Sou o processo 02 e recebi uma mensagem do processo 01
+Sobre a candidatura do processo 00 na rodada 03 da eleição 03 no tempo 168.0
+Enviando mensagem para o processo 03
+
+Sou o processo 03 e recebi uma mensagem do processo 02
+Sobre a candidatura do processo 02 na rodada 03 da eleição 03 no tempo 169.0
+Enviando mensagem para o processo 04
+
+Sou o processo 03 e recebi uma mensagem do processo 02
+Sobre a candidatura do processo 01 na rodada 03 da eleição 03 no tempo 169.0
+Enviando mensagem para o processo 04
+
+Sou o processo 03 e recebi uma mensagem do processo 02
+Sobre a candidatura do processo 00 na rodada 03 da eleição 03 no tempo 169.0
+Enviando mensagem para o processo 04
+
+Sou o processo 04 e recebi uma mensagem do processo 03
+Sobre a candidatura do processo 02 na rodada 03 da eleição 03 no tempo 170.0
+Enviando mensagem para o processo 05
+
+Sou o processo 04 e recebi uma mensagem do processo 03
+Sobre a candidatura do processo 01 na rodada 03 da eleição 03 no tempo 170.0
+Enviando mensagem para o processo 05
+
+Sou o processo 04 e recebi uma mensagem do processo 03
+Sobre a candidatura do processo 00 na rodada 03 da eleição 03 no tempo 170.0
+Enviando mensagem para o processo 05
+O processo 04 detectou que todos os corretos responderam no tempo 170.0
+
+Sou o processo 05 e recebi uma mensagem do processo 04
+Sobre a candidatura do processo 02 na rodada 03 da eleição 03 no tempo 171.0
+Enviando mensagem para o processo 00
+
+Sou o processo 05 e recebi uma mensagem do processo 04
+Sobre a candidatura do processo 01 na rodada 03 da eleição 03 no tempo 171.0
+Enviando mensagem para o processo 00
+
+Sou o processo 05 e recebi uma mensagem do processo 04
+Sobre a candidatura do processo 00 na rodada 03 da eleição 03 no tempo 171.0
+Enviando mensagem para o processo 00
+O processo 05 detectou que todos os corretos responderam no tempo 171.0
+
+Sou o processo 00 e recebi uma mensagem do processo 05
+Sobre a candidatura do processo 04 na rodada 03 da eleição 03 no tempo 172.0
+Enviando mensagem para o processo 01
+
+Sou o processo 00 e recebi uma mensagem do processo 05
+Sobre a candidatura do processo 03 na rodada 03 da eleição 03 no tempo 172.0
+Enviando mensagem para o processo 01
+
+Sou o processo 00 e recebi uma mensagem do processo 05
+Sobre a candidatura do processo 02 na rodada 03 da eleição 03 no tempo 172.0
+Enviando mensagem para o processo 01
+
+Sou o processo 00 e recebi uma mensagem do processo 05
+Sobre a candidatura do processo 01 na rodada 03 da eleição 03 no tempo 172.0
+Enviando mensagem para o processo 01
+
+O processo 00 recebeu a própria mensagem, a retirando do anel no tempo 172.0
+
+Sou o processo 01 e recebi uma mensagem do processo 00
+Sobre a candidatura do processo 04 na rodada 03 da eleição 03 no tempo 173.0
+Enviando mensagem para o processo 02
+
+Sou o processo 01 e recebi uma mensagem do processo 00
+Sobre a candidatura do processo 03 na rodada 03 da eleição 03 no tempo 173.0
+Enviando mensagem para o processo 02
+
+Sou o processo 01 e recebi uma mensagem do processo 00
+Sobre a candidatura do processo 02 na rodada 03 da eleição 03 no tempo 173.0
+Enviando mensagem para o processo 02
+
+O processo 01 recebeu a própria mensagem, a retirando do anel no tempo 173.0
+
+Sou o processo 02 e recebi uma mensagem do processo 01
+Sobre a candidatura do processo 04 na rodada 03 da eleição 03 no tempo 174.0
+Enviando mensagem para o processo 03
+
+Sou o processo 02 e recebi uma mensagem do processo 01
+Sobre a candidatura do processo 03 na rodada 03 da eleição 03 no tempo 174.0
+Enviando mensagem para o processo 03
+
+O processo 02 recebeu a própria mensagem, a retirando do anel no tempo 174.0
+
+FIM DA RODADA 03 PARA O PROCESSO 04 NO TEMPO 175.0
+Vetor de Bits do Processo 04
+[ 0 0 0 1 0 1 0 0 ]
+O processo 04 está iniciando uma nova rodada no tempo 175.0
+O processo 04 não é candidato a líder
+Enviando a mensagem dessa rodada para o processo 05
+
+Sou o processo 03 e recebi uma mensagem do processo 02
+Sobre a candidatura do processo 04 na rodada 03 da eleição 03 no tempo 175.0
+Enviando mensagem para o processo 04
+
+O processo 03 recebeu a própria mensagem, a retirando do anel no tempo 175.0
+O processo 03 detectou que todos os corretos responderam no tempo 175.0
+
+FIM DA RODADA 03 PARA O PROCESSO 05 NO TEMPO 176.0
+Vetor de Bits do Processo 05
+[ 0 0 0 1 0 1 0 0 ]
+O processo 05 está iniciando uma nova rodada no tempo 176.0
+O processo 05 ainda é candidato a líder
+Enviando a mensagem dessa rodada para o processo 00
+
+Sou o processo 05 e recebi uma mensagem do processo 04
+Sobre a candidatura do processo 04 na rodada 04 da eleição 03 no tempo 176.0
+Enviando mensagem para o processo 00
+
+O processo 04 recebeu a própria mensagem, a retirando do anel no tempo 176.0
+
+Sou o processo 00 e recebi uma mensagem do processo 05
+Sobre a candidatura do processo 05 na rodada 04 da eleição 03 no tempo 177.0
+A mensagem pertence a uma rodada futura, atualizando e enviando para o processo 01
+
+Sou o processo 01 e recebi uma mensagem do processo 00
+Sobre a candidatura do processo 05 na rodada 04 da eleição 03 no tempo 178.0
+A mensagem pertence a uma rodada futura, atualizando e enviando para o processo 02
+
+Sou o processo 02 e recebi uma mensagem do processo 01
+Sobre a candidatura do processo 05 na rodada 04 da eleição 03 no tempo 179.0
+A mensagem pertence a uma rodada futura, atualizando e enviando para o processo 03
+O processo 2 enviou uma mensagem para o processo 3 e não recebeu um ACK
+Enviando a mensagem para 3
+O processo 5 enviou uma mensagem para o processo 0 e não recebeu um ACK
+Enviando a mensagem para 0
+
+FIM DA RODADA 03 PARA O PROCESSO 03 NO TEMPO 180.0
+Vetor de Bits do Processo 03
+[ 0 0 0 1 0 1 0 0 ]
+O processo 03 está iniciando uma nova rodada no tempo 180.0
+O processo 03 não é candidato a líder
+Enviando a mensagem dessa rodada para o processo 04
+
+Sou o processo 03 e recebi uma mensagem do processo 02
+Sobre a candidatura do processo 05 na rodada 04 da eleição 03 no tempo 180.0
+Enviando mensagem para o processo 04
+
+Sou o processo 04 e recebi uma mensagem do processo 03
+Sobre a candidatura do processo 03 na rodada 04 da eleição 03 no tempo 181.0
+Enviando mensagem para o processo 05
+
+Sou o processo 04 e recebi uma mensagem do processo 03
+Sobre a candidatura do processo 05 na rodada 04 da eleição 03 no tempo 181.0
+Enviando mensagem para o processo 05
+
+FIM DA RODADA 03 PARA O PROCESSO 00 NO TEMPO 182.0
+Vetor de Bits do Processo 00
+[ 0 0 0 1 0 1 0 0 ]
+O processo 00 está iniciando uma nova rodada no tempo 182.0
+O processo 00 não é candidato a líder
+Enviando a mensagem dessa rodada para o processo 01
+
+Sou o processo 05 e recebi uma mensagem do processo 04
+Sobre a candidatura do processo 03 na rodada 04 da eleição 03 no tempo 182.0
+Enviando mensagem para o processo 00
+
+O processo 05 recebeu a própria mensagem, a retirando do anel no tempo 182.0
+
+FIM DA RODADA 03 PARA O PROCESSO 01 NO TEMPO 183.0
+Vetor de Bits do Processo 01
+[ 0 0 0 1 0 1 0 0 ]
+O processo 01 está iniciando uma nova rodada no tempo 183.0
+O processo 01 não é candidato a líder
+Enviando a mensagem dessa rodada para o processo 02
+
+Sou o processo 01 e recebi uma mensagem do processo 00
+Sobre a candidatura do processo 00 na rodada 04 da eleição 03 no tempo 183.0
+Enviando mensagem para o processo 02
+
+Sou o processo 00 e recebi uma mensagem do processo 05
+Sobre a candidatura do processo 04 na rodada 04 da eleição 03 no tempo 183.0
+Enviando mensagem para o processo 01
+
+FIM DA RODADA 03 PARA O PROCESSO 02 NO TEMPO 184.0
+Vetor de Bits do Processo 02
+[ 0 0 0 1 0 1 0 0 ]
+O processo 02 está iniciando uma nova rodada no tempo 184.0
+O processo 02 não é candidato a líder
+Enviando a mensagem dessa rodada para o processo 03
+
+Sou o processo 02 e recebi uma mensagem do processo 01
+Sobre a candidatura do processo 01 na rodada 04 da eleição 03 no tempo 184.0
+Enviando mensagem para o processo 03
+
+Sou o processo 02 e recebi uma mensagem do processo 01
+Sobre a candidatura do processo 00 na rodada 04 da eleição 03 no tempo 184.0
+Enviando mensagem para o processo 03
+
+Sou o processo 01 e recebi uma mensagem do processo 00
+Sobre a candidatura do processo 04 na rodada 04 da eleição 03 no tempo 184.0
+Enviando mensagem para o processo 02
+
+Sou o processo 03 e recebi uma mensagem do processo 02
+Sobre a candidatura do processo 02 na rodada 04 da eleição 03 no tempo 185.0
+Enviando mensagem para o processo 04
+
+Sou o processo 03 e recebi uma mensagem do processo 02
+Sobre a candidatura do processo 01 na rodada 04 da eleição 03 no tempo 185.0
+Enviando mensagem para o processo 04
+
+Sou o processo 03 e recebi uma mensagem do processo 02
+Sobre a candidatura do processo 00 na rodada 04 da eleição 03 no tempo 185.0
+Enviando mensagem para o processo 04
+
+Sou o processo 02 e recebi uma mensagem do processo 01
+Sobre a candidatura do processo 04 na rodada 04 da eleição 03 no tempo 185.0
+Enviando mensagem para o processo 03
+
+Sou o processo 04 e recebi uma mensagem do processo 03
+Sobre a candidatura do processo 02 na rodada 04 da eleição 03 no tempo 186.0
+Enviando mensagem para o processo 05
+
+Sou o processo 04 e recebi uma mensagem do processo 03
+Sobre a candidatura do processo 01 na rodada 04 da eleição 03 no tempo 186.0
+Enviando mensagem para o processo 05
+
+Sou o processo 04 e recebi uma mensagem do processo 03
+Sobre a candidatura do processo 00 na rodada 04 da eleição 03 no tempo 186.0
+Enviando mensagem para o processo 05
+O processo 04 detectou que todos os corretos responderam no tempo 186.0
+
+Sou o processo 03 e recebi uma mensagem do processo 02
+Sobre a candidatura do processo 04 na rodada 04 da eleição 03 no tempo 186.0
+Enviando mensagem para o processo 04
+O processo 03 detectou que todos os corretos responderam no tempo 186.0
+
+Sou o processo 05 e recebi uma mensagem do processo 04
+Sobre a candidatura do processo 02 na rodada 04 da eleição 03 no tempo 187.0
+Enviando mensagem para o processo 00
+
+Sou o processo 05 e recebi uma mensagem do processo 04
+Sobre a candidatura do processo 01 na rodada 04 da eleição 03 no tempo 187.0
+Enviando mensagem para o processo 00
+
+Sou o processo 05 e recebi uma mensagem do processo 04
+Sobre a candidatura do processo 00 na rodada 04 da eleição 03 no tempo 187.0
+Enviando mensagem para o processo 00
+O processo 05 detectou que todos os corretos responderam no tempo 187.0
+
+O processo 04 recebeu a própria mensagem, a retirando do anel no tempo 187.0
+
+Sou o processo 00 e recebi uma mensagem do processo 05
+Sobre a candidatura do processo 03 na rodada 04 da eleição 03 no tempo 188.0
+Enviando mensagem para o processo 01
+
+Sou o processo 00 e recebi uma mensagem do processo 05
+Sobre a candidatura do processo 02 na rodada 04 da eleição 03 no tempo 188.0
+Enviando mensagem para o processo 01
+
+Sou o processo 00 e recebi uma mensagem do processo 05
+Sobre a candidatura do processo 01 na rodada 04 da eleição 03 no tempo 188.0
+Enviando mensagem para o processo 01
+
+O processo 00 recebeu a própria mensagem, a retirando do anel no tempo 188.0
+
+Sou o processo 01 e recebi uma mensagem do processo 00
+Sobre a candidatura do processo 03 na rodada 04 da eleição 03 no tempo 189.0
+Enviando mensagem para o processo 02
+
+Sou o processo 01 e recebi uma mensagem do processo 00
+Sobre a candidatura do processo 02 na rodada 04 da eleição 03 no tempo 189.0
+Enviando mensagem para o processo 02
+
+O processo 01 recebeu a própria mensagem, a retirando do anel no tempo 189.0
+
+Sou o processo 02 e recebi uma mensagem do processo 01
+Sobre a candidatura do processo 03 na rodada 04 da eleição 03 no tempo 190.0
+Enviando mensagem para o processo 03
+
+O processo 02 recebeu a própria mensagem, a retirando do anel no tempo 190.0
+O processo 02 detectou que todos os corretos responderam no tempo 190.0
+
+FIM DA RODADA 04 PARA O PROCESSO 04 NO TEMPO 191.0
+Vetor de Bits do Processo 04
+[ 0 0 0 0 0 1 0 0 ]
+O processo 04 considera o processo 05 o líder
+Enviando a mensagem da rodada adicional para o processo 05
+
+FIM DA RODADA 04 PARA O PROCESSO 03 NO TEMPO 191.0
+Vetor de Bits do Processo 03
+[ 0 0 0 0 0 1 0 0 ]
+O processo 03 considera o processo 05 o líder
+Enviando a mensagem da rodada adicional para o processo 04
+
+O processo 03 recebeu a própria mensagem, a retirando do anel no tempo 191.0
+
+FIM DA RODADA 04 PARA O PROCESSO 05 NO TEMPO 192.0
+Vetor de Bits do Processo 05
+[ 0 0 0 0 0 1 0 0 ]
+Eu, o processo 05, sou o líder!
+Enviando a mensagem da rodada adicional para o processo 00
+
+Sou o processo 05 e recebi uma mensagem do processo 04
+Sobre a candidatura do processo 04 na rodada 05 da eleição 03 no tempo 192.0
+Enviando mensagem para o processo 00
+
+Sou o processo 04 e recebi uma mensagem do processo 03
+Sobre a candidatura do processo 03 na rodada 05 da eleição 03 no tempo 192.0
+Enviando mensagem para o processo 05
+
+Sou o processo 00 e recebi uma mensagem do processo 05
+Sobre a candidatura do processo 05 na rodada 05 da eleição 03 no tempo 193.0
+A mensagem pertence a uma rodada futura, atualizando e enviando para o processo 01
+
+Sou o processo 05 e recebi uma mensagem do processo 04
+Sobre a candidatura do processo 03 na rodada 05 da eleição 03 no tempo 193.0
+Enviando mensagem para o processo 00
+
+Sou o processo 01 e recebi uma mensagem do processo 00
+Sobre a candidatura do processo 05 na rodada 05 da eleição 03 no tempo 194.0
+A mensagem pertence a uma rodada futura, atualizando e enviando para o processo 02
+
+FIM DA RODADA 04 PARA O PROCESSO 02 NO TEMPO 195.0
+Vetor de Bits do Processo 02
+[ 0 0 0 0 0 1 0 0 ]
+O processo 02 considera o processo 05 o líder
+Enviando a mensagem da rodada adicional para o processo 03
+
+Sou o processo 02 e recebi uma mensagem do processo 01
+Sobre a candidatura do processo 05 na rodada 05 da eleição 03 no tempo 195.0
+Enviando mensagem para o processo 03
+
+Sou o processo 03 e recebi uma mensagem do processo 02
+Sobre a candidatura do processo 02 na rodada 05 da eleição 03 no tempo 196.0
+Enviando mensagem para o processo 04
+
+Sou o processo 03 e recebi uma mensagem do processo 02
+Sobre a candidatura do processo 05 na rodada 05 da eleição 03 no tempo 196.0
+Enviando mensagem para o processo 04
+
+Sou o processo 04 e recebi uma mensagem do processo 03
+Sobre a candidatura do processo 02 na rodada 05 da eleição 03 no tempo 197.0
+Enviando mensagem para o processo 05
+
+Sou o processo 04 e recebi uma mensagem do processo 03
+Sobre a candidatura do processo 05 na rodada 05 da eleição 03 no tempo 197.0
+Enviando mensagem para o processo 05
+
+FIM DA RODADA 04 PARA O PROCESSO 00 NO TEMPO 198.0
+Vetor de Bits do Processo 00
+[ 0 0 0 0 0 1 0 0 ]
+O processo 00 considera o processo 05 o líder
+Enviando a mensagem da rodada adicional para o processo 01
+
+Sou o processo 05 e recebi uma mensagem do processo 04
+Sobre a candidatura do processo 02 na rodada 05 da eleição 03 no tempo 198.0
+Enviando mensagem para o processo 00
+
+O processo 05 recebeu a própria mensagem, a retirando do anel no tempo 198.0
+
+FIM DA RODADA 04 PARA O PROCESSO 01 NO TEMPO 199.0
+Vetor de Bits do Processo 01
+[ 0 0 0 0 0 1 0 0 ]
+O processo 01 considera o processo 05 o líder
+
+===================================
+Processo Líder: 5
+Número de mensagens para a eleição: 33
+Tempo de eleição (SMPL): 71.0
+Número de Rodadas da Eleição: 05
+Número de Processos Corretos: 06
+Número de Processos Falhos: 02
+===================================
+
+Fim de Simulação no tempo 1000.0...

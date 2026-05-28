@@ -2,9 +2,9 @@
            Sistemas Distribuídos Prof. Elias
           LOG do Trabalho Prático 0, Tarefa 4
 Quando um processo correto testa outro processo correto obtém as
-informações do estado dos demais processos do sistema, processos do
-sistema exceto aqueles que testou nesta rodada, além do próprio
-testador.
+       informações do estado dos demais processos do sistema
+       exceto aqueles que testou nesta rodada, além do próprio
+                               testador.
 
    Este programa foi executado para: N=8 processos.
            Tempo Total de Simulação = 150
