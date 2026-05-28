@@ -1,3 +1,7 @@
+// Trabalho Prático 0, Tarefa 3
+// Alunos: Vinícius Jeremias dos Santos
+// Data de Modificação: 28/05/2026
+
 #include <stdio.h>
 #include <stdlib.h>
 
