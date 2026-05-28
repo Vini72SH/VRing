@@ -227,6 +227,7 @@ int main(int argc, char* argv[]) {
     int numMensagensEleicao = 0;
     int attRodada = 0;
     int numProcCorretos = 0;
+    int contador = 0;
     int epocaEleicao = 0;  // Época global da eleição
 
     if (argc != 2) {
@@ -482,6 +483,7 @@ int main(int argc, char* argv[]) {
                     estatisticasInicializadas = 1;
                     attRodada = 1;
                     numProcCorretos = N;
+                    contador = N;
                     habilitarLog = 1;
                     epocaEleicao = processo[token].epoch;
                 }
@@ -610,10 +612,11 @@ int main(int argc, char* argv[]) {
                             for (i = 0; i < N; i++)
                                 numProcCorretos +=
                                     (status(processo[i].id) == 0);
+                            contador = numProcCorretos;
                         }
 
-                        numProcCorretos--;
-                        if (numProcCorretos == 0) {
+                        contador--;
+                        if (contador == 0) {
                             estatisticasInicializadas = 0;
                             timestampEleicao = time() - timestampEleicao;
                             printf("\n===================================\n");
@@ -624,6 +627,10 @@ int main(int argc, char* argv[]) {
                                    timestampEleicao);
                             printf("Número de Rodadas da Eleição: %02d\n",
                                    processo[token].rodada);
+                            printf("Número de Processos Corretos: %02d\n",
+                                   numProcCorretos);
+                            printf("Número de Processos Falhos: %02d\n",
+                                   N - numProcCorretos);
                             printf("===================================\n\n");
 
                             habilitarLog = 0;
