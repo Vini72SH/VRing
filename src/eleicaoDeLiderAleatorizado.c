@@ -1,3 +1,8 @@
+// Autores:
+//      Vinícius Jeremias dos Santos
+//      Agathe My Anh Rabasse
+// Data de Modificação: 27/05/2026
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -92,6 +97,7 @@ void imprimeState(int proc) {
     vring_debug("\n");
 }
 
+// Gera eventos de falha para os processos, com uma probabilidade de 30%
 void geradorDeEventosFault() {
     for (int i = 0; i < N; i++) {
         if ((random() % 10 < 3)) {
@@ -113,6 +119,9 @@ void send(int proc, int prox, Mensagem msg) {
     schedule(RECEIVE, 1.0, prox);
 }
 
+// Reenvia uma mensagem para o próximo processo no anel, não insere a mensagem
+// na fila de enviadas, pois ela já está lá, apenas a reenvia para o próximo
+// processo
 void resend(int proc, int prox, Mensagem msg) {
     msg.ack = 0;
     msg.origem = proc;
@@ -123,6 +132,8 @@ void resend(int proc, int prox, Mensagem msg) {
     schedule(RECEIVE, 1.0, prox);
 }
 
+// Envia um ACK para a mensagem recebida, indicando que ela foi tratada e pode
+// ser removida do anel
 void sendAck(Mensagem msg) {
     msg.ack = 1;
 
@@ -163,6 +174,8 @@ int recv(int proc, Mensagem* msg) {
     return 0;
 }
 
+// Verifica se há mensagens na fila de enviadas que não receberam ACK e as
+// reenvia
 void reenviaMensagens(int proc) {
     int ret;
     Mensagem msg;
@@ -222,8 +235,8 @@ int main(int argc, char* argv[]) {
     puts("===============================================================");
     puts("           Sistemas Distribuídos Prof. Elias");
     puts("                LOG do Trabalho Prático");
-    puts("              Vinícius Jeremias dos Santos");
-    puts("             Última Modificação: 18/05/2026");
+    puts("   Vinícius Jeremias dos Santos e Agathe My Anh Rabasse");
+    puts("             Última Modificação: 27/05/2026");
     puts("        Algoritmo de Eleição de Líder Aleatorizado");
     printf("   Este programa foi executado para: N=%d processos.\n", N);
     printf("           Tempo Total de Simulação = %d\n", MaxTempoSimulac);

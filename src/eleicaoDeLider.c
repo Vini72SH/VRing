@@ -1,3 +1,8 @@
+// Autores:
+//      Vinícius Jeremias dos Santos
+//      Agathe My Anh Rabasse
+// Data de Modificação: 27/05/2026
+
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -169,9 +174,9 @@ int main(int argc, char* argv[]) {
     puts("===============================================================");
     puts("           Sistemas Distribuídos Prof. Elias");
     puts("                LOG do Trabalho Prático");
-    puts("              Vinícius Jeremias dos Santos");
+    puts("   Vinícius Jeremias dos Santos e Agathe My Anh Rabasse");
     puts("              Algoritmo de Eleição de Líder");
-    puts("             Última Modificação: 18/05/2026");
+    puts("             Última Modificação: 27/05/2026");
     printf("   Este programa foi executado para: N=%d processos.\n", N);
     printf("           Tempo Total de Simulação = %d\n", MaxTempoSimulac);
     puts("===============================================================");
