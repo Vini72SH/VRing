@@ -33,7 +33,7 @@ O processo 6 é candidato a líder
 O processo 7 está se preparando para eleger um líder no tempo 35.0
 
 Sou o processo 1 e recebi uma mensagem do processo 0 no tempo 36.0
-O candidato sugerido 0 não possui ID maior que o do candidato 1
+O candidato sugerido 0 não possui ID maior que o do candidato 1. Mensagem descartada.
 
 Sou o processo 2 e recebi uma mensagem do processo 1 no tempo 36.0
 O processo 2 mudou do candidato -1 para o candidato 1 e enviara a mensagem para o processo 3
@@ -42,16 +42,16 @@ Sou o processo 4 e recebi uma mensagem do processo 3 no tempo 36.0
 O processo 4 mudou do candidato -1 para o candidato 3 e enviara a mensagem para o processo 5
 
 Sou o processo 6 e recebi uma mensagem do processo 5 no tempo 36.0
-O candidato sugerido 5 não possui ID maior que o do candidato 6
+O candidato sugerido 5 não possui ID maior que o do candidato 6. Mensagem descartada.
 
 Sou o processo 7 e recebi uma mensagem do processo 6 no tempo 36.0
 O processo 7 mudou do candidato -1 para o candidato 6 e enviara a mensagem para o processo 0
 
 Sou o processo 3 e recebi uma mensagem do processo 2 no tempo 37.0
-O candidato sugerido 1 não possui ID maior que o do candidato 3
+O candidato sugerido 1 não possui ID maior que o do candidato 3. Mensagem descartada.
 
 Sou o processo 5 e recebi uma mensagem do processo 4 no tempo 37.0
-O candidato sugerido 3 não possui ID maior que o do candidato 5
+O candidato sugerido 3 não possui ID maior que o do candidato 5. Mensagem descartada.
 
 Sou o processo 0 e recebi uma mensagem do processo 7 no tempo 37.0
 O processo 0 mudou do candidato 0 para o candidato 6 e enviara a mensagem para o processo 1
