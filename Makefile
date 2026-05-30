@@ -4,7 +4,9 @@ DEBUG_FLAGS = -DDEBUG
 
 .PHONY: all debug clean purge lib
 
-BIN = task0 task1 task2 task3 task4 eleicaoDeLider eleicaoDeLiderAleatorizado
+BIN = vinicius_tarefa0 vinicius_tarefa1 vinicius_tarefa2 vinicius_tarefa3 vinicius_tarefa4 \
+	  agathe_tarefa0 agathe_tarefa1 agathe_tarefa2 agathe_tarefa3 agathe_tarefa4 \
+	  eleicaoDeLider eleicaoDeLiderAleatorizado
 
 all: $(BIN)
 
@@ -30,12 +32,19 @@ eleicaoDeLiderAleatorizado: lib src/eleicaoDeLiderAleatorizado.c
 	@echo "=== Ligando $@ ==="
 	$(CC) $(CFLAGS) lib/*.o src/eleicaoDeLiderAleatorizado.o -o $@ -lm
 
-task%: lib tasks/task%.c
+vinicius_tarefa%: lib tasks_vinicius/vinicius_tarefa%.c
 	@echo "=== Compilando $@ ==="
-	$(CC) $(CFLAGS) -c tasks/$@.c -o tasks/$@.o
+	$(CC) $(CFLAGS) -c tasks_vinicius/$@.c -o tasks_vinicius/$@.o
 
 	@echo "=== Ligando $@ ==="
-	$(CC) $(CFLAGS) lib/*.o tasks/$@.o -o $@ -lm
+	$(CC) $(CFLAGS) lib/*.o tasks_vinicius/$@.o -o $@ -lm
+
+agathe_tarefa%: lib tasks_agathe/agathe_tarefa%.c
+	@echo "=== Compilando $@ ==="
+	$(CC) $(CFLAGS) -c tasks_agathe/$@.c -o tasks_agathe/$@.o
+
+	@echo "=== Ligando $@ ==="
+	$(CC) $(CFLAGS) lib/*.o tasks_agathe/$@.o -o $@ -lm
 
 clean:
 	-rm -f *.o *~ */*.o */*~
