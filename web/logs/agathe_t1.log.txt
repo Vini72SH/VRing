@@ -1,0 +1,34 @@
+===============================================================
+           Sistemas Distribuídos Prof. Elias - Agathe Rabasse
+          LOG do Trabalho Prático 0, Tarefa 1
+      Fazer cada um dos processos testar o seguinte no anel.
+   Este programa foi executado para: N=8 processos.
+           Tempo Total de Simulação = 120
+===============================================================
+O processo 0 testou o processo 1 correto no tempo 30.0
+O processo 1 testou o processo 2 correto no tempo 30.0
+O processo 2 testou o processo 3 correto no tempo 30.0
+O processo 3 testou o processo 4 correto no tempo 30.0
+O processo 4 testou o processo 5 correto no tempo 30.0
+O processo 5 testou o processo 6 correto no tempo 30.0
+O processo 6 testou o processo 7 correto no tempo 30.0
+O processo 7 testou o processo 0 correto no tempo 30.0
+Socooorro!!! Sou o processo 1  e estou falhando no tempo 31.0
+O processo 0 testou o processo 1 falho no tempo 60.0
+O processo 2 testou o processo 3 correto no tempo 60.0
+O processo 3 testou o processo 4 correto no tempo 60.0
+O processo 4 testou o processo 5 correto no tempo 60.0
+O processo 5 testou o processo 6 correto no tempo 60.0
+O processo 6 testou o processo 7 correto no tempo 60.0
+O processo 7 testou o processo 0 correto no tempo 60.0
+Viva!!! Sou o processo 1 e acabo de recuperar no tempo 61.0
+O processo 1 testou o processo 2 correto no tempo 62.0
+O processo 0 testou o processo 1 correto no tempo 90.0
+O processo 2 testou o processo 3 correto no tempo 90.0
+O processo 3 testou o processo 4 correto no tempo 90.0
+O processo 4 testou o processo 5 correto no tempo 90.0
+O processo 5 testou o processo 6 correto no tempo 90.0
+O processo 6 testou o processo 7 correto no tempo 90.0
+O processo 7 testou o processo 0 correto no tempo 90.0
+O processo 1 testou o processo 2 correto no tempo 92.0
+O processo 0 testou o processo 1 correto no tempo 120.0
