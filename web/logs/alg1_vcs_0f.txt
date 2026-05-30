@@ -35,19 +35,19 @@ Sou o processo 1 e recebi uma mensagem do processo 0 no tempo 36.0
 O processo 1 mudou do candidato -1 para o candidato 0 e enviara a mensagem para o processo 2
 
 Sou o processo 3 e recebi uma mensagem do processo 2 no tempo 36.0
-O candidato sugerido 2 não possui ID maior que o do candidato 3
+O candidato sugerido 2 não possui ID maior que o do candidato 3. Mensagem descartada.
 
 Sou o processo 4 e recebi uma mensagem do processo 3 no tempo 36.0
-O candidato sugerido 3 não possui ID maior que o do candidato 4
+O candidato sugerido 3 não possui ID maior que o do candidato 4. Mensagem descartada.
 
 Sou o processo 5 e recebi uma mensagem do processo 4 no tempo 36.0
-O candidato sugerido 4 não possui ID maior que o do candidato 5
+O candidato sugerido 4 não possui ID maior que o do candidato 5. Mensagem descartada.
 
 Sou o processo 6 e recebi uma mensagem do processo 5 no tempo 36.0
 O processo 6 mudou do candidato -1 para o candidato 5 e enviara a mensagem para o processo 7
 
 Sou o processo 2 e recebi uma mensagem do processo 1 no tempo 37.0
-O candidato sugerido 0 não possui ID maior que o do candidato 2
+O candidato sugerido 0 não possui ID maior que o do candidato 2. Mensagem descartada.
 
 Sou o processo 7 e recebi uma mensagem do processo 6 no tempo 37.0
 O processo 7 mudou do candidato -1 para o candidato 5 e enviara a mensagem para o processo 0
