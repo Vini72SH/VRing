@@ -3,31 +3,51 @@ Algoritmo de Eleição de Líder baseado em Chang-Roberts
 O algoritmo de eleição de líder baseado em Chang-Roberts desenvolvido neste 
 trabalho elege o processo com maior idenficador como líder.
 
-Processos definem se são candidatos e enviam uma mensagem para o próximo no anel.
+## Algoritmo
+
+Processos definem se são candidatos sorteando um valor entre 1 e 0 (1 para candidato, 0 para não-candidato), 
+se não forem candidatos, atribuem o valor -1 a uma variável interna do processo "líder".
+Caso um processo seja candidato, atribui o próprio ID na variável líder e envia uma
+mensagem com o próprio ID para o próximo processo no anel.
+
 O processo que recebe a mensagem verifica se o candidato tem ID maior do que o processo 
 que considera líder, se sim, muda o processo que considera líder e envia a mensagem para o próximo.
-Caso contrário, apenas descarta a mensagem, pois enviou anteriormente uma mensagem de um candidato
-que considera líder com o ID maior do que o candidato indicado pela mensagem.
+Caso contrário, apenas descarta a mensagem, pois o processo que considera líder 
+possui um ID maior do que o processo indicado pela mensagem, então, não faz nada.
+
+O fluxo segue até o processo candidato com maior ID receber a própria mensagem,
+dessa forma, ele sabe que todos os processos no anel receberam a mensagem dele 
+e que todos os processos o consideram o líder.
+
+## Rodada de Testes
 
 A ordem que os eventos de teste são escalonados é crescente, ou seja, é praticamente
 o pior caso possível para a execução do VRing, pois eventos tem alta latência para serem detectados.
 
+## Parâmetros da Simulação
+
 Baseado em um valor de entrada, é possível simular uma eleição de líder onde apenas 1 processo é candidato,
 múltiplos processos aleatórios são candidatos ou todos os processos são candidatos.
+
+A implementação suporta a falha dos processos, antes de iniciar a simulação, é possível escolher se os processos
+podem falhar durante o andamento dos eventos, caso essa opção seja escolhida, um número aleatório de 
+processos falha exatamente no tempo 60.0 e após o líder ser eleito, ele irá falhar 30.0 unidades de tempo depois.
+
+## Detalhes de Implementação
 
 Nessa implementação, os processos se comunicam utilizando memória compartilhada 
 e uma estrutura de dados que representa uma mensagem, cada processo possui
 em sua própria estrutura TipoProcesso um espaço onde outro processo pode inserir uma mensagem.
 Os processos só podem receber uma mensagem por vez.
 
-Ao decidir ser um candidato, um processo cria uma mensagem utilizando a estrutura de dados, 
-insere a mensagem na estrutura do próximo processo e escalona um evento de recebimento de mensagem
-para 1 unidade de tempo no futuro. O próximo processo ao receber esse evento, trata a mensagem recebida
-e a envia para o seu próximo processo no anel, e segue dessa forma até finalizar a eleição.
+Definimos uma função primitiva para envio de mensagens, que basicamente insere uma mensagem 
+na estrutura de outro processo e define variáveis de controle para gerenciar
+o reenvio de mensagens não respondidas com ACK.
 
-A implementação suporta a falha dos processos, antes de iniciar a simulação, é possível escolher se os processos
-podem falhar durante o andamento dos eventos, caso essa opção seja escolhida, um número aleatório de 
-processos falha exatamente no tempo 60.0 e após o líder ser eleito, ele irá falhar 30.0 unidades de tempo depois.
+Uma função de recebimento de mensagens verifica se há alguma mensagem para o processo e 
+garante que ele apenas receba mensagens que são válidas e não foram tratadas ainda.
+
+## Suporte a Falhas
 
 Para lidar com processos falhando, é necessário resolver dois problemas que surgem com isso.
 
@@ -51,5 +71,17 @@ caso não tenham recebido, enviam para o próximo processo que consideram corret
 Essa implementação permitiu que os processos mantivessem a consistência do anel mesmo se alguns processos
 falharem durante a eleição de líder.
 
+## Caso de Borda
+
 O único caso não tratado nessa implemetação ocorre quando uma eleição é iniciada e nenhum processo é candidato.
 Quando isso ocorre, a eleição não é finalizada pois nenhum processo envia uma mensagem anunciando o seu candidato.
+
+Uma contra-medida foi pensada mas não implementada, a ideia essencial consiste em alterar o comportamento
+de um processo quando ele não é candidato a eleição de líder. Invês de apenas definir o líder como -1,
+o processo envia uma mensagem no anel indicando que não é candidato.
+
+Processos que receberem essa mensagem podem repassar para frente caso não possuam um líder
+ou descartar a mensagem caso já possuam um líder, pois o ID indicado na mensagem seria -1.
+
+Dessa forma, se a mensagem retornasse para o processo emissor, ele poderia detectar
+que não há nenhum processo candidato e iniciar uma nova eleição de líder.

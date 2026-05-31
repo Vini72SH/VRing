@@ -4,11 +4,27 @@ O Algoritmo de Eleição de Líder Aleatorizado desenvolvido neste
 trabalho funciona em rodadas, a cada rodada um processo aleatoriamente define se 
 irá continuar candidato ou irá desistir de participar da eleição de líder.
 
-Na primeira rodada, cada processo sorteia seu bit de eleição (1 para candidato, 0 para não-candidato)
-e o envia no anel. Quando recebe mensagens dos bits de todos os processos corretos, inicia uma nova rodada.
+## Algoritmo
+
+O algoritmo funciona em rodadas, na primeira rodada, cada processo sorteia seu bit de eleição
+(1 para candidato, 0 para não-candidato) e o envia no anel. 
+Quando recebe mensagens de todos os processos corretos, informando seus bits de eleição, inicia uma nova rodada.
+
+Em uma nova rodada, primeiro o processo verifica a quantidade de candidatos da eleição.
+Se não tem nenhum candidato, escalona uma nova eleição de líder.
+Se tem apenas um candidato, o considera líder.
+Se tem mais de um candidato, se prepara para trocar mensagens com os outros processos.
+Neste caso, o processo sorteia novamente seu bit de eleição, caso na rodada anterior
+ele tenha sido 1, cria uma nova mensagem e a envia no anel.
+
+Esse processo se repete até apenas um processo ser candidato, e esse será o líder.
+
+## Rodada de Testes
 
 A ordem que os eventos de teste são escalonados é crescente, ou seja, é praticamente
 o pior caso possível para a execução do VRing, pois eventos tem alta latência para serem detectados.
+
+## Detalhes de Implementação
 
 Nesse algoritmo, há um fluxo de mensagens muito maior do que no algoritmo baseado
 em Chang-Roberts, dessa forma, para comportar o recebimento de múltiplas mensagens
@@ -26,26 +42,37 @@ de sequência de mensagens dos demais processos, facilitando o gerenciamento e d
 mensagens que já foram tratadas pelo processo.
 Essa estrutura de troca de mensagens mais robusta foi utilizada para possibilitar a implementação do algoritmo.
 
-Após sortear o próprio "bit", um processo envia a sua mensagem no anel e espera receber as mensagens
-de todos os outros processos corretos, quando isso ocorre, define se é necessário uma nova rodada para 
-eleger um líder, se o líder foi eleito ou se é necessário uma nova eleição caso não tenha nenhum candidato.
-
 Nesse algoritmo, é necessário verificar se cada mensagem está na eleição atual e na rodada atual antes de
 tomar as devidas providências de tratamento. Quando um processo recebe uma mensagem de uma rodada
 ou eleição futura, ele precisa interromper o recebimento de mensagens e se atualizar para manter a 
 consistência com os demais processos.
 
+Na rodada que um processo define um líder, ele ainda envia seu bit de eleição sem sortear novamente,
+isso gera uma rodada adicional mas facilita com que todos os processos se mantenham consistentes
+e escolha o mesmo líder.
+
+## Parâmetros da Simulação
+
 Assim como a implementação baseada em Chang-Roberts, é possível definir na entrada de dados se os 
 processos podem falhar durante a simulação. Caso isso seja configurado, um número aleatório de processos
 falha no tempo 60.0 e o líder eleito falha após 30.0 unidades de tempo.
+
+## Suporte a Falhas
 
 Devido a estrutura mais robusta de comunicação, os processos rapidamente mantém a consistência do anel
 quando algum processo falha, pois, a cada intervalo de testes, fazem verificações para cada mensagem
 armazenada na fila de enviadas. Se ainda não receberam ACK, são reenviadas para o próximo processo correto.
 
-É fácil detectar que nenhum processo é candidato ao fim de uma rodada de mensagens, neste caso, os processos
-iniciam uma nova eleição de líder e as estatísticas são reiniciadas para refletir a nova eleição.
+Os desafios encontrados: A falha do líder e processos falhando durante a eleição são resolvidos da mesma forma
+que na implementação do algoritmo baseado em Chang-Roberts, o detector de falhas avisa quando o detecta a falha
+do líder, levando a uma nova eleição, e as mensanges com ACK garantem que eventually a eleição irá terminar.
+
+## Observações
 
 Como o fluxo de mensagens é muito grande nesse algoritmo, é recomendado verificar a corretude com poucos
 processos e apenas conferir os resultados finais da eleição de líder com muitos processos, pois os logs
 de execução crescem rapidamente conforme N aumenta.
+
+As mensagens não saem do anel até retornarem ao processo criador ou que o criador falhe, então,
+há muitos registros no log das mensagens percorrendo o anel inteiro até serem eliminadas.
+Naturalmente, esse algoritmo utiliza muito mais mensagens para funcionar.
