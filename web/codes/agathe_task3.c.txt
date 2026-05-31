@@ -1,6 +1,6 @@
-/* Programa: tempo.c
+/* Programa: tarefa3.c
  * Autor: Agathe Rabasse
- * Data ultima modificação: 30/05/2026
+ * Data ultima modificação: 31/05/2026
 
 Tarefa 3 : Cada processo mantém localmente o vetor State[N]. A entrada do vetor
 State[j] indica o estado do processo j. O estado de cada processo pode ser:

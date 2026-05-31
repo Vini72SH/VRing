@@ -1,7 +1,7 @@
 // Autores:
 //      Vinícius Jeremias dos Santos
 //      Agathe My Anh Rabasse
-// Data de Modificação: 27/05/2026
+// Data de Modificação: 31/05/2026
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -42,7 +42,8 @@ typedef struct {
     int proxProc;      // Id do próximo processo no anel
     int lider;         // Id do processo líder
     int epoch;         // Época em que ele foi elegido
-    Mensagem msg;      // Estrutura de uma mensagem que pode receber de outros processos
+    Mensagem
+        msg;  // Estrutura de uma mensagem que pode receber de outros processos
 
     int sent;         // Indica se a mensagem bufferizada foi enviada / é válida
     Mensagem buff;    // Mensagem bufferizada
@@ -52,7 +53,7 @@ typedef struct {
 TipoProcesso* processo;
 
 static int N;
-static int totalMensagens = 0; // contador centralizado de mensagens
+static int totalMensagens = 0;  // contador centralizado de mensagens
 
 // Função para sortear 1 apenas uma vez a cada N tentativas
 int umLider() {
@@ -181,7 +182,7 @@ int main(int argc, char* argv[]) {
     puts("                LOG do Trabalho Prático");
     puts("   Vinícius Jeremias dos Santos e Agathe My Anh Rabasse");
     puts("              Algoritmo de Eleição de Líder");
-    puts("             Última Modificação: 27/05/2026");
+    puts("             Última Modificação: 31/05/2026");
     printf("   Este programa foi executado para: N=%d processos.\n", N);
     printf("           Tempo Total de Simulação = %d\n", MaxTempoSimulac);
     puts("===============================================================");
@@ -381,7 +382,8 @@ int main(int argc, char* argv[]) {
                     if ((estatisticasInicializadas == 0) ||
                         (epocaEleicao < processo[token].epoch)) {
                         timestampEleicao = time();
-                        totalMensagens = 0; // Reseta a contagem global para a nova eleição
+                        totalMensagens =
+                            0;  // Reseta a contagem global para a nova eleição
                         estatisticasInicializadas = 1;
                         epocaEleicao = processo[token].epoch;
                     }
@@ -414,14 +416,20 @@ int main(int argc, char* argv[]) {
                     if (processo[token].souCandidato &&
                         (token > recMsg.candidato)) {
                         printf(
-                            "O processo %d é candidato forte e descarta a mensagem de %d para enviar a sua própria\n", token, recMsg.candidato);
+                            "O processo %d é candidato forte e descarta a "
+                            "mensagem de %d para enviar a sua própria\n",
+                            token, recMsg.candidato);
                         processo[token].lider = token;
 
                         Mensagem minhaMsg;
                         minhaMsg.epoch = processo[token].epoch;
                         minhaMsg.candidato = token;
-                        if (send(token, processo[token].proxProc, minhaMsg) == 0) {
-                            printf("O processo %d ainda não processou a mensagem anterior\n", processo[token].proxProc);
+                        if (send(token, processo[token].proxProc, minhaMsg) ==
+                            0) {
+                            printf(
+                                "O processo %d ainda não processou a mensagem "
+                                "anterior\n",
+                                processo[token].proxProc);
                         }
                     } else {
                         printf("O líder do processo %d é o processo %d\n",
