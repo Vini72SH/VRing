@@ -69,10 +69,7 @@ do líder, levando a uma nova eleição, e as mensanges com ACK garantem que eve
 
 ## Observações
 
-Como o fluxo de mensagens é muito grande nesse algoritmo, é recomendado verificar a corretude com poucos
-processos e apenas conferir os resultados finais da eleição de líder com muitos processos, pois os logs
-de execução crescem rapidamente conforme N aumenta.
-
 As mensagens não saem do anel até retornarem ao processo criador ou que o criador falhe, então,
 há muitos registros no log das mensagens percorrendo o anel inteiro até serem eliminadas.
-Naturalmente, esse algoritmo utiliza muito mais mensagens para funcionar.
+Naturalmente, esse algoritmo utiliza muito mais mensagens para funcionar, então,
+os logs de execução se tornaram bem grandes
