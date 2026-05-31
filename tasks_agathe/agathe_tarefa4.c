@@ -1,6 +1,6 @@
-/* Programa: tempo.c
+/* Programa: tarefa4.c
  * Autor: Agathe Rabasse
- * Data ultima modificação: 30/05/2026
+ * Data ultima modificação: 31/05/2026
 
 Tarefa 4: Quando um processo correto testa outro processo correto obtém as informações
 do estado dos demais processos do sistema, processos do sistema exceto aqueles que
